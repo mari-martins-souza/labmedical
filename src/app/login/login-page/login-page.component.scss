@@ -35,17 +35,13 @@ h2 {
     flex-direction: row;
 }
 
-.form-control {
+#floatingInput, #floatingPassword {
     margin-top: 10px;
     width: 100%;
     border-radius: 0px;
-    padding: 0px 12px 0px 12px;
+    padding: 20px 12px 0px 12px;
     background-color: rgb(255, 255, 255);
     border: 0px;
-}
-
-.form-control label {
-    color: white;
 }
 
 #btn-login {
@@ -99,5 +95,37 @@ p {
 
 #btn-signup:hover {
     background-color: rgb(176, 216, 143);
+    color: black;
+}
+
+.modal-content {
+    border-radius: 0px;
+    border: none;
+}
+
+.input-group-text, #input-name-modal {
+    border-radius: 0px;
+}
+
+#close-btn-modal, #register-btn-modal, #close-btn-password-modal {
+    border-radius: 0px;
+    border: none;
+    color: black;
+    background-color: rgb(176, 216, 143);
+}
+
+#close-btn-password-modal {
+    background-color: rgb(185, 185, 185);
+}
+
+#close-btn-modal {
+    background-color: rgb(185, 185, 185);
+}
+
+#basic-addon1 {
+    width: 95px;
+}
+
+#warning {
     color: black;
 }

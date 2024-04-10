@@ -24,8 +24,8 @@ export class LoginService {
   logon(email: string, password: string) {
     if (this.authUser(email, password)) {
       localStorage.setItem('loggedUser', email);
-      this.router.navigate(['/home']);
       localStorage.setItem('isLogged', 'true');
+      this.router.navigate(['/home']);
       this.isLogged = true;
     } else {
       window.alert('Senha ou email inválidos.')
