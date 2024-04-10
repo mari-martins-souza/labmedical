@@ -1,0 +1,103 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50px;
+    width: 350px;
+    position: relative;
+}
+
+.container::after {
+    content: "";
+    background: 
+        linear-gradient(
+            rgba(0, 0, 0, 0.3), 
+            rgba(0, 0, 0, 0.3) 
+        ),
+        url('../../../assets/images/patient-doctor.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
+h2 {
+    margin-top: 35px;
+    color: white;
+}
+
+.signup {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-control {
+    margin-top: 10px;
+    width: 100%;
+    border-radius: 0px;
+    padding: 0px 12px 0px 12px;
+    background-color: rgb(255, 255, 255);
+    border: 0px;
+}
+
+.form-control label {
+    color: white;
+}
+
+#btn-login {
+    height: 58px;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 0px;
+    background-color: transparent;
+    border: solid 2px rgb(176, 216, 143);
+    margin-bottom: 15px;
+    color: rgb(176, 216, 143);
+}
+
+#btn-login:hover {
+    background-color: rgb(176, 216, 143);
+    color: black;
+}
+
+#forgot-password {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+}
+
+#forgot-password:hover {
+    color: rgb(176, 216, 143);
+}
+
+.signup {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+p {
+    padding-top: 12px;
+    color: white;
+}
+
+#btn-signup {
+    height: 45px;
+    border-radius: 0px;
+    border: none;
+    margin-left: 15px;
+    background-color: transparent;
+    color: rgb(176, 216, 143);
+    border: solid 2px rgb(176, 216, 143);
+}
+
+#btn-signup:hover {
+    background-color: rgb(176, 216, 143);
+    color: black;
+}

@@ -1,0 +1,22 @@
+<div class="container">
+    <h2>Login</h2>
+    <form (submit)="loginButtonClick()">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" [(ngModel)]="email" name="email">
+            <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" [(ngModel)]="password" name="password">
+            <label for="floatingPassword">Senha</label>
+        </div>
+            <button id="btn-login" type="submit" class="btn btn-primary">Entrar</button>
+            <br>
+            <a id="forgot-password" href="">Esqueceu a senha?</a>
+            <div class="signup">
+                <p>Não possui uma conta?</p>
+                <button id="btn-signup" type="button" class="btn btn-primary">Criar conta</button>
+            </div>
+    </form>
+</div>
+    
+  
