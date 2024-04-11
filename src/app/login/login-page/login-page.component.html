@@ -1,0 +1,74 @@
+<div class="container">
+    <h2>Login</h2>
+    <form (submit)="loginButtonClick()">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" [(ngModel)]="email" name="email">
+            <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" [(ngModel)]="password" name="password">
+            <label for="floatingPassword">Senha</label>
+        </div>
+            <button id="btn-login" type="submit" class="btn btn-primary">Entrar</button>
+            <br>
+            <a id="forgot-password" href="" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Esqueceu a senha?</a>
+            <div class="signup">
+                <p>Não possui uma conta?</p>
+                <button id="btn-signup" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Criar conta</button>
+            </div>
+    </form>
+</div>  
+ 
+  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Recuperar senha</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p id="warning">Essa funcionalidade ainda está em construção!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="close-btn-password-modal" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de usuário</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+    <form [formGroup]="registerForm">
+        <div class="modal-body">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Nome</span>
+                <input type="text" class="form-control" id="input-name-modal" aria-label="name" aria-describedby="basic-addon1" formControlName="name">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Email</span>
+                <input type="email" class="form-control" id="input-email-modal"  aria-label="email" aria-describedby="basic-addon1" formControlName="email">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Senha</span>
+                <input type="password" class="form-control" id="input-password-modal"  aria-label="password" aria-describedby="basic-addon1" formControlName="password" placeholder="a senha deve ter 8 caracteres ou mais">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Confirmar</span>
+                <input type="password" class="form-control" id="input-confirm-modal"  aria-label="password" aria-describedby="basic-addon1" formControlName="confirm" placeholder="digite a senha novamente">
+              </div>
+        </div>
+    </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="close-btn-modal" data-bs-dismiss="modal">Fechar</button>
+          <button (click)="register()" type="button" class="btn btn-primary" id="register-btn-modal">Registrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  
