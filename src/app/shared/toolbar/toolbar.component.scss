@@ -1,0 +1,31 @@
+.toggle-sidebar {
+    border: none;
+    background-color: transparent;
+}
+
+.custom-toolbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #b0d88f;
+  }
+
+.page-title {
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+.user-info {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+  }
+
+img {
+    width: 50px;
+    margin-left: 20px;
+}
+
+.mat-icon {
+  margin-top: 9px;
+}
