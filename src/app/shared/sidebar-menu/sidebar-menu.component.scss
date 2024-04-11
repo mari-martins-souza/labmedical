@@ -1,0 +1,68 @@
+.sidenav-container {
+    height: 100vh;
+    overflow: hidden; /* Remove a barra de rolagem */
+  }
+  
+  .sidenav {
+    height: 100%; 
+    overflow-y: auto; /* Adiciona uma barra de rolagem apenas se o conteúdo do sidebar for maior que a altura do sidebar */
+  }
+  
+#logo-sidebar {
+    display: block;
+    margin: auto;
+    width: 100px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+// .general-menu {
+//     display: flex;
+//     flex-direction: column;
+// }
+
+.group-menu {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+button {
+    background-color: rgb(176, 216, 143);
+    border: none;
+    margin: 5px;
+    width: 225px;
+    height: 36px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 5px;
+}
+
+
+.mat-icon {
+    margin-left: 5px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5px;
+    
+  }
+  
+  #btn-text {
+    font-size: 1em;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+
+  #toggle-sidebar {
+    width: 50px;
+    padding: 0px;
+    justify-content: center;
+    margin: 0px;
+    
+  }
