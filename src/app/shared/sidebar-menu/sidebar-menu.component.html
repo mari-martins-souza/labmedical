@@ -9,7 +9,7 @@
             <mat-icon>assessment</mat-icon>
             <span id="btn-text">INÍCIO</span>
           </button>
-          <button mat-icon-button [routerLink]="['/']">
+          <button mat-icon-button (click)="cleanLoggedUser()">
             <mat-icon>logout</mat-icon>
             <span id="btn-text">SAIR</span>
           </button>    

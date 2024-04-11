@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  isLogged: boolean = false;
+  // isLogged: boolean = false;
   email!: string;
   password!: string;
 
@@ -26,7 +26,7 @@ export class LoginService {
       localStorage.setItem('loggedUser', email);
       localStorage.setItem('isLogged', 'true');
       this.router.navigate(['/home']);
-      this.isLogged = true;
+      // this.isLogged = true;
     } else {
       window.alert('Senha ou email inválidos.')
     }
