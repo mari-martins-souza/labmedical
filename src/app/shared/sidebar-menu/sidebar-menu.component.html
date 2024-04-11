@@ -1,0 +1,49 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav" [(opened)]="showSidebar">
+      <img src="../../../assets/images/logo-labmedical.png" alt="Logomarca" id="logo-sidebar">
+  
+    <div class="general-menu">  
+      <div class="group-menu">
+          <h2>Geral</h2>
+          <button mat-icon-button [routerLink]="['/home']">
+            <mat-icon>assessment</mat-icon>
+            <span id="btn-text">INÍCIO</span>
+          </button>
+          <button mat-icon-button [routerLink]="['/']">
+            <mat-icon>logout</mat-icon>
+            <span id="btn-text">SAIR</span>
+          </button>    
+      </div>
+      <div class="group-menu">
+          <h2>Pacientes</h2>
+          <button mat-icon-button>
+            <mat-icon>person_add</mat-icon>
+            <span id="btn-text">CADASTRAR</span>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>assignment</mat-icon>
+            <span id="btn-text">LISTAR PRONTUÁRIO</span>
+          </button>
+      </div>
+      <div class="group-menu">
+          <h2>Consultas e Exames</h2>
+          <button mat-icon-button>
+            <mat-icon>calendar_today</mat-icon>
+            <span id="btn-text">CADASTRAR CONSULTA</span>
+          </button>
+          <button mat-icon-button>
+            <mat-icon>note_add</mat-icon>
+            <span id="btn-text">CADASTRAR EXAME</span>
+          </button>
+      </div>  
+    </div>  
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+    
+      <button id="toggle-sidebar" (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+        </button>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  
