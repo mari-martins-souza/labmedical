@@ -29,8 +29,13 @@ export class LoginPageComponent implements OnInit {
   constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit() {
-    localStorage.setItem('savedUsers',JSON.stringify(this.users));
-  }
+      const savedUsers = localStorage.getItem('savedUsers');
+    if(savedUsers) {
+      this.users = JSON.parse(savedUsers);
+    } else {
+      localStorage.setItem('savedUsers',JSON.stringify(this.users));
+    }
+  }  
 
   register() {
     if(this.registerForm.value.password !== this.registerForm.value.confirm) {

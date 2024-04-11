@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  // isLogged: boolean = false;
   email!: string;
   password!: string;
 
@@ -18,15 +17,16 @@ export class LoginService {
 
   authUser (email: string, password: string) {
     const users = this.getUsers();
-    return users.some((user: { email: string; password: string; }) => user.email === email && user.password === password);
+    const user = users.find((user: { email: string; password: string; }) => user.email === email && user.password === password);
+    return user ? user : null;
   }
 
   logon(email: string, password: string) {
-    if (this.authUser(email, password)) {
-      localStorage.setItem('loggedUser', email);
+    const user = this.authUser(email, password);
+    if (user) {
+      localStorage.setItem('loggedUser', user.name);
       localStorage.setItem('isLogged', 'true');
       this.router.navigate(['/home']);
-      // this.isLogged = true;
     } else {
       window.alert('Senha ou email inválidos.')
     }
