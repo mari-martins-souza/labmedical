@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #sidenav class="sidenav" [(opened)]="showSidebar">
+    <mat-sidenav #sidenav class="sidenav" mode="side" [(opened)]="showSidebar">
       <img src="../../../assets/images/logo-labmedical.png" alt="Logomarca" id="logo-sidebar">
   
     <div class="general-menu">  
@@ -38,12 +38,5 @@
       </div>  
     </div>  
     </mat-sidenav>
-  
-    <mat-sidenav-content>
-    
-      <button id="toggle-sidebar" (click)="toggleSidebar()">
-        <mat-icon>menu</mat-icon>
-        </button>
-    </mat-sidenav-content>
   </mat-sidenav-container>
   
