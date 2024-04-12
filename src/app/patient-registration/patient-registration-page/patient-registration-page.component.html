@@ -1,0 +1,176 @@
+<div style="display: flex; flex-direction: column; height: 100vh;">
+    <app-toolbar></app-toolbar>
+
+    <div style="display: flex; flex-grow: 1;">
+      <app-sidebar-menu></app-sidebar-menu>
+
+      <div class="form-container" style="flex-grow: 1;">
+        <h3>Preencha os campos para cadastrar</h3>
+
+        <div class="form-area">
+            <div>
+            <h4>Identificação</h4>
+                
+                <mat-form-field class="form-field" id="name-form-field">
+                    <mat-label>Nome completo</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="gen-form-field">
+                    <mat-select placeholder="Gênero">
+                    <mat-option value="option">Masculino</mat-option>
+                    <mat-option value="option">Feminino</mat-option>
+                    <mat-option value="option">Não informar</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="date-form-field">
+                    <input matInput [matDatepicker]="picker" placeholder="Data de nascimento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="cpf-form-field">
+                    <mat-label>CPF</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="rg-form-field">
+                    <mat-label>RG</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="rg-org-form-field">
+                    <mat-label>Órgão expedidor</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="cs-form-field">
+                    <mat-select placeholder="Estado Civil">
+                    <mat-option value="option">Solteiro(a)</mat-option>
+                    <mat-option value="option">Casado(a)</mat-option>
+                    <mat-option value="option">Separado(a)</mat-option>
+                    <mat-option value="option">Divorciado(a)</mat-option>
+                    <mat-option value="option">Viúvo(a)</mat-option>
+                    <mat-option value="option">União Estável</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="phone-form-field">
+                    <mat-label>Telefone</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="nat-form-field">
+                    <mat-label>Naturalidade</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="cont-form-field">
+                    <mat-label>Contato de emergência</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="phone-cont-form-field">
+                    <mat-label>Telefone emergência</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="alle-form-field">
+                    <mat-label>Lista de alergias</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="care-form-field">
+                    <mat-label>Lista de cuidados específicos</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+            </div>
+
+            <div>
+            <h4>Convênio</h4>
+
+                <mat-form-field class="form-field" id="insu-form-field">
+                    <mat-select placeholder="Convênio">
+                        <mat-option value="option">Allianz Saúde</mat-option>
+                        <mat-option value="option">Amil</mat-option>
+                        <mat-option value="option">Biosaúde</mat-option>
+                        <mat-option value="option">Bradesco Saúde</mat-option>
+                        <mat-option value="option">Care Plus</mat-option>
+                        <mat-option value="option">Sul América Saúde</mat-option>
+                        <mat-option value="option">Unimed</mat-option>
+                        <mat-option value="option">Particular</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="insu-n-form-field">
+                    <mat-label>Número do convênio</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="insu-val-form-field">
+                    <input matInput [matDatepicker]="picker2" placeholder="Validade do convênio">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <h4>Endereço</h4>
+                <mat-form-field class="form-field" id="post-form-field">
+                    <mat-label>CEP</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="str-form-field">
+                    <mat-label>Rua</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="addr-n-form-field">
+                    <mat-label>Nº</mat-label>
+                    <input matInput type="number">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="addr-comp-form-field">
+                    <mat-label>Complemento</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="addr-ref-form-field">
+                    <mat-label>Ponto de Referência</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="addr-neig-form-field">
+                    <mat-label>Bairro</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="addr-city-form-field">
+                    <mat-label>Cidade</mat-label>
+                    <input matInput>
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="addr-sta-form-field">
+                    <mat-label>Estado</mat-label>
+                    <input matInput>
+                </mat-form-field>
+            </div>
+        </div>
+          
+      </div>
+
+    </div>
+    
+  </div>
+
+  
+  
+            
+            
+            
+
+
+ 

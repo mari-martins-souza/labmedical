@@ -1,0 +1,44 @@
+mat-label {
+    color: #00000099;
+}
+
+.form-area {
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+}
+
+.form-field {
+    width: 250px;
+    margin-top: 0px;
+    margin-bottom: -21px;
+}
+
+#gen-form-field, #date-form-field, #cs-form-field, #insu-form-field, #insu-val-form-field {
+    position: relative;
+    top: -8px;
+    margin-bottom: -28px;
+}
+
+#insu-n-form-field {
+    position: relative;
+    top: 0px;
+    margin-bottom: -13px;
+}
+
+#name-form-field, #alle-form-field, #care-form-field {
+    width: 500px;
+}
+
+h4 {
+    margin-top: 25px;
+    margin-bottom: 3px;
+    font-size: 1.4rem;
+}
+
+h3 {
+    margin-left: 5%;
+    margin-top: 25px;
+    font-size: 1.6rem;
+    margin-bottom: -30px;
+}
