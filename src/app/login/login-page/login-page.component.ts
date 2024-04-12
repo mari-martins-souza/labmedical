@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RouterModule, Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import { CommonModule } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login-page',
@@ -26,9 +27,11 @@ export class LoginPageComponent implements OnInit {
     {name: 'Mariana', email: 'mariana@labmedical.com', password: '123'},
   ] 
     
-  constructor(private router: Router, private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService, private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle('LABMedical - Login');
+
       const savedUsers = localStorage.getItem('savedUsers');
     if(savedUsers) {
       this.users = JSON.parse(savedUsers);
