@@ -5,54 +5,76 @@ import { Title } from '@angular/platform-browser';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import {MatButtonModule, MatButton} from '@angular/material/button';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule, MatButton } from '@angular/material/button';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
+import { HttpClientModule } from '@angular/common/http';
+import { AddressService } from '../address.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-patient-registration-page',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe],
-  providers: [provideNgxMask()],
+  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule],
+  providers: [provideNgxMask(), AddressService],
   templateUrl: './patient-registration-page.component.html',
   styleUrl: './patient-registration-page.component.scss'
 })
 export class PatientRegistrationPageComponent implements OnInit {
-  cpfFormat = '';
+  
+  constructor(private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private cdr: ChangeDetectorRef) { }
 
-  patRegistration = new FormGroup({
-    name: new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(64)]),
-    gender: new FormControl('',Validators.required),
-    birthday: new FormControl('',Validators.required),
-    cpf: new FormControl('',Validators.required),
-    rg: new FormControl('',[Validators.required,Validators.maxLength(20)]),
-    issOrg: new FormControl('',Validators.required),
-    maritalStatus: new FormControl('',Validators.required),
-    phone: new FormControl('',Validators.required),
-    email: new FormControl('',Validators.email),
-    placeOfBirth: new FormControl('',[Validators.required,Validators.minLength(8),Validators.maxLength(64)]),
-    emergCont: new FormControl('',Validators.required),
-    emergContNumber: new FormControl('',Validators.required),
-    listOfAllergies: new FormControl('',),
-    careList: new FormControl('',),
-    healthInsurance: new FormControl('',),
-    healthInsuranceNumber: new FormControl('',),
-    healthInsuranceVal: new FormControl('',),
-    zipcode: new FormControl('',Validators.required),
-    street: new FormControl('',),
-    addressNumber: new FormControl('',),
-    complement: new FormControl('',),
-    referencePoint: new FormControl('',),
-    neighborhood: new FormControl('',),
-    city: new FormControl('',),
-    state: new FormControl('',),
+  patRegistration = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
+    gender: ['', Validators.required],
+    birthday: ['', Validators.required],
+    cpf: ['', Validators.required],
+    rg: ['', [Validators.required, Validators.maxLength(20)]],
+    issOrg: ['', Validators.required],
+    maritalStatus: ['', Validators.required],
+    phone: ['', Validators.required],
+    email: ['', Validators.email],
+    placeOfBirth: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
+    emergCont: ['', Validators.required],
+    emergContNumber: ['', Validators.required],
+    listOfAllergies: [''],
+    careList: [''],
+    healthInsurance: [''],
+    healthInsuranceNumber: [''],
+    healthInsuranceVal: [''],
+    zipcode: ['', Validators.required],
+    street: [''],
+    addressNumber: [''],
+    complement: [''],
+    referencePoint: [''],
+    neighborhood: [''],
+    city: [''],
+    state: [''],
   })
-
-  constructor(private titleService: Title) { }
-
+  
   ngOnInit() {
     this.titleService.setTitle('Registro de Pacientes');
+   
+    const zipcodeControl = this.patRegistration.get('zipcode');
+  if (zipcodeControl) {
+    zipcodeControl.valueChanges.subscribe(zipcode => {
+      if (zipcode && zipcode.length === 8) {
+        this.searchZipcode(zipcode);
+      }
+    });
+  }
+}
+
+  searchZipcode(zipcode: string) {
+    this.addressService.getCep(zipcode).subscribe(data => {
+      this.patRegistration.patchValue({
+        street: data.logradouro,
+        neighborhood: data.bairro,
+        city: data.localidade,
+        state: data.uf,
+      });
+    });
   }
 }
