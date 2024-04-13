@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule, MatButton } from '@angular/material/button';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
@@ -26,12 +26,12 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder) { }
   
   appointRegistration = this.fb.group({
-    reason: ['',],
-    consultDate: ['',],
-    consultTime: ['',],
-    problemDescrip: ['',],
+    reason: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
+    consultDate: ['',Validators.required],
+    consultTime: ['',Validators.required],
+    problemDescrip: ['',[Validators.required, Validators.minLength(16), Validators.maxLength(1024)]],
     prescMed: ['',],
-    dosagesPrec: ['',],
+    dosagesPrec: ['',[Validators.required, Validators.minLength(16), Validators.maxLength(256)]],
   })
     
   ngOnInit() {
