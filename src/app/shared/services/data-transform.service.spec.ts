@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DataTransformService } from './data-transform.service';
+import { DataTransformService } from '../shared/services/data-transform.service';
 
 describe('DataTransformService', () => {
   let service: DataTransformService;

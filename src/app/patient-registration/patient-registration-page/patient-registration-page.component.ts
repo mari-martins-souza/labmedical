@@ -13,7 +13,7 @@ import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { AddressService } from '../address.service';
 import { DataService } from '../../shared/services/data.service';
-import { DataTransformService } from '../data-transform.service';
+import { DataTransformService } from '../../shared/services/data-transform.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
