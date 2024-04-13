@@ -1,3 +1,7 @@
+<div *ngIf="showMessage" class="success-icon checkmark">
+    <img src="../../../assets/images/check-save.png">
+  </div>
+
 <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
 
@@ -5,85 +9,100 @@
       <app-sidebar-menu></app-sidebar-menu>
 
       <div class="form-container" style="flex-grow: 1;">
-        <h3>Preencha os campos para cadastrar</h3>
+        
+        <div class="title-and-btn">
+            <h3>Preencha os campos para cadastrar</h3>
+            <div class="button-group">
+                <button mat-raised-button id="btn-save" (click)="savePatRegister()">Salvar</button>
+                <button mat-raised-button disabled id="btn-edit">Editar</button>
+                <button mat-raised-button disabled id="btn-del">Deletar</button>
+                <br>
+            </div>
+        </div>
 
-        <div class="form-area">
+
+        <div class="form-area" [formGroup]="patRegistration">
             <div>
             <h4>Identificação</h4>
                 
                 <mat-form-field class="form-field" id="name-form-field">
                     <mat-label>Nome completo</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="name">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="gen-form-field">
-                    <mat-select placeholder="Gênero">
-                    <mat-option value="option">Masculino</mat-option>
-                    <mat-option value="option">Feminino</mat-option>
-                    <mat-option value="option">Não informar</mat-option>
+                    <mat-select placeholder="Gênero" formControlName="gender">
+                    <mat-option value="Masculino">Masculino</mat-option>
+                    <mat-option value="Feminino">Feminino</mat-option>
+                    <mat-option value="Não informar">Não informar</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="date-form-field">
-                    <input matInput [matDatepicker]="picker" placeholder="Data de nascimento">
+                    <input matInput [matDatepicker]="picker" placeholder="Data de nascimento" formControlName="birthdate">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="cpf-form-field">
                     <mat-label>CPF</mat-label>
-                    <input matInput type="number">
+                    <input matInput formControlName="cpf" mask="000.000.000-00">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="rg-form-field">
                     <mat-label>RG</mat-label>
-                    <input matInput type="number">
+                    <input matInput type="number" formControlName="rg">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="rg-org-form-field">
                     <mat-label>Órgão expedidor</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="issOrg">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="cs-form-field">
-                    <mat-select placeholder="Estado Civil">
-                    <mat-option value="option">Solteiro(a)</mat-option>
-                    <mat-option value="option">Casado(a)</mat-option>
-                    <mat-option value="option">Separado(a)</mat-option>
-                    <mat-option value="option">Divorciado(a)</mat-option>
-                    <mat-option value="option">Viúvo(a)</mat-option>
-                    <mat-option value="option">União Estável</mat-option>
+                    <mat-select placeholder="Estado Civil" formControlName="maritalStatus">
+                    <mat-option value="Solteiro(a)">Solteiro(a)</mat-option>
+                    <mat-option value="Casado(a)">Casado(a)</mat-option>
+                    <mat-option value="Separado(a)">Separado(a)</mat-option>
+                    <mat-option value="Divorciado(a)">Divorciado(a)</mat-option>
+                    <mat-option value="Viúvo(a)">Viúvo(a)</mat-option>
+                    <mat-option value="União Estável">União Estável</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="phone-form-field">
                     <mat-label>Telefone</mat-label>
-                    <input matInput type="number">
+                    <input matInput formControlName="phone" mask="(00) 0 0000-0009">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="email-form-field">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput type="email" formControlName="email">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="nat-form-field">
                     <mat-label>Naturalidade</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="placeOfBirth">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="cont-form-field">
                     <mat-label>Contato de emergência</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="emergCont">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="phone-cont-form-field">
                     <mat-label>Telefone emergência</mat-label>
-                    <input matInput type="number">
+                    <input matInput formControlName="emergContNumber" mask="(00) 0 0000-0009">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="alle-form-field">
                     <mat-label>Lista de alergias</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="listOfAllergies">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="care-form-field">
                     <mat-label>Lista de cuidados específicos</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="careList">
                 </mat-form-field>
 
             </div>
@@ -92,25 +111,25 @@
             <h4>Convênio</h4>
 
                 <mat-form-field class="form-field" id="insu-form-field">
-                    <mat-select placeholder="Convênio">
-                        <mat-option value="option">Allianz Saúde</mat-option>
-                        <mat-option value="option">Amil</mat-option>
-                        <mat-option value="option">Biosaúde</mat-option>
-                        <mat-option value="option">Bradesco Saúde</mat-option>
-                        <mat-option value="option">Care Plus</mat-option>
-                        <mat-option value="option">Sul América Saúde</mat-option>
-                        <mat-option value="option">Unimed</mat-option>
-                        <mat-option value="option">Particular</mat-option>
+                    <mat-select placeholder="Convênio" formControlName="healthInsurance">
+                        <mat-option value="Allianz Saúde">Allianz Saúde</mat-option>
+                        <mat-option value="Amil">Amil</mat-option>
+                        <mat-option value="Biosaúde">Biosaúde</mat-option>
+                        <mat-option value="Bradesco Saúde">Bradesco Saúde</mat-option>
+                        <mat-option value="Care Plus">Care Plus</mat-option>
+                        <mat-option value="Sul América Saúde">Sul América Saúde</mat-option>
+                        <mat-option value="Unimed">Unimed</mat-option>
+                        <mat-option value="Particular">Particular</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="insu-n-form-field">
                     <mat-label>Número do convênio</mat-label>
-                    <input matInput type="number">
+                    <input matInput type="number" formControlName="healthInsuranceNumber">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="insu-val-form-field">
-                    <input matInput [matDatepicker]="picker2" placeholder="Validade do convênio">
+                    <input matInput [matDatepicker]="picker2" placeholder="Validade do convênio" formControlName="healthInsuranceVal">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
@@ -118,51 +137,48 @@
 
             <div>
                 <h4>Endereço</h4>
-                <mat-form-field class="form-field" id="post-form-field">
+                <mat-form-field class="form-field" id="zipcode-form-field">
                     <mat-label>CEP</mat-label>
-                    <input matInput type="number">
+                    <input matInput formControlName="zipcode">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="str-form-field">
                     <mat-label>Rua</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="street">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="addr-n-form-field">
                     <mat-label>Nº</mat-label>
-                    <input matInput type="number">
+                    <input matInput type="number" formControlName="addressNumber">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="addr-comp-form-field">
                     <mat-label>Complemento</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="complement">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="addr-ref-form-field">
                     <mat-label>Ponto de Referência</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="referencePoint">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="addr-neig-form-field">
                     <mat-label>Bairro</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="neighborhood">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="addr-city-form-field">
                     <mat-label>Cidade</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="city">
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="addr-sta-form-field">
                     <mat-label>Estado</mat-label>
-                    <input matInput>
+                    <input matInput formControlName="state">
                 </mat-form-field>
+
             </div>
         </div>
-          
-      </div>
-
-    </div>
     
   </div>
 

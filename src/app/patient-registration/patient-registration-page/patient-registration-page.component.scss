@@ -38,7 +38,54 @@ h4 {
 
 h3 {
     margin-left: 5%;
-    margin-top: 25px;
     font-size: 1.6rem;
     margin-bottom: -30px;
 }
+
+.title-and-btn {
+    display: flex;
+    flex-direction: row;
+    margin-top: 35px;
+    margin-bottom: -25px;
+    justify-content: space-between;
+}
+
+.title-and-btn h3 {
+    margin-right: 20px;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-right: 5%;
+}
+
+@keyframes checkmark {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    20% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .checkmark {
+    animation: checkmark 0.3s ease-in-out;
+  }
+  
+  .success-icon {
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    animation: checkmark 0.3s ease-in-out;
+    z-index: 9999; 
+  }
