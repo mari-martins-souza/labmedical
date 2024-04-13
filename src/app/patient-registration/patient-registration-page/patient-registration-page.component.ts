@@ -12,7 +12,6 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { AddressService } from '../address.service';
-import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-patient-registration-page',
@@ -24,7 +23,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class PatientRegistrationPageComponent implements OnInit {
   
-  constructor(private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private cdr: ChangeDetectorRef) { }
+  constructor(private titleService: Title, private addressService: AddressService, private fb: FormBuilder) { }
 
   patRegistration = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
@@ -77,4 +76,48 @@ export class PatientRegistrationPageComponent implements OnInit {
       });
     });
   }
+
+  savePatRegister() {
+    if (this.patRegistration.valid) {
+        let patients = [];
+        const databasePatients = localStorage.getItem('databasePatients');
+        if (databasePatients !== null) {
+          patients = JSON.parse(databasePatients);
+        }
+        const patient = {
+          name: this.patRegistration.value.name,
+          gender: this.patRegistration.value.gender,
+          birthday: this.patRegistration.value.birthday,
+          cpf: this.patRegistration.value.cpf,
+          rg: this.patRegistration.value.rg,
+          issOrg: this.patRegistration.value.issOrg,
+          maritalStatus: this.patRegistration.value.maritalStatus,
+          phone: this.patRegistration.value.phone,
+          email: this.patRegistration.value.email,
+          placeOfBirth: this.patRegistration.value.placeOfBirth,
+          emergCont: this.patRegistration.value.emergCont,
+          emergContNumber: this.patRegistration.value.emergContNumber,
+          listOfAllergies: this.patRegistration.value.listOfAllergies,
+          careList: this.patRegistration.value.careList,
+          healthInsurance: this.patRegistration.value.healthInsurance,
+          healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
+          healthInsuranceVal: this.patRegistration.value.healthInsuranceVal,
+          zipcode: this.patRegistration.value.zipcode,
+          street: this.patRegistration.value.street,
+          addressNumber: this.patRegistration.value.addressNumber,
+          complement: this.patRegistration.value.complement,
+          referencePoint: this.patRegistration.value.referencePoint,
+          neighborhood: this.patRegistration.value.neighborhood,
+          city: this.patRegistration.value.city,
+          state: this.patRegistration.value.state,
+        }
+        patients.push(patient);
+        localStorage.setItem('databasePatients', JSON.stringify(patients));
+        window.alert('Paciente registrado com sucesso.')
+        
+      } else {
+        window.alert('Preencha todos os campos obrigatórios corretamente.')
+    }
+  }
+
 }
