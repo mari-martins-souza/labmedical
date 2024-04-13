@@ -13,30 +13,33 @@ import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { AddressService } from '../address.service';
 import { DataService } from '../../shared/services/data.service';
+import { DataTransformService } from '../data-transform.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-patient-registration-page',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule],
-  providers: [provideNgxMask(), AddressService, DataService],
+  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule],
+  providers: [provideNgxMask(), AddressService, DataService, DataTransformService],
   templateUrl: './patient-registration-page.component.html',
   styleUrl: './patient-registration-page.component.scss'
 })
 export class PatientRegistrationPageComponent implements OnInit {
+  showMessage = false;
   
-  constructor(private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder) { }
+  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder) { }
 
   patRegistration = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
     gender: ['', Validators.required],
-    birthday: ['', Validators.required],
+    birthdate: ['', Validators.required],
     cpf: ['', Validators.required],
     rg: ['', [Validators.required, Validators.maxLength(20)]],
     issOrg: ['', Validators.required],
     maritalStatus: ['', Validators.required],
     phone: ['', Validators.required],
     email: ['', Validators.email],
-    placeOfBirth: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
+    placeOfBirth: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(64)]],
     emergCont: ['', Validators.required],
     emergContNumber: ['', Validators.required],
     listOfAllergies: [''],
@@ -84,21 +87,21 @@ export class PatientRegistrationPageComponent implements OnInit {
         const patient = {
           name: this.patRegistration.value.name,
           gender: this.patRegistration.value.gender,
-          birthday: this.patRegistration.value.birthday,
-          cpf: this.patRegistration.value.cpf,
+          birthdate: this.dataTransformService.formatDate(this.patRegistration.value.birthdate),
+          cpf: this.dataTransformService.formatCpf(this.patRegistration.value.cpf),
           rg: this.patRegistration.value.rg,
           issOrg: this.patRegistration.value.issOrg,
           maritalStatus: this.patRegistration.value.maritalStatus,
-          phone: this.patRegistration.value.phone,
+          phone: this.dataTransformService.formatPhone(this.patRegistration.value.phone),
           email: this.patRegistration.value.email,
           placeOfBirth: this.patRegistration.value.placeOfBirth,
           emergCont: this.patRegistration.value.emergCont,
-          emergContNumber: this.patRegistration.value.emergContNumber,
+          emergContNumber: this.dataTransformService.formatPhone(this.patRegistration.value.emergContNumber),
           listOfAllergies: this.patRegistration.value.listOfAllergies,
           careList: this.patRegistration.value.careList,
           healthInsurance: this.patRegistration.value.healthInsurance,
           healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
-          healthInsuranceVal: this.patRegistration.value.healthInsuranceVal,
+          healthInsuranceVal: this.dataTransformService.formatDate(this.patRegistration.value.healthInsuranceVal),
           zipcode: this.patRegistration.value.zipcode,
           street: this.patRegistration.value.street,
           addressNumber: this.patRegistration.value.addressNumber,
@@ -110,7 +113,13 @@ export class PatientRegistrationPageComponent implements OnInit {
         }
 
         this.dataService.saveData('patients', patient).subscribe(() => {
-      window.alert('Paciente registrado com sucesso.')
+          this.showMessage = true;
+
+          setTimeout(() => {
+            this.showMessage = false;
+          }, 1000);
+
+      this.patRegistration.reset();
     });
   } else {
     window.alert('Preencha todos os campos obrigatórios corretamente.')
