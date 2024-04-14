@@ -1,3 +1,6 @@
+<div *ngIf="showMessage" class="success-icon checkmark">
+    <img src="../../../assets/images/check-save.png">
+  </div>
 
 <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
@@ -8,10 +11,9 @@
       <div class="form-container" style="flex-grow: 1;">
         
         <div class="title-and-btn">
-            <h3>Preencha os campos para cadastrar</h3>
+            <h3>Busque o paciente e preencha os dados da consulta</h3>
             <div class="button-group">
-                <!-- (click)="saveAppointRegister()" -->
-                <button mat-raised-button id="btn-save" >Salvar</button>
+                <button mat-raised-button id="btn-save" (click)="saveAppointRegister()">Salvar</button>
                 <button mat-raised-button disabled id="btn-edit">Editar</button>
                 <button mat-raised-button disabled id="btn-del">Deletar</button>
             </div>
@@ -20,13 +22,33 @@
 
         <div class="form-area" [formGroup]="appointRegistration">
             <div>
-            <h4>Consulta de</h4>
-                
+
+                <label for="search"></label>
+                    <input type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
+
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
+                      <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
+                        {{patient.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+
+                    <br>
+                                   
+                <mat-form-field class="form-field" id="id-form-field">
+                    <mat-label>ID paciente</mat-label>
+                    <input matInput formControlName="id">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="name-form-field">
+                    <mat-label>Nome</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+                <br>
                 <mat-form-field class="form-field" id="reason-form-field">
                     <mat-label>Motivo da Consulta</mat-label>
                     <input matInput formControlName="reason">
                 </mat-form-field>
-
+                <br>
                 <mat-form-field class="form-field" id="consult-date-form-field">
                     <mat-label>Data da Consulta</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="consultDate">
@@ -39,17 +61,17 @@
                     <input matInput [ngxTimepicker]="timePicker" formControlName="consultTime">
                     <ngx-material-timepicker #timePicker></ngx-material-timepicker>
                 </mat-form-field>
-
+                <br>
                 <mat-form-field class="form-field" id="problem-descrip-form-field">
                     <mat-label>Descrição do problema</mat-label>
                     <textarea matInput formControlName="problemDescrip"></textarea>
                 </mat-form-field>
-
+                <br>
                 <mat-form-field class="form-field" id="presc-med-form-field">
                     <mat-label>Medicação receitada</mat-label>
                     <textarea matInput formControlName="prescMed"></textarea>
                 </mat-form-field>
-
+                <br>
                 <mat-form-field class="form-field" id="dosages-prec-form-field">
                     <mat-label>Dosagens e precauções</mat-label>
                     <textarea matInput formControlName="dosagesPrec"></textarea>
