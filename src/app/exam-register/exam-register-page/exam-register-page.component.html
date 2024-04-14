@@ -1,0 +1,100 @@
+<div *ngIf="showMessage" class="success-icon checkmark">
+    <img src="../../../assets/images/check-save.png">
+  </div>
+
+<div style="display: flex; flex-direction: column; height: 100vh;">
+    <app-toolbar></app-toolbar>
+
+    <div style="display: flex; flex-grow: 1;">
+      <app-sidebar-menu></app-sidebar-menu>
+
+      <div class="form-container" style="flex-grow: 1;">
+        
+        <div class="title-and-btn">
+            <h3>Busque o paciente e preencha os dados do exame</h3>
+            <div class="button-group">
+                <button mat-raised-button id="btn-save" (click)="saveExamRegister()">Salvar</button>
+                <button mat-raised-button disabled id="btn-edit">Editar</button>
+                <button mat-raised-button disabled id="btn-del">Deletar</button>
+            </div>
+        </div>
+
+
+        <div class="form-area" [formGroup]="examRegister">
+            <div>
+
+                <label for="search"></label>
+                    <input type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
+
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
+                      <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
+                        {{patient.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+
+                    <br>
+                                   
+                <mat-form-field class="form-field" id="id-form-field">
+                    <mat-label>ID paciente</mat-label>
+                    <input matInput formControlName="id">
+                </mat-form-field>
+
+                <mat-form-field class="form-field" id="name-form-field">
+                    <mat-label>Nome</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-field" id="exam-name-form-field">
+                    <mat-label>Nome do exame</mat-label>
+                    <input matInput formControlName="exam">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-field" id="exam-date-form-field">
+                    <mat-label>Data do Exame</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="examDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                
+                <mat-form-field class="form-field" id="exam-time-form-field">
+                    <mat-label>Horário do Exame</mat-label>
+                    <input matInput [ngxTimepicker]="timePicker" formControlName="examTime">
+                    <ngx-material-timepicker #timePicker></ngx-material-timepicker>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-field" id="exam-type-form-field">
+                    <mat-label>Tipo do exame</mat-label>
+                    <input matInput formControlName="examType">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-field" id="lab-form-field">
+                    <mat-label>Laboratório</mat-label>
+                    <input matInput formControlName="lab">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-field" id="doc-url-form-field">
+                    <mat-label>URL do documento</mat-label>
+                    <input matInput formControlName="docUrl">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-field" id="result-form-field">
+                    <mat-label>Resultados</mat-label>
+                    <textarea matInput formControlName="result"></textarea>
+                </mat-form-field>
+
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+  
+  
+            
+            
+            
+
+
+ 
+
+

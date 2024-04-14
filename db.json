@@ -216,5 +216,18 @@
       "prescMed": "",
       "dosagesPrec": "tomar o remédio por 10 dias e retornar"
     }
+  ],
+  "exams": [
+    {
+      "id": "e6b2",
+      "name": "Isabela Gomes Campos",
+      "exam": "radiografia de tórax",
+      "examDate": "13-04-2024",
+      "examTime": "1:39",
+      "examType": "imagem",
+      "lab": "Imagem",
+      "docUrl": "",
+      "result": "nenhum problema constatado"
+    }
   ]
 }
