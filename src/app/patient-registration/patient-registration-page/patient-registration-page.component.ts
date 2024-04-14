@@ -44,7 +44,7 @@ export class PatientRegistrationPageComponent implements OnInit {
     emergContNumber: ['', Validators.required],
     listOfAllergies: [''],
     careList: [''],
-    healthInsurance: [''],
+    healthInsurance: ['',Validators.required],
     healthInsuranceNumber: [''],
     healthInsuranceVal: [''],
     zipcode: ['', Validators.required],

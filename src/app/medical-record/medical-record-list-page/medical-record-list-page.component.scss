@@ -1,0 +1,71 @@
+.container-list {
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+  }
+
+  .header-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: none;
+    box-shadow: none;
+  }
+
+  .patient-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    align-items: center;
+    border-radius: 0px;
+  }
+
+  .card-content {
+    padding: 2%;
+    flex: 1;
+  }
+
+#name, #header-name {
+    text-align: center;
+}
+
+#insurance, #header-ins {
+    text-align: center;
+}
+ 
+#id, #header-id {
+    text-align: center;
+}
+
+#id {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  margin-right: 10px;
+}
+
+img:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+#search {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 40%;
+  height: 40px;
+  padding-left: 15px;
+  font-size: 1.3;
+  border-radius: 0px;
+  border: 1px solid rgb(85, 85, 85);
+}
+
+#btn-search {
+  margin-left: 15px;
+  height: 40px;
+}
+
+
