@@ -196,5 +196,25 @@
       "city": "Palhoça",
       "state": "SC"
     }
+  ],
+  "appointments": [
+    {
+      "id": "9269",
+      "reason": "checkup anual",
+      "consultDate": "13-04-2024",
+      "consultTime": "0:34",
+      "problemDescrip": "apenas saber se está tudo ok",
+      "prescMed": "",
+      "dosagesPrec": "repouso e tomar mais água"
+    },
+    {
+      "id": "78c1",
+      "reason": "dor no estômago",
+      "consultDate": "13-04-2024",
+      "consultTime": "0:48",
+      "problemDescrip": "dores fortes abdominais e vômitos",
+      "prescMed": "",
+      "dosagesPrec": "tomar o remédio por 10 dias e retornar"
+    }
   ]
 }
