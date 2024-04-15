@@ -34,8 +34,8 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService) { }
   
   appointRegistration = this.fb.group({
-    id: [''],
-    name: [''],
+    id: ['',Validators.required],
+    name: ['',Validators.required],
     reason: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
     consultDate: ['',Validators.required],
     consultTime: ['',Validators.required],
@@ -86,6 +86,8 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     if (this.appointRegistration.valid) {
         
         const appointment = {
+          id: this.appointRegistration.value.id,
+          name: this.appointRegistration.value.name,
           reason: this.appointRegistration.value.reason,
           consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),
           consultTime: this.appointRegistration.value.consultTime,

@@ -9,11 +9,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule, MatButton } from '@angular/material/button';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-medical-record-list-page',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, MatCardModule, HttpClientModule, CommonModule, FormsModule, MatInputModule, MatButtonModule,MatButton],
+  imports: [SidebarMenuComponent, ToolbarComponent, MatCardModule, HttpClientModule, CommonModule, FormsModule, MatInputModule, MatButtonModule,MatButton, RouterModule],
   providers: [DataService],
   templateUrl: './medical-record-list-page.component.html',
   styleUrl: './medical-record-list-page.component.scss'
@@ -23,11 +24,11 @@ export class MedicalRecordListPageComponent implements OnInit {
   filteredPatientsList: any = [];
   searchTerm: string = '';
 
-  constructor(private titleService: Title, private dataService: DataService) { }
+  constructor(private titleService: Title, private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
 
-    this.titleService.setTitle('Prontuários');
+    this.titleService.setTitle('Lista de prontuários');
 
     this.dataService.getData('patients').subscribe((data: any) => {
       this.patientsList = data;
@@ -44,6 +45,10 @@ export class MedicalRecordListPageComponent implements OnInit {
     } else {
       this.filteredPatientsList = this.patientsList;
     }
+  }
+
+  medicalRecords(id: string) {
+    this.router.navigate(['/lista-prontuarios', id]);
   }
   
 }

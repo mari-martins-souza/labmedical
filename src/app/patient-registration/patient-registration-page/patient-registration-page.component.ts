@@ -115,11 +115,12 @@ export class PatientRegistrationPageComponent implements OnInit {
         this.dataService.saveData('patients', patient).subscribe(() => {
           this.showMessage = true;
 
+          this.patRegistration.reset();
+
           setTimeout(() => {
             this.showMessage = false;
           }, 1000);
-
-      this.patRegistration.reset();
+      
     });
   } else {
     window.alert('Preencha todos os campos obrigatórios corretamente.')

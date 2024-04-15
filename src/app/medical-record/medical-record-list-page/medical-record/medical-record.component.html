@@ -1,0 +1,39 @@
+<div style="display: flex; flex-direction: column; height: 100vh;">
+    <app-toolbar></app-toolbar>
+
+    <div style="display: flex; flex-grow: 1">
+      <app-sidebar-menu></app-sidebar-menu>
+    
+
+    <div class="container" style="flex-grow: 0.9"> 
+
+      <div class="patient-data">
+        <h3>Paciente: {{ patientName}}</h3>
+        <p>Convênio: {{ patientInsurance }}</p>
+        <p>Contato de emergência: {{ patientEmergCont }} - {{patientEmergContNum}}</p>
+        <p>Alergias: {{ patientAllergies }}</p>
+        <p>Cuidados específicos: {{ patientCare }}</p>
+      </div>
+
+      <div class="patient-appointments">
+        <h4>Motivo da Consulta: {{ appointReason }}</h4>
+        <p>Data da consulta: {{ appointData }}</p>
+        <p>Descrição do problema: {{ appointProb }}</p>
+        <p>Medicação receitada: {{ appointPresc }}</p>
+        <p>Dosagens e precauções: {{ appointdosages }}</p>
+      </div>
+
+      <div class="patient-exams">
+        <h4>Exame: {{ examName}}</h4>
+        <p>Data do exame: {{ examDat }}</p>
+        <p>Tipo de exame: {{ examTyp }}</p>
+        <p>Laboratório: {{ examLab }}</p>
+        <p>Url do documento: {{ examDoc }}</p>
+        <p>Resultados: {{ examResult }}</p>
+      </div>
+    
+    </div>
+
+
+    </div>
+</div>

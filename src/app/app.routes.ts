@@ -4,7 +4,6 @@ import { HomePageComponent } from './home/home-page/home-page.component';
 import { PatientRegistrationPageComponent } from './patient-registration/patient-registration-page/patient-registration-page.component';
 import { MedicalAppointmentRegPageComponent } from './medical-appoint-reg/medical-appointment-reg-page/medical-appointment-reg-page.component';
 import { ExamRegisterPageComponent } from './exam-register/exam-register-page/exam-register-page.component';
-import { MedicalRecordListPageComponent } from './medical-record/medical-record-list-page/medical-record-list-page.component';
 
 export const routes: Routes = [
     { path: '', component: LoginPageComponent },
@@ -12,5 +11,8 @@ export const routes: Routes = [
     { path: 'registro-paciente', component: PatientRegistrationPageComponent },
     { path: 'registro-consulta', component: MedicalAppointmentRegPageComponent },
     { path: 'registro-exame', component: ExamRegisterPageComponent },
-    { path: 'lista-prontuarios', component: MedicalRecordListPageComponent },
+    { path: 'lista-prontuarios',
+        loadChildren:    
+        () => import('../app/shared/shared.module').then(m => m.SharedModule)
+    },
 ];
