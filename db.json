@@ -199,7 +199,8 @@
   ],
   "appointments": [
     {
-      "id": "8f94",
+      "id": "9999",
+      "idPatient": "8f94",
       "name": "Lucas Silva",
       "reason": "Dor de cabeça persistente",
       "consultDate": "02-04-2024",
@@ -209,7 +210,8 @@
       "dosagesPrec": "Tomar 500 mg a cada 6 horas conforme necessário para a dor. Não exceder 3000 mg em um período de 24 horas. Evitar o consumo de álcool enquanto estiver tomando este medicamento."
     },
     {
-      "id": "eb90",
+      "id": "9998",
+      "idPatient": "eb90",
       "name": "Gabriel Costa",
       "reason": "Dor nas costas",
       "consultDate": "08-04-2024",
@@ -219,7 +221,8 @@
       "dosagesPrec": "Tomar 200 mg a cada 4 a 6 horas conforme necessário para a dor. Não exceder 1200 mg em um período de 24 horas. Evitar o consumo de álcool enquanto estiver tomando este medicamento."
     },
     {
-      "id": "5d4a",
+      "id": "9997",
+      "idPatient": "5d4a",
       "name": "Rafael Santos",
       "reason": "Problemas de audição",
       "consultDate": "09-04-2024",
@@ -229,7 +232,8 @@
       "dosagesPrec": "Rafael foi encaminhado para um especialista em audição para avaliação adicional e possível uso de aparelho auditivo."
     },
     {
-      "id": "6f79",
+      "id": "9996",
+      "idPatient": "6f79",
       "name": "Bruno Lima",
       "reason": "Pressão alta",
       "consultDate": "11-04-2024",
@@ -239,7 +243,8 @@
       "dosagesPrec": "Tomar 50 mg uma vez ao dia. Monitorar a pressão arterial regularmente. Evitar o consumo excessivo de sal e álcool enquanto estiver tomando este medicamento."
     },
     {
-      "id": "4820",
+      "id": "9995",
+      "idPatient": "4820",
       "name": "Camila Barbosa",
       "reason": "Problemas de sono",
       "consultDate": "12-04-2024",
@@ -249,7 +254,8 @@
       "dosagesPrec": "Tomar 5 mg ao deitar. Evitar dirigir ou operar máquinas pesadas após tomar este medicamento, pois pode causar sonolência."
     },
     {
-      "id": "e59b",
+      "id": "9994",
+      "idPatient": "e59b",
       "name": "Daniela Cardoso",
       "reason": "Acne persistente",
       "consultDate": "12-04-2024",
@@ -257,11 +263,34 @@
       "problemDescrip": "Daniela tem experimentado acne persistente nos últimos seis meses. Ela tem notado um aumento no número de espinhas, especialmente no rosto e nas costas.",
       "prescMed": "Peróxido de benzoíla",
       "dosagesPrec": "Aplicar uma fina camada na área afetada uma vez ao dia. Evitar a exposição ao sol e usar protetor solar enquanto estiver usando este medicamento, pois pode aumentar a sensibilidade ao sol."
+    },
+    {
+      "id": "27b1",
+      "idPatient": "5d4a",
+      "name": "Rafael Santos",
+      "reason": "Dor no peito",
+      "consultDate": "16-04-2024",
+      "consultTime": "5:15 PM",
+      "problemDescrip": "Paciente relata dor no peito constante e falta de ar durante atividades físicas.",
+      "prescMed": "Atenolol",
+      "dosagesPrec": "50mg uma vez ao dia"
+    },
+    {
+      "id": "44b7",
+      "idPatient": "4820",
+      "name": "Camila Barbosa",
+      "reason": "Dor abdominal",
+      "consultDate": "16-04-2024",
+      "consultTime": "2:30 PM",
+      "problemDescrip": "Paciente relata dor abdominal intensa no lado direito inferior",
+      "prescMed": "Paracetamol",
+      "dosagesPrec": "500mg a cada 6 horas conforme necessário para dor"
     }
   ],
   "exams": [
     {
-      "id": "8f94",
+      "id": "9993",
+      "idPatient": "8f94",
       "name": "Lucas Silva",
       "exam": "Ressonância magnética do cérebro",
       "examDate": "13-04-2024",
@@ -272,7 +301,8 @@
       "result": "Nenhuma anormalidade detectada"
     },
     {
-      "id": "eb90",
+      "id": "9992",
+      "idPatient": "eb90",
       "name": "Gabriel Costa",
       "exam": "Raio-X da coluna lombar",
       "examDate": "13-04-2024",
@@ -283,7 +313,8 @@
       "result": "Desgaste leve dos discos intervertebrais"
     },
     {
-      "id": "5d4a",
+      "id": "9991",
+      "idPatient": "5d4a",
       "name": "Rafael Santos",
       "exam": "Audiometria",
       "examDate": "13-04-2024",
@@ -294,7 +325,8 @@
       "result": "Perda auditiva moderada"
     },
     {
-      "id": "6f79",
+      "id": "9990",
+      "idPatient": "6f79",
       "name": "Bruno Lima",
       "exam": "Eletrocardiograma",
       "examDate": "13-04-2024",
@@ -305,7 +337,8 @@
       "result": "Ritmo cardíaco normal"
     },
     {
-      "id": "4820",
+      "id": "9989",
+      "idPatient": "4820",
       "name": "Camila Barbosa",
       "exam": "Polissonografia",
       "examDate": "13-04-2024",
@@ -316,7 +349,8 @@
       "result": "Distúrbios do sono detectados"
     },
     {
-      "id": "e59b",
+      "id": "9988",
+      "idPatient": "e59b",
       "name": "Daniela Cardoso",
       "exam": "Exame de sangue (hormônios)",
       "examDate": "13-04-2024",
@@ -327,7 +361,8 @@
       "result": "Níveis hormonais normais"
     },
     {
-      "id": "5b31",
+      "id": "9987",
+      "idPatient": "5b31",
       "name": "Fernanda Teixeira",
       "exam": "Exame de sangue (Marcadores inflamatórios)",
       "examDate": "13-04-2024",
@@ -338,7 +373,8 @@
       "result": "Níveis normais de marcadores inflamatórios"
     },
     {
-      "id": "eb90",
+      "id": "9986",
+      "idPatient": "eb90",
       "name": "Gabriel Costa",
       "exam": "Ressonância Magnética",
       "examDate": "14-04-2024",
@@ -347,6 +383,30 @@
       "lab": "DMI - lab",
       "docUrl": "",
       "result": "Identificado hérnia de disco"
+    },
+    {
+      "id": "293e",
+      "idPatient": "5d4a",
+      "name": "Rafael Santos",
+      "exam": "Eletrocardiograma",
+      "examDate": "17-04-2024",
+      "examTime": "12:30 PM",
+      "examType": "Cardiológico",
+      "lab": "Laboratório Central da Cidade",
+      "docUrl": "",
+      "result": "Anormalidades detectadas, sugerindo possível angina"
+    },
+    {
+      "id": "8615",
+      "idPatient": "4820",
+      "name": "Camila Barbosa",
+      "exam": "Ultrassonografia abdominal",
+      "examDate": "17-04-2024",
+      "examTime": "1:15 PM",
+      "examType": "Radiológico",
+      "lab": "Laboratório Unimed",
+      "docUrl": "",
+      "result": "Detectado cisto ovariano no ovário direito"
     }
   ]
 }

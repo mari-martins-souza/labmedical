@@ -9,6 +9,7 @@ export const routes: Routes = [
     { path: '', component: LoginPageComponent },
     { path: 'home', component: HomePageComponent },
     { path: 'registro-paciente', component: PatientRegistrationPageComponent },
+    { path: 'registro-paciente/:id', component: PatientRegistrationPageComponent },
     { path: 'registro-consulta', component: MedicalAppointmentRegPageComponent },
     { path: 'registro-exame', component: ExamRegisterPageComponent },
     { path: 'lista-prontuarios',

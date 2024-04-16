@@ -34,8 +34,8 @@ export class ExamRegisterPageComponent implements OnInit {
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService) { }
 
   examRegister = this.fb.group({
-    id: [''],
-    name: [''],
+    idPatient: ['',Validators.required],
+    name: ['',Validators.required],
     exam: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
     examDate: ['',Validators.required],
     examTime: ['',Validators.required],
@@ -77,7 +77,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   setPatientData(patient: { id: any; name: any; }) {
     this.examRegister.patchValue({
-      id: patient.id,
+      idPatient: patient.id,
       name: patient.name
     });
     this.patientSearchControl.setValue('');
@@ -87,7 +87,7 @@ export class ExamRegisterPageComponent implements OnInit {
     if (this.examRegister.valid) {
         
         const exam = {
-          id: this.examRegister.value.id,
+          idPatient: this.examRegister.value.idPatient,
           name: this.examRegister.value.name,
           exam: this.examRegister.value.exam,
           examDate: this.dataTransformService.formatDate(this.examRegister.value.examDate),

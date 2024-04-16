@@ -15,6 +15,7 @@ import { AddressService } from '../address.service';
 import { DataService } from '../../shared/services/data.service';
 import { DataTransformService } from '../../shared/services/data-transform.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-patient-registration-page',
@@ -27,7 +28,7 @@ import { CommonModule } from '@angular/common';
 export class PatientRegistrationPageComponent implements OnInit {
   showMessage = false;
   
-  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder) { }
+  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute) { }
 
   patRegistration = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
@@ -59,6 +60,14 @@ export class PatientRegistrationPageComponent implements OnInit {
   
   ngOnInit() {
     this.titleService.setTitle('Registro de Pacientes');
+
+    const patientID = this.activatedRoute.snapshot.paramMap.get('id');
+
+    if(patientID) {
+      this.dataService.getData('patients', patientID).subscribe(patient => {
+        this.patRegistration.patchValue(patient);
+      });
+    }
    
     const zipcodeControl = this.patRegistration.get('zipcode');
   if (zipcodeControl) {

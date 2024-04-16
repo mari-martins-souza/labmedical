@@ -16,6 +16,7 @@ import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-medical-appointment-reg-page',
@@ -31,10 +32,10 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   filteredPatients: Observable<any[]> | undefined;
   patientSearchControl = new FormControl();
 
-  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService) { }
+  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute) { }
   
   appointRegistration = this.fb.group({
-    id: ['',Validators.required],
+    idPatient: ['',Validators.required],
     name: ['',Validators.required],
     reason: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
     consultDate: ['',Validators.required],
@@ -76,7 +77,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
   setPatientData(patient: { id: any; name: any; }) {
     this.appointRegistration.patchValue({
-      id: patient.id,
+      idPatient: patient.id,
       name: patient.name
     });
     this.patientSearchControl.setValue('');
@@ -86,7 +87,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     if (this.appointRegistration.valid) {
         
         const appointment = {
-          id: this.appointRegistration.value.id,
+          idPatient: this.appointRegistration.value.idPatient,
           name: this.appointRegistration.value.name,
           reason: this.appointRegistration.value.reason,
           consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),

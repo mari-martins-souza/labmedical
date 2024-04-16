@@ -13,8 +13,16 @@ export class DataService {
     return this.http.post(`http://localhost:3000/${collection}`, data);
   }
 
-  getData(collection: string): Observable<any> {
+  getData(collection: string, id?: string): Observable<any> {
+    if(id) {
+      return this.http.get(`http://localhost:3000/${collection}/${id}`);
+    } else {
     return this.http.get(`http://localhost:3000/${collection}`);
+   }
+  }
+
+  editData(collection: string, id: number, data: any) {
+    return this.http.put(`http://localhost:3000/${collection}/${id}`, data);
   }
   
 }
