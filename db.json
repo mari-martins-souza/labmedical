@@ -336,6 +336,17 @@
       "lab": "Santa Luzia",
       "docUrl": null,
       "result": "Níveis normais de marcadores inflamatórios"
+    },
+    {
+      "id": "eb90",
+      "name": "Gabriel Costa",
+      "exam": "Ressonância Magnética",
+      "examDate": "14-04-2024",
+      "examTime": "3:30 PM",
+      "examType": "Imagem",
+      "lab": "DMI - lab",
+      "docUrl": "",
+      "result": "Identificado hérnia de disco"
     }
   ]
 }

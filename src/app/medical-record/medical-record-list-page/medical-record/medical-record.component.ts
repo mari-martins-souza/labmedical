@@ -5,85 +5,62 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from '../../../shared/services/data.service';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatDividerModule} from '@angular/material/divider';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-medical-record',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule],
+  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule],
   providers: [DataService],
   templateUrl: './medical-record.component.html',
   styleUrl: './medical-record.component.scss'
 })
 export class MedicalRecordComponent implements OnInit {
-  patientsList: any = [];
   patientID: any = '';
-  patientName: string = '';
-  patientInsurance: string = '';
-  patientAllergies: string = '';
-  patientEmergCont: string = '';
-  patientEmergContNum: string = '';
-  patientCare: string = '';
-
+  patientsList: any = [];
   appointmentsList: any = [];
-  appointReason: string = '';
-  appointData: string = '';
-  appointTime: string = '';
-  appointProb: string = '';
-  appointPresc: string = '';
-  appointdosages: string = '';
-
   examsList: any = [];
-  examName: string = '';
-  examDat: string = '';
-  examTim: string = '';
-  examTyp: string = '';
-  examLab: string = '';
-  examDoc: string = '';
-  examResult: string = '';
-
 
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private dataService: DataService) { }
 
   ngOnInit() {
-
     this.titleService.setTitle('Prontuário de paciente');
-
+  
     this.patientID = this.activatedRoute.snapshot.paramMap.get('id');
+    
     this.dataService.getData('patients').subscribe((data: any) => {
-      this.patientsList = data;
-      const patient = this.patientsList.find((patient: { id: any; }) => patient.id === this.patientID);
-      this.patientName = patient.name;
-      this.patientAllergies = patient.listOfAllergies;
-      this.patientInsurance = patient.healthInsurance;
-      this.patientEmergCont = patient.emergCont;
-      this.patientEmergContNum = patient.emergContNumber;
-      this.patientCare = patient.careList;
+      this.patientsList = data.filter((patient: { id: any; }) => patient.id === this.patientID);
     });
-
-      this.dataService.getData('appointments').subscribe((data: any) => {
-      this.appointmentsList = data;
-      const appointment = this.appointmentsList.find((appointment: { id: any; }) => appointment.id === this.patientID);
-      this.appointReason = appointment.reason;
-      this.appointData = appointment.consultDate;
-      this.appointTime = appointment.consultTime;
-      this.appointProb = appointment.problemDescrip;
-      this.appointPresc = appointment.prescMed;
-      this.appointdosages = appointment.dosagesPrec;
+  
+    function convertDateFormat(date: string): string {
+      const [day, month, year] = date.split('-');
+      return `${month}-${day}-${year}`;
+    }
+    
+    this.dataService.getData('appointments').subscribe((data: any) => {
+      this.appointmentsList = data.filter((appointment: { id: any; }) => appointment.id === this.patientID);
+      this.appointmentsList.sort((a: any, b: any) => {
+        const aDate = convertDateFormat(a.consultDate);
+        const bDate = convertDateFormat(b.consultDate);
+        return new Date(bDate + ' ' + b.consultTime).getTime() - new Date(aDate + ' ' + a.consultTime).getTime();
+      });
     });
-
-      this.dataService.getData('exams').subscribe((data: any) => {
-      this.examsList = data;
-      const exam = this.examsList.find((exam: { id: any; }) => exam.id === this.patientID);
-      this.examName = exam.exam;
-      this.examDat = exam.examData;
-      this.examTim = exam.examTime;
-      this.examTyp = exam.examType;
-      this.examLab = exam.lab;
-      this.examDoc = exam.docUrl;
-      this.examResult = exam.result;
+    
+    this.dataService.getData('exams').subscribe((data: any) => {
+      this.examsList = data.filter((exam: { id: any; }) => exam.id === this.patientID);
+      this.examsList.sort((a: any, b: any) => {
+        const aDate = convertDateFormat(a.examDate);
+        const bDate = convertDateFormat(b.examDate);
+        return new Date(bDate + ' ' + b.examTime).getTime() - new Date(aDate + ' ' + a.examTime).getTime();
+      });
     });
+    
+  }
+  
   
     
 }
 
-}
+

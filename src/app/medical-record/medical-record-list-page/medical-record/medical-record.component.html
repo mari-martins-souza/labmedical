@@ -4,36 +4,44 @@
     <div style="display: flex; flex-grow: 1">
       <app-sidebar-menu></app-sidebar-menu>
     
+    <div class="container" style="flex-grow: 0.9">
+      
 
-    <div class="container" style="flex-grow: 0.9"> 
+      <mat-tab-group>
+        <mat-tab label="Paciente">
+          <div class="content" *ngFor="let patient of patientsList">
+            <h4>Paciente: {{ patient.name }}</h4>
+            <p><Strong>Convênio:</Strong> {{ patient.healthInsurance }}</p>
+            <p><Strong>Contato de emergência:</Strong> {{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
+            <p><Strong>Alergias:</Strong> {{ patient.listOfAllergies }}</p>
+            <p><Strong>Cuidados específicos:</Strong> {{ patient.careList }}</p>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-tab>
 
-      <div class="patient-data">
-        <h3>Paciente: {{ patientName}}</h3>
-        <p>Convênio: {{ patientInsurance }}</p>
-        <p>Contato de emergência: {{ patientEmergCont }} - {{patientEmergContNum}}</p>
-        <p>Alergias: {{ patientAllergies }}</p>
-        <p>Cuidados específicos: {{ patientCare }}</p>
-      </div>
-
-      <div class="patient-appointments">
-        <h4>Motivo da Consulta: {{ appointReason }}</h4>
-        <p>Data da consulta: {{ appointData }}</p>
-        <p>Descrição do problema: {{ appointProb }}</p>
-        <p>Medicação receitada: {{ appointPresc }}</p>
-        <p>Dosagens e precauções: {{ appointdosages }}</p>
-      </div>
-
-      <div class="patient-exams">
-        <h4>Exame: {{ examName}}</h4>
-        <p>Data do exame: {{ examDat }}</p>
-        <p>Tipo de exame: {{ examTyp }}</p>
-        <p>Laboratório: {{ examLab }}</p>
-        <p>Url do documento: {{ examDoc }}</p>
-        <p>Resultados: {{ examResult }}</p>
-      </div>
-    
+        <mat-tab label="Consultas">
+          <div class="content" *ngFor="let appointment of appointmentsList">
+            <h4>Motivo da Consulta: {{ appointment.reason }}</h4>
+            <h5><strong>Data:</strong> {{ appointment.consultDate }} - <strong>Hora:</strong> {{ appointment.consultTime }}</h5>
+            <p><strong>Descrição do problema:</strong> {{ appointment.problemDescrip }}</p>
+            <p><Strong>Medicação receitada:</Strong> {{ appointment.prescMed }}</p>
+            <p><Strong>Dosagens e precauções:</Strong> {{ appointment.dosagesPrec }}</p>
+            <mat-divider></mat-divider>
+          </div>
+        </mat-tab>
+          
+        <mat-tab label="Exames">
+          <div class="content" *ngFor="let exam of examsList">
+            <h4>Exame: {{ exam.exam}}</h4>
+            <h5><Strong>Data:</Strong> {{ exam.examDate }} - <strong>Hora:</strong> {{ exam.examTime }}</h5>
+            <h5><Strong>Laboratório:</Strong> {{ exam.Lab }}</h5>
+            <h5><strong>Url do documento:</strong> {{ exam.docUrl }}</h5>
+            <p><Strong>Tipo de exame:</Strong> {{ exam.examType }}</p>
+            <p><strong>Resultados:</strong> {{ exam.result }}</p>
+            <mat-divider></mat-divider>
+        </div>
+        </mat-tab>
+      </mat-tab-group>    
     </div>
-
-
     </div>
 </div>
