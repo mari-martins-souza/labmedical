@@ -61,4 +61,8 @@ export class MedicalRecordComponent implements OnInit {
     
   }
 
+  editExam(id: string) {
+    this.router.navigate(['/registro-exame', id]);
+  }
+
 }

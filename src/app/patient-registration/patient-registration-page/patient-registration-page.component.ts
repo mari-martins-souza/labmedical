@@ -60,14 +60,6 @@ export class PatientRegistrationPageComponent implements OnInit {
   
   ngOnInit() {
     this.titleService.setTitle('Registro de Pacientes');
-
-    const patientID = this.activatedRoute.snapshot.paramMap.get('id');
-
-    if(patientID) {
-      this.dataService.getData('patients', patientID).subscribe(patient => {
-        this.patRegistration.patchValue(patient);
-      });
-    }
    
     const zipcodeControl = this.patRegistration.get('zipcode');
   if (zipcodeControl) {

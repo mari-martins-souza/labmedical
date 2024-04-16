@@ -16,6 +16,7 @@ import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-exam-register-page',
@@ -30,8 +31,9 @@ export class ExamRegisterPageComponent implements OnInit {
   patients: any[] = [];
   filteredPatients: Observable<any[]> | undefined;
   patientSearchControl = new FormControl();
+  examId: any = '';
 
-  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService) { }
+  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute) { }
 
   examRegister = this.fb.group({
     idPatient: ['',Validators.required],
@@ -48,15 +50,23 @@ export class ExamRegisterPageComponent implements OnInit {
   ngOnInit() {
 
     this.titleService.setTitle('Registro de Exame');
-    
-    const currentDate = new Date();
-    const dateString = currentDate.toISOString().split('T')[0];
-    const timeString = currentDate.getHours() + ':' + currentDate.getMinutes();
   
-    this.examRegister.patchValue({
-      examDate: dateString,
-      examTime: timeString,
-    });   
+    this.examId = this.activatedRoute.snapshot.paramMap.get('id');
+    
+    if (this.examId) {
+      this.dataService.getData('exams/' + this.examId).subscribe(exam => {
+        this.examRegister.patchValue(exam);
+      });
+    } else {
+      const currentDate = new Date();
+      const dateString = currentDate.toISOString().split('T')[0];
+      const timeString = currentDate.getHours() + ':' + currentDate.getMinutes();
+    
+      this.examRegister.patchValue({
+        examDate: dateString,
+        examTime: timeString,
+      });
+    }
     
     this.dataService.getData('patients').subscribe(data => {
       this.patients = data;

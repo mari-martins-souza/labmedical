@@ -10,7 +10,7 @@
       <mat-tab-group>
         <mat-tab label="Paciente">
           <div class="content" *ngFor="let patient of patientsList">
-            <button mat-raised-button id="edit-pat" [routerLink]="['/registro-paciente', patientID]">Editar</button>
+            <!-- <button mat-raised-button id="edit-pat" [routerLink]="['/registro-paciente', patientID]">Editar</button> -->
             <h4>Paciente: {{ patient.name }}</h4>
             <p><Strong>Convênio:</Strong> {{ patient.healthInsurance }}</p>
             <p><Strong>Contato de emergência:</Strong> {{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
@@ -34,7 +34,8 @@
           
         <mat-tab label="Exames">
           <div class="content" *ngFor="let exam of examsList">
-            <h4>Exame: {{ exam.exam}}</h4>
+            <button mat-raised-button id="edit-exam" (click)="editExam(exam.id)">Editar</button> 
+            <h4>Exame: {{ exam.exam }}</h4>
             <h5><Strong>Data:</Strong> {{ exam.examDate }} - <strong>Hora:</strong> {{ exam.examTime }}</h5>
             <h5><Strong>Laboratório:</Strong> {{ exam.Lab }}</h5>
             <h5><strong>Url do documento:</strong> {{ exam.docUrl }}</h5>
