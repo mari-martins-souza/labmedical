@@ -17,12 +17,26 @@ import { HttpClientModule } from '@angular/common/http';
 import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute } from '@angular/router';
+import moment from 'moment';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
 
 @Component({
   selector: 'app-exam-register-page',
   standalone: true,
   imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
-  providers: [DataTransformService, DataService],
+  providers: [DataTransformService, DataService, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
+    parse: {
+        dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
+    },
+    display: {
+        dateInput: 'input',
+        monthYearLabel: {year: 'numeric', month: 'short'},
+        dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+        monthYearA11yLabel: {year: 'numeric', month: 'long'},
+    }
+  }}
+  ],
   templateUrl: './exam-register-page.component.html',
   styleUrl: './exam-register-page.component.scss'
 })
@@ -47,6 +61,12 @@ export class ExamRegisterPageComponent implements OnInit {
     result: ['',[Validators.required, Validators.minLength(16), Validators.maxLength(1024)]],
   })
 
+  setDate(date: Date) {
+    let d = new Date(date);
+    d.setHours(d.getHours() + 24);
+    return d;
+  }
+
   ngOnInit() {
 
     this.titleService.setTitle('Registro de Exame');
@@ -55,13 +75,16 @@ export class ExamRegisterPageComponent implements OnInit {
     
     if (this.examId) {
       this.dataService.getData('exams/' + this.examId).subscribe(exam => {
+        const examDate = moment(exam.examDate, 'MM-DD-YYYY').toDate();
+        exam.examDate = examDate;
         this.examRegister.patchValue(exam);
       });
     } else {
-      const currentDate = new Date();
-      const dateString = currentDate.toISOString().split('T')[0];
-      const timeString = currentDate.getHours() + ':' + currentDate.getMinutes();
-    
+      const currentDate = this.setDate(new Date());
+      
+      const dateString = moment(currentDate).format('YYYY-MM-DD');
+      const timeString = moment(currentDate).format('HH:mm');
+      
       this.examRegister.patchValue({
         examDate: dateString,
         examTime: timeString,

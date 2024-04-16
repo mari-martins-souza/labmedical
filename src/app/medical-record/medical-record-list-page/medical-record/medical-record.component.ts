@@ -9,11 +9,12 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import { DateFormatPipe } from '../../../shared/pipes/date-format.pipe';
 
 @Component({
   selector: 'app-medical-record',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule, RouterLink, MatButton, MatButtonModule],
+  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule, RouterLink, MatButton, MatButtonModule, DateFormatPipe],
   providers: [DataService],
   templateUrl: './medical-record.component.html',
   styleUrl: './medical-record.component.scss'
