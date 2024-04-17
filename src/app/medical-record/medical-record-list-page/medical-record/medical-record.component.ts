@@ -62,6 +62,10 @@ export class MedicalRecordComponent implements OnInit {
     
   }
 
+  editAppointment(id: string) {
+    this.router.navigate(['/registro-consulta', id]);
+  }
+
   editExam(id: string) {
     this.router.navigate(['/registro-exame', id]);
   }

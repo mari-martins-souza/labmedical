@@ -13,17 +13,22 @@
         <div class="title-and-btn">
             <h3>Busque o paciente e preencha os dados da consulta</h3>
             <div class="button-group">
-                <button mat-raised-button id="btn-save" (click)="saveAppointRegister()">Salvar</button>
-                <button mat-raised-button disabled id="btn-edit">Editar</button>
-                <button mat-raised-button disabled id="btn-del">Deletar</button>
+                <button mat-raised-button class="btn-save" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditAppoint()">Salvar</button>
+                <button mat-raised-button class="btn-save" *ngIf="!isEditing" (click)="saveAppointRegister()">Salvar</button>
+
+                <button mat-raised-button class="btn-edit" *ngIf="isEditing" (click)="editAppoint()">Editar</button>
+                <button mat-raised-button disabled class="btn-edit" *ngIf="!isEditing">Editar</button>
+                
+                <button mat-raised-button class="btn-del" *ngIf="isEditing" (click)="deleteAppoint()">Deletar</button>
+                <button mat-raised-button disabled class="btn-del" *ngIf="!isEditing">Deletar</button>
             </div>
         </div>
 
 
         <div class="form-area" [formGroup]="appointRegistration">
             <div>
-
-                <label for="search"></label>
+                <div *ngIf="!isEditing">
+                    <label for="search"></label>
                     <input type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
 
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
@@ -31,6 +36,8 @@
                         {{patient.name}}
                       </mat-option>
                     </mat-autocomplete>
+                </div>
+                
 
                     <br>
                                    

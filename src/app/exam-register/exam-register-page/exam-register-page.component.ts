@@ -16,7 +16,7 @@ import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
@@ -25,7 +25,7 @@ import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
   selector: 'app-exam-register-page',
   standalone: true,
   imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
-  providers: [DataTransformService, DataService, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
+  providers: [DataTransformService, DataService, {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
     parse: {
         dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
     },
@@ -46,8 +46,12 @@ export class ExamRegisterPageComponent implements OnInit {
   filteredPatients: Observable<any[]> | undefined;
   patientSearchControl = new FormControl();
   examId: any = '';
+  isEditing: boolean = false;
+  saveDisabled: boolean = false;
 
-  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute) { }
+  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) { 
+    this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id');
+  }
 
   examRegister = this.fb.group({
     idPatient: ['',Validators.required],
@@ -75,7 +79,7 @@ export class ExamRegisterPageComponent implements OnInit {
     
     if (this.examId) {
       this.dataService.getData('exams/' + this.examId).subscribe(exam => {
-        const examDate = moment(exam.examDate, 'MM-DD-YYYY').toDate();
+        const examDate = moment(exam.examDate, 'DD-MM-YYYY').toDate();
         exam.examDate = examDate;
         this.examRegister.patchValue(exam);
       });
@@ -146,15 +150,61 @@ export class ExamRegisterPageComponent implements OnInit {
               examDate: examDateControl.value,
               examTime: examTimeControl.value
           });
-  }
-    });
-  } else {
-    window.alert('Preencha todos os campos obrigatórios corretamente.')
-
+          }
+          });
+          } else {
+            window.alert('Preencha todos os campos obrigatórios corretamente.')
     }
   }  
+
+  saveEditExam() {
+    if (this.examRegister.valid) {
+      const exam = {
+        id: this.examId,
+        idPatient: this.examRegister.value.idPatient,
+        name: this.examRegister.value.name,
+        exam: this.examRegister.value.exam,
+        examDate: moment(this.examRegister.value.examDate).format('DD-MM-YYYY'),
+        examTime: this.examRegister.value.examTime,
+        examType: this.examRegister.value.examType,
+        lab: this.examRegister.value.lab,
+        docUrl: this.examRegister.value.docUrl,
+        result: this.examRegister.value.result,
+      }
+  
+      this.dataService.editData('exams', this.examId, exam).subscribe(() => {
+        this.showMessage = true;
+        this.examRegister.disable();
+        this.saveDisabled = true;
+  
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 1000);
+  
+      });
+    } else {
+      window.alert('Preencha todos os campos obrigatórios corretamente.');
+    }
+  }
+
+  editExam(){
+    this.examRegister.enable();
+    this.saveDisabled = false;
+  }
+
+  deleteExam(){
+    this.dataService.deleteData('exams', this.examId).subscribe(() => {
+      window.alert('O registro foi excluído');
+      this.router.navigate(['/lista-prontuarios']);
+    });
+  }
   
 }
+  
+  
+  
 
+  
+  
 
 

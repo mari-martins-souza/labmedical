@@ -4,7 +4,7 @@
       "id": "8f94",
       "name": "Lucas Silva",
       "gender": "Não informar",
-      "birthdate": "15-03-1990",
+      "birthdate": "03-05-1990",
       "cpf": "456.452.566-56",
       "rg": 48545655,
       "issOrg": "ssp sc",
@@ -32,7 +32,7 @@
       "id": "eb90",
       "name": "Gabriel Costa",
       "gender": "Masculino",
-      "birthdate": "22-07-1985",
+      "birthdate": "21-07-1985",
       "cpf": "659.874.411-21",
       "rg": 55865363,
       "issOrg": "sspsc",
@@ -88,7 +88,7 @@
       "id": "6f79",
       "name": "Bruno Lima",
       "gender": "Masculino",
-      "birthdate": "04-28-1974",
+      "birthdate": "04-09-1974",
       "cpf": "305.428.685-55",
       "rg": 587452,
       "issOrg": "ssp sc",
@@ -158,7 +158,7 @@
       "careList": null,
       "healthInsurance": "Particular",
       "healthInsuranceNumber": null,
-      "healthInsuranceVal": "31-12-1969",
+      "healthInsuranceVal": "31-12-2026",
       "zipcode": "88040310",
       "street": "Rua Aracuã",
       "addressNumber": null,
@@ -186,7 +186,7 @@
       "careList": "baixa visão",
       "healthInsurance": "Care Plus",
       "healthInsuranceNumber": 565323464565,
-      "healthInsuranceVal": "13-06-2024",
+      "healthInsuranceVal": "11-06-2024",
       "zipcode": "88032090",
       "street": "Servidão Águas Claras",
       "addressNumber": 22,
@@ -198,17 +198,6 @@
     }
   ],
   "appointments": [
-    {
-      "id": "9999",
-      "idPatient": "8f94",
-      "name": "Lucas Silva",
-      "reason": "Dor de cabeça persistente",
-      "consultDate": "02-04-2024",
-      "consultTime": "8:30 AM",
-      "problemDescrip": "Lucas tem experimentado dores de cabeça frequentes e intensas nos últimos dois meses. As dores geralmente ocorrem no final do dia e são acompanhadas por sensibilidade à luz e ao som.",
-      "prescMed": "Paracetamol",
-      "dosagesPrec": "Tomar 500 mg a cada 6 horas conforme necessário para a dor. Não exceder 3000 mg em um período de 24 horas. Evitar o consumo de álcool enquanto estiver tomando este medicamento."
-    },
     {
       "id": "9998",
       "idPatient": "eb90",
@@ -239,7 +228,7 @@
       "consultDate": "11-04-2024",
       "consultTime": "6:00 PM",
       "problemDescrip": "Bruno tem experimentado episódios de pressão alta nos últimos cinco meses. Ele tem notado dores de cabeça, tonturas e um sentimento de cansaço geral.",
-      "prescMed": "Losartana",
+      "prescMed": "Losartana teste",
       "dosagesPrec": "Tomar 50 mg uma vez ao dia. Monitorar a pressão arterial regularmente. Evitar o consumo excessivo de sal e álcool enquanto estiver tomando este medicamento."
     },
     {
@@ -288,30 +277,6 @@
     }
   ],
   "exams": [
-    {
-      "id": "9993",
-      "idPatient": "8f94",
-      "name": "Lucas Silva",
-      "exam": "Ressonância magnética do cérebro",
-      "examDate": "13-04-2024",
-      "examTime": "8:30 AM",
-      "examType": "Imagem",
-      "lab": "Laboratório Central",
-      "docUrl": "",
-      "result": "Nenhuma anormalidade detectada"
-    },
-    {
-      "id": "9992",
-      "idPatient": "eb90",
-      "name": "Gabriel Costa",
-      "exam": "Raio-X da coluna lombar",
-      "examDate": "13-04-2024",
-      "examTime": "8:30 AM",
-      "examType": "Imagem",
-      "lab": "Laboratório Central",
-      "docUrl": null,
-      "result": "Desgaste leve dos discos intervertebrais"
-    },
     {
       "id": "9991",
       "idPatient": "5d4a",
@@ -373,23 +338,11 @@
       "result": "Níveis normais de marcadores inflamatórios"
     },
     {
-      "id": "9986",
-      "idPatient": "eb90",
-      "name": "Gabriel Costa",
-      "exam": "Ressonância Magnética",
-      "examDate": "14-04-2024",
-      "examTime": "3:30 PM",
-      "examType": "Imagem",
-      "lab": "DMI - lab",
-      "docUrl": "",
-      "result": "Identificado hérnia de disco"
-    },
-    {
       "id": "293e",
       "idPatient": "5d4a",
       "name": "Rafael Santos",
       "exam": "Eletrocardiograma",
-      "examDate": "17-04-2024",
+      "examDate": "16-04-2024",
       "examTime": "12:30 PM",
       "examType": "Cardiológico",
       "lab": "Laboratório Central da Cidade",
@@ -397,16 +350,16 @@
       "result": "Anormalidades detectadas, sugerindo possível angina"
     },
     {
-      "id": "8615",
-      "idPatient": "4820",
-      "name": "Camila Barbosa",
-      "exam": "Ultrassonografia abdominal",
-      "examDate": "17-04-2024",
-      "examTime": "1:15 PM",
-      "examType": "Radiológico",
-      "lab": "Laboratório Unimed",
+      "id": "4afb",
+      "idPatient": "6f79",
+      "name": "Bruno Lima",
+      "exam": "Teste de alergia",
+      "examDate": "16-04-2024",
+      "examTime": "22:15",
+      "examType": "dermatológico",
+      "lab": "Vita",
       "docUrl": "",
-      "result": "Detectado cisto ovariano no ovário direito"
+      "result": "nenhum alergia encontrada"
     }
   ]
 }

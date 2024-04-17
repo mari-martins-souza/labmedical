@@ -1,5 +1,7 @@
 import { NativeDateAdapter } from '@angular/material/core';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class CustomDateAdapter extends NativeDateAdapter {
   override format(date: Date, displayFormat: Object): string {
     let day = date.getDate();
@@ -13,3 +15,4 @@ export class CustomDateAdapter extends NativeDateAdapter {
     return ('00' + n).slice(-2);
   } 
 }
+
