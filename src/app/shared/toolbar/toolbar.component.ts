@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { SidebarToogleService } from '../sidebar-toogle.service';
+import { SidebarToogleService } from '../services/sidebar-toogle.service';
 import { Title } from '@angular/platform-browser';
 
 @Component({

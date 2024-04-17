@@ -15,6 +15,7 @@ import { AddressService } from '../address.service';
 import { DataService } from '../../shared/services/data.service';
 import { DataTransformService } from '../../shared/services/data-transform.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-patient-registration-page',
@@ -27,7 +28,7 @@ import { CommonModule } from '@angular/common';
 export class PatientRegistrationPageComponent implements OnInit {
   showMessage = false;
   
-  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder) { }
+  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute) { }
 
   patRegistration = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
@@ -44,7 +45,7 @@ export class PatientRegistrationPageComponent implements OnInit {
     emergContNumber: ['', Validators.required],
     listOfAllergies: [''],
     careList: [''],
-    healthInsurance: [''],
+    healthInsurance: ['',Validators.required],
     healthInsuranceNumber: [''],
     healthInsuranceVal: [''],
     zipcode: ['', Validators.required],
@@ -115,11 +116,12 @@ export class PatientRegistrationPageComponent implements OnInit {
         this.dataService.saveData('patients', patient).subscribe(() => {
           this.showMessage = true;
 
+          this.patRegistration.reset();
+
           setTimeout(() => {
             this.showMessage = false;
           }, 1000);
-
-      this.patRegistration.reset();
+      
     });
   } else {
     window.alert('Preencha todos os campos obrigatórios corretamente.')

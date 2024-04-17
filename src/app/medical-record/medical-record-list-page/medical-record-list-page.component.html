@@ -1,0 +1,47 @@
+<div style="display: flex; flex-direction: column; height: 100vh;">
+    <app-toolbar></app-toolbar>
+
+
+    <div style="display: flex; flex-grow: 1">
+      <app-sidebar-menu></app-sidebar-menu>
+    
+    
+    
+    <div class="container-list" style="flex-grow: 0.9"> 
+
+        <div clas="search-area">
+            <label for="search"></label>
+            <input type="text" id="search" name="search" [(ngModel)]="searchTerm" placeholder="Digite o nome do paciente" matInput>
+            <button mat-raised-button id="btn-search" (click)="search()">Buscar</button>
+        </div>
+
+        <mat-card class="header-list">
+            <mat-card-content class="card-content" id="header-id">
+                <h4 id="pat-id">Registro</h4>
+            </mat-card-content>
+            <mat-card-content class="card-content" id="header-name">
+                <h4 id="pat-name">Nome do paciente</h4>
+            </mat-card-content>
+            <mat-card-content class="card-content" id="header-ins">
+                <h4 id="pat-ins">Convênio</h4>
+            </mat-card-content>
+        </mat-card> 
+
+      <mat-card *ngFor="let patient of filteredPatientsList" class="patient-card">
+            <mat-card-content class="card-content" id="id">
+                <img src="../../../assets/images/open.png" width="25px" (click)="medicalRecords(patient.id)">
+                <p>{{ patient.id }}</p>
+            </mat-card-content>
+            <mat-card-content class="card-content" id="name">
+                <p>{{ patient.name }}</p>
+            </mat-card-content>
+            <mat-card-content class="card-content" id="insurance">
+                <p>{{ patient.healthInsurance }}</p>
+            </mat-card-content>     
+      </mat-card>
+    </div>
+    </div>
+</div>
+
+<router-outlet></router-outlet>
+

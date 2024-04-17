@@ -16,12 +16,27 @@ import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { ActivatedRoute, Router } from '@angular/router';
+import moment from 'moment';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
 
 @Component({
   selector: 'app-exam-register-page',
   standalone: true,
   imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
-  providers: [DataTransformService, DataService],
+  providers: [DataTransformService, DataService, {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
+    parse: {
+        dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
+    },
+    display: {
+        dateInput: 'input',
+        monthYearLabel: {year: 'numeric', month: 'short'},
+        dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+        monthYearA11yLabel: {year: 'numeric', month: 'long'},
+    }
+  }}
+  ],
   templateUrl: './exam-register-page.component.html',
   styleUrl: './exam-register-page.component.scss'
 })
@@ -30,12 +45,17 @@ export class ExamRegisterPageComponent implements OnInit {
   patients: any[] = [];
   filteredPatients: Observable<any[]> | undefined;
   patientSearchControl = new FormControl();
+  examId: any = '';
+  isEditing: boolean = false;
+  saveDisabled: boolean = false;
 
-  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService) { }
+  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) { 
+    this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id');
+  }
 
   examRegister = this.fb.group({
-    id: [''],
-    name: [''],
+    idPatient: ['',Validators.required],
+    name: ['',Validators.required],
     exam: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
     examDate: ['',Validators.required],
     examTime: ['',Validators.required],
@@ -45,18 +65,35 @@ export class ExamRegisterPageComponent implements OnInit {
     result: ['',[Validators.required, Validators.minLength(16), Validators.maxLength(1024)]],
   })
 
+  setDate(date: Date) {
+    let d = new Date(date);
+    d.setHours(d.getHours() + 24);
+    return d;
+  }
+
   ngOnInit() {
 
     this.titleService.setTitle('Registro de Exame');
-    
-    const currentDate = new Date();
-    const dateString = currentDate.toISOString().split('T')[0];
-    const timeString = currentDate.getHours() + ':' + currentDate.getMinutes();
   
-    this.examRegister.patchValue({
-      examDate: dateString,
-      examTime: timeString,
-    });   
+    this.examId = this.activatedRoute.snapshot.paramMap.get('id');
+    
+    if (this.examId) {
+      this.dataService.getData('exams/' + this.examId).subscribe(exam => {
+        const examDate = moment(exam.examDate, 'DD-MM-YYYY').toDate();
+        exam.examDate = examDate;
+        this.examRegister.patchValue(exam);
+      });
+    } else {
+      const currentDate = this.setDate(new Date());
+      
+      const dateString = moment(currentDate).format('YYYY-MM-DD');
+      const timeString = moment(currentDate).format('HH:mm');
+      
+      this.examRegister.patchValue({
+        examDate: dateString,
+        examTime: timeString,
+      });
+    }
     
     this.dataService.getData('patients').subscribe(data => {
       this.patients = data;
@@ -77,7 +114,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   setPatientData(patient: { id: any; name: any; }) {
     this.examRegister.patchValue({
-      id: patient.id,
+      idPatient: patient.id,
       name: patient.name
     });
     this.patientSearchControl.setValue('');
@@ -87,7 +124,7 @@ export class ExamRegisterPageComponent implements OnInit {
     if (this.examRegister.valid) {
         
         const exam = {
-          id: this.examRegister.value.id,
+          idPatient: this.examRegister.value.idPatient,
           name: this.examRegister.value.name,
           exam: this.examRegister.value.exam,
           examDate: this.dataTransformService.formatDate(this.examRegister.value.examDate),
@@ -113,15 +150,61 @@ export class ExamRegisterPageComponent implements OnInit {
               examDate: examDateControl.value,
               examTime: examTimeControl.value
           });
-  }
-    });
-  } else {
-    window.alert('Preencha todos os campos obrigatórios corretamente.')
-
+          }
+          });
+          } else {
+            window.alert('Preencha todos os campos obrigatórios corretamente.')
     }
   }  
+
+  saveEditExam() {
+    if (this.examRegister.valid) {
+      const exam = {
+        id: this.examId,
+        idPatient: this.examRegister.value.idPatient,
+        name: this.examRegister.value.name,
+        exam: this.examRegister.value.exam,
+        examDate: moment(this.examRegister.value.examDate).format('DD-MM-YYYY'),
+        examTime: this.examRegister.value.examTime,
+        examType: this.examRegister.value.examType,
+        lab: this.examRegister.value.lab,
+        docUrl: this.examRegister.value.docUrl,
+        result: this.examRegister.value.result,
+      }
+  
+      this.dataService.editData('exams', this.examId, exam).subscribe(() => {
+        this.showMessage = true;
+        this.examRegister.disable();
+        this.saveDisabled = true;
+  
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 1000);
+  
+      });
+    } else {
+      window.alert('Preencha todos os campos obrigatórios corretamente.');
+    }
+  }
+
+  editExam(){
+    this.examRegister.enable();
+    this.saveDisabled = false;
+  }
+
+  deleteExam(){
+    this.dataService.deleteData('exams', this.examId).subscribe(() => {
+      window.alert('O registro foi excluído');
+      this.router.navigate(['/lista-prontuarios']);
+    });
+  }
   
 }
+  
+  
+  
 
+  
+  
 
 
