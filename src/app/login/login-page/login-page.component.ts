@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { LoginService } from '../login.service';
@@ -32,6 +32,8 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('LABMedical - Login');
 
+    document.body.classList.add('login-page');
+
       const savedUsers = localStorage.getItem('savedUsers');
     if(savedUsers) {
       this.users = JSON.parse(savedUsers);
@@ -39,6 +41,10 @@ export class LoginPageComponent implements OnInit {
       localStorage.setItem('savedUsers',JSON.stringify(this.users));
     }
   }  
+
+  ngOnDestroy() {
+    document.body.classList.remove('login-page');
+  }
 
   register() {
     if(this.registerForm.value.password !== this.registerForm.value.confirm) {

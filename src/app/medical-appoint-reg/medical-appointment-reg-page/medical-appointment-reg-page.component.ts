@@ -126,7 +126,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
           idPatient: this.appointRegistration.value.idPatient,
           name: this.appointRegistration.value.name,
           reason: this.appointRegistration.value.reason,
-          consultDate: this.appointRegistration.value.consultDate,
+          consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),
           consultTime: this.appointRegistration.value.consultTime,
           problemDescrip: this.appointRegistration.value.problemDescrip,
           prescMed: this.appointRegistration.value.prescMed,

@@ -1,3 +1,5 @@
+@import '../../../assets/styles/variables';
+
 .container-list {
     display: flex;
     flex-direction: column;
@@ -10,15 +12,18 @@
     justify-content: space-between;
     border: none;
     box-shadow: none;
+    color: $colorFontTitle;
   }
 
   .patient-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 1px;
     align-items: center;
     border-radius: 0px;
+    color: #000000ce;
+    background-color: #F5F5F5;
   }
 
   .card-content {
@@ -53,19 +58,37 @@ img:hover {
 }
 
 #search {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  width: 40%;
+  width: 25vw;
   height: 40px;
   padding-left: 15px;
+  padding-right: 15px;
   font-size: 1.3;
-  border-radius: 0px;
-  border: 1px solid rgb(85, 85, 85);
+  border-radius: 25px;
+  border: none;
+  background-color: $colorButtonDisabled;
+  outline: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.527), 0 0 0 1px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.search-area {
+  margin-top: 55px;
+  margin-bottom: 45px;
+  display: flex;
+  justify-content: center;
+}
+
+#search::placeholder{
+  color: $colorButtonFont;
 }
 
 #btn-search {
-  margin-left: 15px;
+  background-color: $colorButton;
+  color: $colorButtonFont;
+  border-radius: 25px;
   height: 40px;
+  width: 100px;
+  margin-left: 10px;
 }
 
 

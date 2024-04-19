@@ -1,62 +1,101 @@
+@import '../../../assets/styles/variables';
+
+.form-container {
+  margin-top: 65px;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  margin-top: 35px;
+  margin-bottom: -50px;
+  justify-content: space-between;
+  margin-right: 20px;
+}
+
+h3 {
+  margin-left: 5%;
+  font-size: 1.4rem;
+  color: $colorFontTitle;
+}
+
+.form-area {
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+}
+
+#search-and-btn {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#search {
+  width: 25vw;
+  height: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 1.3;
+  border-radius: 25px;
+  border: none;
+  background-color: $colorButtonDisabled;
+  outline: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.527), 0 0 0 1px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+#search::placeholder{
+  color: $colorButtonFont;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+#btn-save, #btn-edit, #btn-del {
+  background-color: $colorButton;
+  color: $colorButtonFont;
+  border-radius: 25px;
+  height: 40px;
+  width: 85px;
+}
+
+#btn-save-d, #btn-edit-d, #btn-del-d {
+  background-color: $colorButtonDisabled;
+  color: $colorButtonFont;
+  border-radius: 25px;
+  height: 40px;
+  width: 85px;
+}
+
+.form-field {
+  margin-top: 0px;
+  margin-bottom: -21px;
+}
+
 mat-label {
     color: #00000099;
 }
 
-.form-area {
-    display: flex;
-    flex-direction: column;
-    margin: 5%;
-}
-
-.form-field {
-    margin-top: 0px;
-    margin-bottom: -21px;
-}
-
 #reason-form-field, #problem-descrip-form-field, #presc-med-form-field, #dosages-prec-form-field {
-    width: 64%;
+    width: 100%;
 }
 
 #id-form-field {
-  width: 20%;
+  width: 30%;
 }
 
 #name-form-field {
-  width: 44%;
+  width: 70%;
 }
 
 #consult-date-form-field, #consult-time-form-field {
-  width: 32%;
-}
-
-h4 {
-    margin-top: 25px;
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-}
-
-h3 {
-    margin-left: 5%;
-    font-size: 1.6rem;
-    margin-bottom: -30px;
-}
-
-.title-and-btn {
-    display: flex;
-    flex-direction: row;
-    margin-top: 35px;
-    margin-bottom: -25px;
-    justify-content: space-between;
-}
-
-.title-and-btn h3 {
-    margin-right: 20px;
-}
-
-.button-group {
-    display: flex;
-    gap: 10px;
-    margin-right: 5%;
+  width: 50%;
 }
 
 @keyframes checkmark {
@@ -89,14 +128,5 @@ h3 {
     z-index: 9999; 
   }
 
-  #search {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    width: 32%;
-    height: 40px;
-    padding-left: 15px;
-    font-size: 1.3;
-    border-radius: 0px;
-    border: 1px solid rgb(85, 85, 85);
-  }
+
 

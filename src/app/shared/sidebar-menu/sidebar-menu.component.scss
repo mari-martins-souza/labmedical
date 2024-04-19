@@ -1,19 +1,25 @@
+@import '../../../assets/styles/variables';
+
 .sidenav-container {
-    height: 100vh;
-    overflow: hidden;
-  }
+  height: 100vh;
+  // overflow: hidden;
+}
   
-  .sidenav {
-    height: 100%; 
-    overflow-y: auto;
-  }
+.sidenav {
+  overflow-y: auto;
+  background-color: $colorSideToolbar;
+  border-top-right-radius: 130px;
+  height: 100%;
+  position: fixed;
+  overflow: auto;
+  padding-top: 65px;
+}
   
 #logo-sidebar {
     display: block;
     margin: auto;
     width: 100px;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .group-menu {
@@ -26,17 +32,26 @@ h2 {
     font-size: 1rem;
     margin-bottom: 5px;
     margin-left: 5px;
+    color: $colorTitleMenu;
 }
 
 button {
-    background-color: #b0d88f;
+    background-color: $colorButtonSidebar;
     border: none;
-    margin: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     width: 225px;
     height: 36px;
     display: flex;
     justify-content: flex-start;
-    margin-left: 5px;
+    color: $colorFontTitle;
+    padding-top: 2px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+button:hover {
+  background-color: $colorButton;
 }
 
 
@@ -45,6 +60,7 @@ button {
     display: flex;
     justify-content: flex-start;
     margin-top: 5px;
+    color: $colorSidebarIcon;
     
   }
   
@@ -63,5 +79,6 @@ button {
   }
 
  .mat-drawer {
-  background-color: white;
+  background-color: $colorSideToolbar;
+  height: 100vh;
  }

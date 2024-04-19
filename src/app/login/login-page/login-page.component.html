@@ -1,6 +1,12 @@
-<div class="container">
-    <h2>Login</h2>
+
+<div class="login-logo"> 
+  <div class="container">
+
+
+  <img id="logo" src="../../../assets/images/logo-labmedical.png">
+
     <form (submit)="loginButtonClick()">
+      <h2>Bem-vindo(a) de volta!</h2>
         <div class="form-floating mb-3">
             <input type="email" class="form-control" id="floatingInput" [(ngModel)]="email" name="email">
             <label for="floatingInput">Email</label>
@@ -17,7 +23,10 @@
                 <button id="btn-signup" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Criar conta</button>
             </div>
     </form>
-</div>  
+  </div>
+  </div>
+  
+
  
   <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog">
@@ -70,5 +79,6 @@
       </div>
     </div>
   </div>
-    
+
+  
   

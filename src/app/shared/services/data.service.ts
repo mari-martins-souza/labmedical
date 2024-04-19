@@ -31,5 +31,12 @@ export class DataService {
   deleteData(collection: string, id: number) {
     return this.http.delete(`http://localhost:3000/${collection}/${id}`);
   }
+
+  countData(collection: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/${collection}`).pipe(
+      map((data: any) => data.length)
+    );
+}
+
   
 }
