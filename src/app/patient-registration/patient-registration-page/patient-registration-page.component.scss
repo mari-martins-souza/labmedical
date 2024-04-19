@@ -1,5 +1,27 @@
+@import '../../../assets/styles/variables';
+
+.form-container {
+  margin-top: 65px;
+}
+
 mat-label {
     color: #00000099;
+}
+
+#btn-save {
+  background-color: $colorButton;
+  color: $colorButtonFont;
+  border-radius: 25px;
+  height: 40px;
+  width: 85px;
+}
+
+#btn-del-d, #btn-edit-d {
+  background-color: $colorButtonDisabled;
+  color: $colorButtonDisFont;
+  border-radius: 25px;
+  height: 40px;
+  width: 85px;
 }
 
 .form-area {
@@ -34,12 +56,16 @@ h4 {
     margin-top: 25px;
     margin-bottom: 3px;
     font-size: 1.4rem;
+    color: $colorFontTitle;
 }
 
 h3 {
     margin-left: 5%;
-    font-size: 1.6rem;
-    margin-bottom: -30px;
+    font-size: 1.4rem;
+    color: $colorFontTitle;
+    margin: auto;
+    margin-left: 5%;
+    
 }
 
 .title-and-btn {
@@ -48,10 +74,6 @@ h3 {
     margin-top: 35px;
     margin-bottom: -25px;
     justify-content: space-between;
-}
-
-.title-and-btn h3 {
-    margin-right: 20px;
 }
 
 .button-group {
