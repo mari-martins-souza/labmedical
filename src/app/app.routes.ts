@@ -8,6 +8,7 @@ import { ExamRegisterPageComponent } from './exam-register/exam-register-page/ex
 export const routes: Routes = [
     { path: '', component: LoginPageComponent },
     { path: 'home', component: HomePageComponent },
+    { path: 'registro-paciente/:id', component: PatientRegistrationPageComponent },
     { path: 'registro-paciente', component: PatientRegistrationPageComponent },
     { path: 'registro-consulta/:id', component: MedicalAppointmentRegPageComponent },
     { path: 'registro-consulta', component: MedicalAppointmentRegPageComponent },

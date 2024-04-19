@@ -1,34 +1,6 @@
 {
   "patients": [
     {
-      "id": "8f94",
-      "name": "Lucas Silva",
-      "gender": "Não informar",
-      "birthdate": "03-05-1990",
-      "cpf": "456.452.566-56",
-      "rg": 48545655,
-      "issOrg": "ssp sc",
-      "maritalStatus": "Solteiro(a)",
-      "phone": "(48) 9 9325-5662",
-      "email": "lucassilva@gmail.com",
-      "placeOfBirth": "Blumenau",
-      "emergCont": "Beatriz",
-      "emergContNumber": "(48) 9 9365-2663",
-      "listOfAllergies": "alergia a amendoim",
-      "careList": "",
-      "healthInsurance": "Amil",
-      "healthInsuranceNumber": 5746325265656,
-      "healthInsuranceVal": "05-06-2029",
-      "zipcode": "88047122",
-      "street": "Rua Agenor de Morais Filho",
-      "addressNumber": 52,
-      "complement": "",
-      "referencePoint": "",
-      "neighborhood": "Costeira do Pirajubaé",
-      "city": "Florianópolis",
-      "state": "SC"
-    },
-    {
       "id": "eb90",
       "name": "Gabriel Costa",
       "gender": "Masculino",
@@ -85,34 +57,6 @@
       "state": "SC"
     },
     {
-      "id": "6f79",
-      "name": "Bruno Lima",
-      "gender": "Masculino",
-      "birthdate": "04-09-1974",
-      "cpf": "305.428.685-55",
-      "rg": 587452,
-      "issOrg": "ssp sc",
-      "maritalStatus": "Viúvo(a)",
-      "phone": "(48) 9 8888-5222",
-      "email": "brunolima@gmail.com",
-      "placeOfBirth": "Palhoça",
-      "emergCont": "Maria",
-      "emergContNumber": "(48) 9 9333-5245",
-      "listOfAllergies": "",
-      "careList": "",
-      "healthInsurance": "Unimed",
-      "healthInsuranceNumber": "5686536523",
-      "healthInsuranceVal": "04-08-2028",
-      "zipcode": "88113820",
-      "street": "Rua Ari Barroso",
-      "addressNumber": 500,
-      "complement": "apto 303",
-      "referencePoint": "",
-      "neighborhood": "Areias",
-      "city": "São José",
-      "state": "SC"
-    },
-    {
       "id": "4820",
       "name": "Camila Barbosa",
       "gender": "Feminino",
@@ -143,7 +87,7 @@
     {
       "id": "e59b",
       "name": "Daniela Cardoso",
-      "gender": "Não informar",
+      "gender": "Feminino",
       "birthdate": "11-11-2004",
       "cpf": "054.211.233-36",
       "rg": 55445666,
@@ -226,17 +170,6 @@
     }
   ],
   "appointments": [
-    {
-      "id": "9998",
-      "idPatient": "eb90",
-      "name": "Gabriel Costa",
-      "reason": "Dor nas costas",
-      "consultDate": "08-04-2024",
-      "consultTime": "4:30 PM",
-      "problemDescrip": "Gabriel tem experimentado dores nas costas constantes e intensas nos últimos três meses. As dores são especialmente fortes após longos períodos sentado ou em pé.",
-      "prescMed": "Ibuprofeno",
-      "dosagesPrec": "Tomar 200 mg a cada 4 a 6 horas conforme necessário para a dor. Não exceder 1200 mg em um período de 24 horas. Evitar o consumo de álcool enquanto estiver tomando este medicamento."
-    },
     {
       "id": "9997",
       "idPatient": "5d4a",
@@ -324,17 +257,6 @@
       "problemDescrip": "ddddddddddddddddddddddddd",
       "prescMed": "",
       "dosagesPrec": "ddddddddddddddddddddddddddddddddddddddddd"
-    },
-    {
-      "id": "54e3",
-      "idPatient": "5d4a",
-      "name": "Rafael Santos",
-      "reason": "testestestestesteste",
-      "consultDate": "19-04-2024",
-      "consultTime": "21:06",
-      "problemDescrip": "testestestestesteste",
-      "prescMed": "testestestestesteste",
-      "dosagesPrec": "testestestestesteste"
     },
     {
       "id": "6a36",
@@ -457,18 +379,6 @@
       "result": "ssssssssssssssssssssssssssssssssssssssssssssssss"
     },
     {
-      "id": "dce6",
-      "idPatient": "8f94",
-      "name": "Lucas Silva",
-      "exam": "testestestestesteLUCAS",
-      "examDate": "18-04-2024",
-      "examTime": "21:12",
-      "examType": "testestestestesteLUCAS",
-      "lab": "testestestestesteLUCAS",
-      "docUrl": "",
-      "result": "testestestestesteLUCAS"
-    },
-    {
       "id": "b502",
       "idPatient": "eb90",
       "name": "Gabriel Costa",
@@ -479,6 +389,18 @@
       "lab": "testestestestestegabriel",
       "docUrl": "",
       "result": "testestestestestegabriel"
+    },
+    {
+      "id": "79fd",
+      "idPatient": "4820",
+      "name": "Camila Barbosa",
+      "exam": "gsdgsdgsdgasdfgsdgsdgsdgsdgsdg",
+      "examDate": "19-04-2024",
+      "examTime": "18:23",
+      "examType": "gsdgsdgsdgasdfgsdgsdgsdgsdgsdg",
+      "lab": "gsdgsdgsdgasdfgsdgsdgsdgsdgsdg",
+      "docUrl": "",
+      "result": "gsdgsdgsdgasdfgsdgsdgsdgsdgsdg"
     }
   ]
 }
