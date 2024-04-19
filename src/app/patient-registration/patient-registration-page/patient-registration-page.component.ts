@@ -8,27 +8,49 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule, MatButton } from '@angular/material/button';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { AddressService } from '../address.service';
 import { DataService } from '../../shared/services/data.service';
 import { DataTransformService } from '../../shared/services/data-transform.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
+import moment from 'moment';
+import { Observable, map, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-patient-registration-page',
   standalone: true,
   imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule],
-  providers: [provideNgxMask(), AddressService, DataService, DataTransformService],
+  providers: [provideNgxMask(), AddressService, DataService, DataTransformService, {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
+    parse: {
+        dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
+    },
+    display: {
+        dateInput: 'input',
+        monthYearLabel: {year: 'numeric', month: 'short'},
+        dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+        monthYearA11yLabel: {year: 'numeric', month: 'long'},
+    }
+  }}],
   templateUrl: './patient-registration-page.component.html',
   styleUrl: './patient-registration-page.component.scss'
 })
 export class PatientRegistrationPageComponent implements OnInit {
   showMessage = false;
+  patientId: any = '';
+  patients: any[] = [];
+  filteredPatients: Observable<any[]> | undefined;
+  patientSearchControl = new FormControl();
+  saveDisabled: boolean = false;
+  isEditing: boolean = false;
   
-  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute) { }
+  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id');
+
+  }
 
   patRegistration = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
@@ -57,6 +79,12 @@ export class PatientRegistrationPageComponent implements OnInit {
     city: [''],
     state: [''],
   })
+
+  setDate(date: Date) {
+    let d = new Date(date);
+    d.setHours(d.getHours() + 24);
+    return d;
+  }
   
   ngOnInit() {
     this.titleService.setTitle('Registro de Pacientes');
@@ -69,6 +97,33 @@ export class PatientRegistrationPageComponent implements OnInit {
       }
     });
   }
+
+  this.patientId = this.activatedRoute.snapshot.paramMap.get('id');
+    
+    if (this.patientId) {
+      this.dataService.getData('patients/' + this.patientId).subscribe(patient => {
+        const birthdate = moment(patient.birthdate, 'DD-MM-YYYY').toDate();
+        const healthInsuranceVal =moment(patient.healthInsuranceVal, 'DD-MM-YYYY').toDate();
+        patient.birthdate = birthdate;
+        patient.healthInsuranceVal = healthInsuranceVal;
+        this.patRegistration.patchValue(patient);
+      });
+    } 
+    
+    this.dataService.getData('patients').subscribe(data => {
+      this.patients = data;
+      this.filteredPatients = this.patientSearchControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.name),
+          map(name => name ? this._filter(name) : this.patients.slice())
+        );
+    });
+}
+
+private _filter(name: string): any[] {
+  const filterValue = name.toLowerCase();
+  return this.patients.filter(patient => patient.name.toLowerCase().includes(filterValue));
 }
 
   searchZipcode(zipcode: string) {
@@ -80,6 +135,13 @@ export class PatientRegistrationPageComponent implements OnInit {
         state: data.uf,
       });
     });
+  }
+
+  setPatientData(patient: { id: any; name: any; }) {
+    this.patRegistration.patchValue({
+      name: patient.name
+    });
+    this.patientSearchControl.setValue('');
   }
 
   savePatRegister() {
@@ -128,4 +190,73 @@ export class PatientRegistrationPageComponent implements OnInit {
   }
 }
 
+saveEditPat() {
+  if (this.patRegistration.valid) {
+        const patient = {
+          name: this.patRegistration.value.name,
+          gender: this.patRegistration.value.gender,
+          birthdate: this.patRegistration.value.birthdate,
+          cpf: this.dataTransformService.formatCpf(this.patRegistration.value.cpf),
+          rg: this.patRegistration.value.rg,
+          issOrg: this.patRegistration.value.issOrg,
+          maritalStatus: this.patRegistration.value.maritalStatus,
+          phone: this.dataTransformService.formatPhone(this.patRegistration.value.phone),
+          email: this.patRegistration.value.email,
+          placeOfBirth: this.patRegistration.value.placeOfBirth,
+          emergCont: this.patRegistration.value.emergCont,
+          emergContNumber: this.dataTransformService.formatPhone(this.patRegistration.value.emergContNumber),
+          listOfAllergies: this.patRegistration.value.listOfAllergies,
+          careList: this.patRegistration.value.careList,
+          healthInsurance: this.patRegistration.value.healthInsurance,
+          healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
+          healthInsuranceVal: this.patRegistration.value.healthInsuranceVal,
+          zipcode: this.patRegistration.value.zipcode,
+          street: this.patRegistration.value.street,
+          addressNumber: this.patRegistration.value.addressNumber,
+          complement: this.patRegistration.value.complement,
+          referencePoint: this.patRegistration.value.referencePoint,
+          neighborhood: this.patRegistration.value.neighborhood,
+          city: this.patRegistration.value.city,
+          state: this.patRegistration.value.state,
+    }
+
+    this.dataService.editData('patients', this.patientId, patient).subscribe(() => {
+      this.showMessage = true;
+      this.patRegistration.disable();
+      this.saveDisabled = true;
+
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 1000);
+
+    });
+  } else {
+    window.alert('Preencha todos os campos obrigatórios corretamente.');
+  }
 }
+
+editPatient(){
+  this.patRegistration.enable();
+  this.saveDisabled = false;
+}
+
+deletePatient(id: string) {
+  this.dataService.getData('appointments').subscribe(appointments => {
+    this.dataService.getData('exams').subscribe(exams => {
+      const hasAppointment = appointments.some((appointment: { idPatient: string; }) => appointment.idPatient === id);
+      const hasExam = exams.some((exam: { idPatient: string; }) => exam.idPatient === id);
+
+      if (hasAppointment || hasExam) {
+        alert('O paciente tem exames ou consultas vinculadas a ele e não pode ser deletado.');
+      } else {
+        this.dataService.deleteData('patients', this.patientId).subscribe(() => {
+          window.alert('O registro de paciente foi excluído.');
+          this.router.navigate(['/home']);
+        });
+      }
+    });
+  });
+}
+
+}
+

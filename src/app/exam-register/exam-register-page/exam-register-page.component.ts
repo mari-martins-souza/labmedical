@@ -194,7 +194,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   deleteExam(){
     this.dataService.deleteData('exams', this.examId).subscribe(() => {
-      window.alert('O registro foi excluído');
+      window.alert('O registro foi excluído.');
       this.router.navigate(['/lista-prontuarios']);
     });
   }

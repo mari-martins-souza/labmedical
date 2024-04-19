@@ -192,7 +192,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
   deleteAppoint(){
     this.dataService.deleteData('appointments', this.appointmentId).subscribe(() => {
-      window.alert('O registro foi excluído');
+      window.alert('O registro foi excluído.');
       this.router.navigate(['/lista-prontuarios']);
     });
   }
