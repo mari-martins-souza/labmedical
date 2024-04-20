@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 export class LoginService {
   email!: string;
   password!: string;
+  isLogged: boolean = false;
 
   constructor(private router: Router) { }
 
