@@ -12,15 +12,18 @@
         
              
         <div class="form-area" [formGroup]="patRegistration">
-            <div class="button-group">
+            <div class="buttons-and-title">
                 <h3>Preencha os campos para cadastrar</h3>
 
-                <button mat-raised-button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditPat()">Salvar</button>
+                <div id="button-group">
+                    <button mat-raised-button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditPat()">Salvar</button>
                     <button mat-raised-button id="btn-save" *ngIf="!isEditing" (click)="savePatRegister()">Salvar</button>   
                     <button mat-raised-button id="btn-edit" *ngIf="isEditing" (click)="editPatient()">Editar</button>
                     <button mat-raised-button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
                     <button mat-raised-button id="btn-del" *ngIf="isEditing" (click)="deletePatient(patientId)">Deletar</button>
-                    <button mat-raised-button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button>      
+                    <button mat-raised-button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
+                </div>
+                     
 
             </div>
             <div>
@@ -32,7 +35,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="gen-form-field">
-                    <mat-select placeholder="Gênero" formControlName="gender">
+                    <mat-select placeholder="Gênero*" formControlName="gender">
                     <mat-option value="Masculino">Masculino</mat-option>
                     <mat-option value="Feminino">Feminino</mat-option>
                     <!-- <mat-option value="Não informar">Não informar</mat-option> -->
@@ -61,7 +64,7 @@
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="cs-form-field">
-                    <mat-select placeholder="Estado Civil" formControlName="maritalStatus">
+                    <mat-select placeholder="Estado Civil*" formControlName="maritalStatus">
                     <mat-option value="Solteiro(a)">Solteiro(a)</mat-option>
                     <mat-option value="Casado(a)">Casado(a)</mat-option>
                     <mat-option value="Separado(a)">Separado(a)</mat-option>
@@ -112,7 +115,7 @@
             <h4>Convênio</h4>
 
                 <mat-form-field class="form-field" id="insu-form-field">
-                    <mat-select placeholder="Convênio" formControlName="healthInsurance">
+                    <mat-select placeholder="Convênio*" formControlName="healthInsurance">
                         <mat-option value="Allianz Saúde">Allianz Saúde</mat-option>
                         <mat-option value="Amil">Amil</mat-option>
                         <mat-option value="Biosaúde">Biosaúde</mat-option>

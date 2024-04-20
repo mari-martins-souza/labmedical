@@ -8,10 +8,13 @@ mat-label {
     color: #00000099;
 }
 
-.button-group {
+.buttons-and-title {
   display: flex;
-  gap: 10px;
-  // margin-right: 5%;
+  justify-content: space-between;
+}
+
+#button-group button {
+  margin-left: 10px;
 }
 
 #btn-save, #btn-edit, #btn-del {
@@ -37,26 +40,78 @@ mat-label {
 }
 
 .form-field {
-    width: 250px;
     margin-top: 0px;
     margin-bottom: -21px;
 }
 
 #gen-form-field, #date-form-field, #cs-form-field, #insu-form-field, #insu-val-form-field {
-    position: relative;
-    top: -8px;
-    margin-bottom: -28px;
+  position: relative;
+  top: -8px;
+  margin-bottom: -28px;
 }
 
 #insu-n-form-field {
-    position: relative;
-    top: 0px;
-    margin-bottom: -13px;
+  position: relative;
+  top: 0px;
+  margin-bottom: -13px;
 }
 
-#name-form-field, #alle-form-field, #care-form-field {
-    width: 500px;
+#cpf-form-field, #rg-form-field, #rg-org-form-field, #cs-form-field {
+  width: 25%;
 }
+
+#phone-form-field, #nat-form-field, #insu-n-form-field, #insu-val-form-field {
+  width: 30%;
+}
+
+#email-form-field, #insu-form-field {
+  width: 40%;
+}
+
+#cont-form-field {
+  width: 60%;
+}
+
+#phone-cont-form-field {
+  width: 40%;
+}
+
+#name-form-field {
+    width: 50%;
+}
+
+#alle-form-field, #care-form-field {
+  width: 100%;
+}
+
+#gen-form-field, #date-form-field {
+  width: 25%;
+}
+
+#zipcode-form-field {
+  width: 25%;
+}
+
+#str-form-field {
+  width: 60%;
+}
+
+#addr-n-form-field {
+  width: 15%;
+}
+
+#addr-comp-form-field, #addr-ref-form-field {
+  width: 50%;
+}
+
+#addr-neig-form-field, #addr-city-form-field {
+  width: 40%;
+}
+
+#addr-sta-form-field {
+  width: 20%;
+}
+
 
 h4 {
     margin-top: 25px;
@@ -66,12 +121,8 @@ h4 {
 }
 
 h3 {
-    margin-left: 5%;
     font-size: 1.4rem;
     color: $colorFontTitle;
-    margin: auto;
-    margin-left: 5%;
-    
 }
 
 .title {
