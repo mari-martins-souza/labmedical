@@ -5,10 +5,8 @@ export const authChildGuard: CanActivateChildFn = (childRoute, state) => {
   const router = inject(Router);
 
   let isLogged = localStorage.getItem('isLogged') === 'true';
-  let id = childRoute.params['id'];
-  let isIdNumber = id ? /^\d+$/.test(id) : true;
 
-  if(isLogged && isIdNumber) {
+  if(isLogged) {
     return true;
   }
 
