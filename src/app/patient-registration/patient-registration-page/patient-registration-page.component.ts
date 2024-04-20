@@ -100,15 +100,23 @@ export class PatientRegistrationPageComponent implements OnInit {
 
   this.patientId = this.activatedRoute.snapshot.paramMap.get('id');
     
-    if (this.patientId) {
-      this.dataService.getData('patients/' + this.patientId).subscribe(patient => {
-        const birthdate = moment(patient.birthdate, 'DD-MM-YYYY').toDate();
-        const healthInsuranceVal =moment(patient.healthInsuranceVal, 'DD-MM-YYYY').toDate();
-        patient.birthdate = birthdate;
-        patient.healthInsuranceVal = healthInsuranceVal;
-        this.patRegistration.patchValue(patient);
-      });
-    } 
+  if (this.patientId) {
+    this.dataService.getData('patients/' + this.patientId).subscribe(patient => {
+      const birthdate = moment(patient.birthdate, 'DD-MM-YYYY').toDate();
+      patient.birthdate = birthdate;
+      if (patient.healthInsuranceVal && patient.healthInsuranceVal.trim() !== '') {
+        const healthInsuranceVal = moment(patient.healthInsuranceVal, 'DD-MM-YYYY');
+        if (healthInsuranceVal.isValid()) {
+          patient.healthInsuranceVal = healthInsuranceVal.toDate();
+        } else {
+          patient.healthInsuranceVal = '';
+        }
+      } else {
+        patient.healthInsuranceVal = '';
+      }
+      this.patRegistration.patchValue(patient);
+    });
+  }
     
     this.dataService.getData('patients').subscribe(data => {
       this.patients = data;
@@ -164,7 +172,7 @@ private _filter(name: string): any[] {
           careList: this.patRegistration.value.careList,
           healthInsurance: this.patRegistration.value.healthInsurance,
           healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
-          healthInsuranceVal: this.dataTransformService.formatDate(this.patRegistration.value.healthInsuranceVal),
+          healthInsuranceVal: this.patRegistration.value.healthInsuranceVal,
           zipcode: this.patRegistration.value.zipcode,
           street: this.patRegistration.value.street,
           addressNumber: this.patRegistration.value.addressNumber,
@@ -192,10 +200,22 @@ private _filter(name: string): any[] {
 
 saveEditPat() {
   if (this.patRegistration.valid) {
+    let birthdate: any = this.patRegistration.value.birthdate;
+    let healthInsuranceVal: any = this.patRegistration.value.healthInsuranceVal;
+
+    if (birthdate instanceof Date) {
+      birthdate = `${("0" + birthdate.getDate()).slice(-2)}-${("0" + (birthdate.getMonth() + 1)).slice(-2)}-${birthdate.getFullYear()}`;
+    }
+
+    if (healthInsuranceVal instanceof Date) {
+      healthInsuranceVal = `${("0" + healthInsuranceVal.getDate()).slice(-2)}-${("0" + (healthInsuranceVal.getMonth() + 1)).slice(-2)}-${healthInsuranceVal.getFullYear()}`;
+    } else if (!healthInsuranceVal) {
+      healthInsuranceVal = '';
+    }
         const patient = {
           name: this.patRegistration.value.name,
           gender: this.patRegistration.value.gender,
-          birthdate: this.patRegistration.value.birthdate,
+          birthdate: birthdate,
           cpf: this.dataTransformService.formatCpf(this.patRegistration.value.cpf),
           rg: this.patRegistration.value.rg,
           issOrg: this.patRegistration.value.issOrg,
@@ -209,7 +229,7 @@ saveEditPat() {
           careList: this.patRegistration.value.careList,
           healthInsurance: this.patRegistration.value.healthInsurance,
           healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
-          healthInsuranceVal: this.patRegistration.value.healthInsuranceVal,
+          healthInsuranceVal: healthInsuranceVal,
           zipcode: this.patRegistration.value.zipcode,
           street: this.patRegistration.value.street,
           addressNumber: this.patRegistration.value.addressNumber,
