@@ -31,7 +31,10 @@
                 
                 <mat-form-field class="form-field" id="name-form-field">
                     <mat-label>Nome completo</mat-label>
-                    <input matInput formControlName="name">
+                    <input matInput formControlName="name" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="patRegistration.get('name')?.invalid && (patRegistration.get('name')?.dirty || patRegistration.get('name')?.touched)">
+                        Nome é obrigatório e deve ter entre 8 e 64 caracteres.
+                    </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="form-field" id="gen-form-field">

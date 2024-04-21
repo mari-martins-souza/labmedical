@@ -8,7 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule, MatButton } from '@angular/material/button';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { AddressService } from '../address.service';
@@ -20,6 +20,14 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
 import moment from 'moment';
 import { Observable, map, startWith } from 'rxjs';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-patient-registration-page',
@@ -52,6 +60,8 @@ export class PatientRegistrationPageComponent implements OnInit {
 
   }
 
+  matcher = new MyErrorStateMatcher()
+
   patRegistration = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
     gender: ['', Validators.required],
@@ -62,7 +72,7 @@ export class PatientRegistrationPageComponent implements OnInit {
     maritalStatus: ['', Validators.required],
     phone: ['', Validators.required],
     email: ['', Validators.email],
-    placeOfBirth: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(64)]],
+    placeOfBirth: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(64)]],
     emergCont: ['', Validators.required],
     emergContNumber: ['', Validators.required],
     listOfAllergies: [''],

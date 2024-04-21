@@ -45,7 +45,10 @@
                 <br>
                 <mat-form-field class="form-field" id="exam-name-form-field">
                     <mat-label>Nome do exame</mat-label>
-                    <input matInput formControlName="exam">
+                    <input matInput formControlName="exam" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="examRegister.get('exam')?.invalid && (examRegister.get('exam')?.dirty || examRegister.get('exam')?.touched)">
+                        Nome do exame é obrigatório e deve ter entre 8 e 64 caracteres.
+                    </mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="form-field" id="exam-date-form-field">
@@ -63,12 +66,18 @@
                 <br>
                 <mat-form-field class="form-field" id="exam-type-form-field">
                     <mat-label>Tipo do exame</mat-label>
-                    <input matInput formControlName="examType">
+                    <input matInput formControlName="examType" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="examRegister.get('examType')?.invalid && (examRegister.get('examType')?.dirty || examRegister.get('examType')?.touched)">
+                        Tipo do exame é obrigatório e deve ter entre 4 e 32 caracteres.
+                    </mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="form-field" id="lab-form-field">
                     <mat-label>Laboratório</mat-label>
-                    <input matInput formControlName="lab">
+                    <input matInput formControlName="lab" [errorStateMatcher]="matcher">
+                    <mat-error *ngIf="examRegister.get('lab')?.invalid && (examRegister.get('lab')?.dirty || examRegister.get('lab')?.touched)">
+                        Laboratório é obrigatório e deve ter entre 4 e 32 caracteres.
+                    </mat-error>
                 </mat-form-field>
                 <br>
                 <mat-form-field class="form-field" id="doc-url-form-field">
@@ -78,7 +87,10 @@
                 <br>
                 <mat-form-field class="form-field" id="result-form-field">
                     <mat-label>Resultados</mat-label>
-                    <textarea matInput formControlName="result"></textarea>
+                    <textarea matInput formControlName="result"  [errorStateMatcher]="matcher"></textarea>
+                    <mat-error *ngIf="examRegister.get('result')?.invalid && (examRegister.get('result')?.dirty || examRegister.get('result')?.touched)">
+                        Resultados é obrigatório e deve ter entre 16 e 1024 caracteres.
+                    </mat-error>
                 </mat-form-field>
             </div>    
         </div>
