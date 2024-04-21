@@ -1,4 +1,4 @@
-# Labmedical
+# LABmedical
 
 LABmedical is an application built with Angular version 17.3.0 and aims to manage hospital patients, exams, and appointments. Initially conceived as an evaluative project for a course, it does not yet have a backend. User data is saved in localStorage and patient data in the JSON Server.
 
@@ -33,7 +33,7 @@ This project was built using the following technologies and libraries:
 
 - - - - - - - - - - - - - - - - - - -
 
-# Labmedical
+# LABmedical
 
 O LABmedical é uma aplicação construída com a versão 17.3.0 do Angular e tem como objetivo o gerenciamento hospitalar de pacientes, exames e consultas. 
 Inicialmente pensada como projeto avaliativo de um curso, ainda não possui backend. Dados dos usuários são salvos no localStorage e dados dos pacientes no JSON Server.
