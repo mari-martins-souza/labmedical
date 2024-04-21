@@ -7,9 +7,9 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { ErrorStateMatcher, MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule, MatButton } from '@angular/material/button';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { DataService } from '../../shared/services/data.service';
@@ -20,6 +20,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-medical-appointment-reg-page',
@@ -52,6 +59,8 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id')
    }
+
+   matcher = new MyErrorStateMatcher()
   
   appointRegistration = this.fb.group({
     idPatient: ['',Validators.required],
