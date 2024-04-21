@@ -1,0 +1,149 @@
+@import '../../../assets/styles/variables';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 350px;
+    border-top-right-radius: 70px;
+    border-bottom-right-radius: 20px;
+    background-color: #b6e0f9c2;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.login-logo {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+
+#logo {
+    width: 150px;
+    margin: 15px;
+    padding: 15px;
+
+}
+
+
+form {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+h2 {
+    color: $colorFontTitle;
+    padding-bottom: 5px;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.signup {
+    display: flex;
+    flex-direction: row;
+}
+
+#floatingInput, #floatingPassword {
+    width: 100%;
+    border-radius: 5px;
+    // padding: 20px 12px 0px 12px;
+    background-color: rgb(255, 255, 255);
+    border: 0px;
+}
+
+#btn-login {
+    height: 58px;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: $colorSideToolbar;
+    margin-bottom: 15px;
+    color: white;
+}
+
+#btn-login:hover {
+    background-color: white;
+    color: $colorFontTitle;
+}
+
+#forgot-password {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: $colorFontTitle;
+}
+
+#forgot-password:hover {
+    color: white;
+}
+
+.signup {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+p {
+    padding-top: 5px;
+    color: $colorFontTitle;
+}
+
+#btn-signup {
+    width: 120px;
+    height: 58px;
+    border-radius: 5px;
+    border: none;
+    margin-left: 15px;
+    background-color: $colorSideToolbar;
+    color: white;
+    border: none;
+}
+
+#btn-signup:hover {
+    background-color: white;
+    color: $colorFontTitle;
+}
+
+.modal-content {
+    border-radius: 5px;
+    border: none;
+}
+
+.input-group-text, #input-name-modal {
+    border-radius: 5px;
+}
+
+#close-btn-modal, #register-btn-modal, #close-btn-password-modal {
+    border-radius: 5px;
+    border: none;
+    color: black;
+    background-color: $colorSideToolbar;
+}
+
+#close-btn-password-modal {
+    background-color: $colorButtonDisabled;
+    color: $colorFontTitle;
+}
+
+#close-btn-modal {
+    background-color: $colorButtonDisabled;
+    color: $colorFontTitle;
+}
+
+#register-btn-modal:hover {
+    background-color: $colorFontTitle;
+    color: white;
+}
+
+#basic-addon1 {
+    width: 95px;
+}
+
+#warning {
+    color: black;
+}
+

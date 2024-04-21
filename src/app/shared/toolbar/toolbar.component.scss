@@ -1,0 +1,42 @@
+@import '../../../assets/styles/variables';
+
+.toggle-sidebar {
+    border: none;
+    background-color: transparent;
+}
+
+.custom-toolbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 65px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    background-color: $colorSideToolbar;
+    border-top-right-radius: 0px;
+  }
+
+.page-title {
+    margin: 0 auto;
+    padding-left: 15px;
+    padding-right: 15px;
+    color: $colorPageTitle;
+  }
+
+.user-info {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    color: $colorPageTitle;
+  }
+
+img {
+    width: 50px;
+    margin-left: 20px;    
+}
+
+.mat-icon {
+  margin-top: 9px;
+  color: $colorPageTitle;
+}

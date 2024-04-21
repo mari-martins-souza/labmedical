@@ -1,0 +1,84 @@
+@import '../../../assets/styles/variables';
+
+.sidenav-container {
+  height: 100vh;
+  // overflow: hidden;
+}
+  
+.sidenav {
+  overflow-y: auto;
+  background-color: $colorSideToolbar;
+  border-top-right-radius: 130px;
+  height: 100%;
+  position: fixed;
+  overflow: auto;
+  padding-top: 65px;
+}
+  
+#logo-sidebar {
+    display: block;
+    margin: auto;
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.group-menu {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    color: $colorTitleMenu;
+}
+
+button {
+    background-color: $colorButtonSidebar;
+    border: none;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 225px;
+    height: 36px;
+    display: flex;
+    justify-content: flex-start;
+    color: $colorFontTitle;
+    padding-top: 2px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+button:hover {
+  background-color: $colorButton;
+}
+
+
+.mat-icon {
+    margin-left: 5px;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 5px;
+    color: $colorSidebarIcon;
+    
+  }
+  
+  #btn-text {
+    font-size: 1em;
+    margin-left: 5px;
+    margin-top: 5px;
+  }
+
+  #toggle-sidebar {
+    width: 50px;
+    padding: 0px;
+    justify-content: center;
+    margin: 0px;
+    
+  }
+
+ .mat-drawer {
+  background-color: $colorSideToolbar;
+  height: 100vh;
+ }
