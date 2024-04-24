@@ -63,8 +63,8 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
    matcher = new MyErrorStateMatcher()
   
   appointRegistration = this.fb.group({
-    idPatient: ['',Validators.required],
-    name: ['',Validators.required],
+    idPatient: [{value: '', disabled: true}, Validators.required],
+    name: [{value: '', disabled: true}, Validators.required],
     reason: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
     consultDate: ['',Validators.required],
     consultTime: ['',Validators.required],

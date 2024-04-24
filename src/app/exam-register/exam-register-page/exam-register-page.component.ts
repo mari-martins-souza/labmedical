@@ -63,8 +63,8 @@ export class ExamRegisterPageComponent implements OnInit {
   matcher = new MyErrorStateMatcher()
 
   examRegister = this.fb.group({
-    idPatient: ['',Validators.required],
-    name: ['',Validators.required],
+    idPatient: [{value: '', disabled: true}, Validators.required],
+    name: [{value: '', disabled: true},Validators.required],
     exam: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
     examDate: ['',Validators.required],
     examTime: ['',Validators.required],
@@ -122,10 +122,12 @@ export class ExamRegisterPageComponent implements OnInit {
   }
 
   setPatientData(patient: { id: any; name: any; }) {
+
     this.examRegister.patchValue({
       idPatient: patient.id,
       name: patient.name
     });
+
     this.patientSearchControl.setValue('');
   }
   
