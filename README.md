@@ -18,10 +18,10 @@ With it, it is possible to register all patient information quickly and safely. 
 
 1. Clone the project to your machine.
 2. Make sure you have Node.js, npm, and Angular CLI installed on your machine. If not, you will need to install them.
-3. Navigate to the project directory and install all project dependencies by running the npm install command.
-4. Start the database server by running json-server --watch db.json.
-5. In a new terminal, run the ng serve command to start the development server.
-6. Open the browser and access http://localhost:4200/.
+3. Navigate to the project directory and install all project dependencies by running the `npm install` command.
+4. Start the database server by running `json-server --watch db.json`.
+5. In a new terminal, run the `ng serve` command to start the development server.
+6. Open the browser and access `http://localhost:4200/`.
 
 ## Project Dependencies
 
