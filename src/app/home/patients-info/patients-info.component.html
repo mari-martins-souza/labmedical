@@ -1,34 +1,38 @@
 <div class="search-area">
     <label for="search"></label>
     <input type="text" id="search" name="search" [(ngModel)]="searchTerm" placeholder="Digite o nome do paciente" matInput>
-    <button mat-raised-button id="btn-search" (click)="search()">Buscar</button>
+    <button mat-raised-button id="btn-search" (click)="search()">BUSCAR</button>
 </div>
 
 <div class="card-container">
     <div *ngFor="let patient of filteredPatientsList" class="patient-card">
         <mat-card>
-            <mat-card-content class="card-content" id="img-perfil">
-                <img *ngIf="patient.gender === 'Masculino'" src="../../../assets/images/pat-male.png">
-                <img *ngIf="patient.gender === 'Feminino'" src="../../../assets/images/pat-female.png">
-            </mat-card-content>
-            <mat-card-content class="card-content" id="name">
-                <p>{{ patient.name }}</p>
-            </mat-card-content>
+            <div class="photo-and-name">
+                <mat-card-content id="img-perfil">
+                    <img *ngIf="patient.gender === 'Masculino'" src="../../../assets/images/pat-male.png">
+                    <img *ngIf="patient.gender === 'Feminino'" src="../../../assets/images/pat-female.png">
+                    </mat-card-content>
+                <mat-card-content id="name">
+                        <p>{{ patient.name }}</p>
+                </mat-card-content>
+            </div>
+
+       
             <mat-card-content class="card-content" id="age">
                 <p>{{ patient.birthdate | age }} anos</p>
             </mat-card-content>
             <mat-card-content class="card-content" id="phone">
-                <p>Telefone: {{ patient.phone }}</p>
+                <p><strong>Telefone: </strong>{{ patient.phone }}</p>
             </mat-card-content>
             <mat-card-content class="card-content" id="email">
-                <p>E-mail: {{ patient.email }}</p>
+                <p><strong>E-mail: </strong>{{ patient.email }}</p>
             </mat-card-content>
             <mat-card-content class="card-content" id="insurance">
-                <p>Convênio: {{ patient.healthInsurance }}</p>
-            </mat-card-content>    
-            <mat-card-content class="card-content" id="detail">
-                <button class="btn-more"(click)="editPatient(patient.id)">Ver mais</button>
-            </mat-card-content> 
+                <p><strong>Convênio: </strong>{{ patient.healthInsurance }}</p>
+            </mat-card-content>
+      
+                <button class="btn-more"(click)="editPatient(patient.id)">EDITAR</button>
+             
         </mat-card>
     </div>
 </div>

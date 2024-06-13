@@ -20,11 +20,11 @@ $labmedical-warn: mat.define-palette(mat.$red-palette);
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $labmedical-theme: mat.define-light-theme((
-  color: (
-    primary: $labmedical-primary,
-    accent: $labmedical-accent,
-    warn: $labmedical-warn,
-  ),
+  // color: (
+  //   primary: $labmedical-primary,
+  //   accent: $labmedical-accent,
+  //   warn: $labmedical-warn,
+  // ),
   typography: mat.define-typography-config(),
   density: 0
 ));
@@ -53,4 +53,8 @@ span.mdc-tab__text-label {
 
 body.login-page {
   background-color: #218CF6;
+}
+
+body {
+  background-color: rgba(210, 194, 255, 0.678);
 }

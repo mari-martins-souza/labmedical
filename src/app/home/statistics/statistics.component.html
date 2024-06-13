@@ -1,17 +1,47 @@
+<div class="stats">
 <div class="container">
-    <mat-card id="card-stat-patients">
-        <img id='patients' src="../../../assets/images/patients.png">
-        <p id="num">{{countPatients}}</p>
-        <p id="label">Pacientes</p>
-    </mat-card>
-    <mat-card id="card-stat-appointments">
-        <img id='patients' src="../../../assets/images/appointments.png">
-        <p id="num">{{countAppointments}}</p>
-        <p id="label">Consultas</p>
-    </mat-card>
-    <mat-card id="card-stat-exams">
-        <img id='patients' src="../../../assets/images/exams.png">
-        <p id="num">{{countExams}}</p>
-        <p id="label">Exames</p>
-    </mat-card>
-</div>
+
+    <div class="card-stat">
+        <p class="label">Pacientes</p>
+        <div class="icon-num">
+            <img class='patients' src="../../../assets/images/patients.png">
+            <p class="num">{{countPatients}}</p>
+        </div>
+    </div>
+
+    <div class="card-stat">
+        <p class="label">Consultas</p>
+        <div class="icon-num">
+            <img class='patients' src="../../../assets/images/appointments.png">
+            <p class="num">{{countAppointments}}</p>
+        </div>
+    </div>
+
+    <div class="card-stat">
+        <p class="label">Exames</p>
+        <div class="icon-num">
+            <img class='patients' src="../../../assets/images/exams.png">
+            <p class="num">{{countExams}}</p>
+        </div>
+    </div>
+
+    
+    </div>
+
+    
+    <!-- <div class="card-health-ins">
+        <div class="inner-ins">
+        <h5 class="label-health-ins">Planos de Saúde mais usados</h5>
+        <div class="grid-container">
+            <p *ngFor="let healthInsurance of healthInsuranceStats | keyvalue | slice:0:3">
+                {{healthInsurance.key}}: {{healthInsurance.value}}
+            </p>
+            <p>Outros: {{otherHealthInsuranceCount}}</p>
+        </div>
+            
+        </div>
+    </div> -->
+
+    </div>
+
+
