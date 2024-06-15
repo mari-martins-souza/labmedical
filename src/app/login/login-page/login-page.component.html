@@ -1,3 +1,4 @@
+<app-dialog (dialogClosed)="toggleRegisterForm()"></app-dialog>
 
 <div class="container-1">
 
@@ -5,7 +6,7 @@
     <img id="logo-img" src="../../../assets/images/logo-labmedical.png">
   </div>
 
-  <div class="login-area">
+  <div class="login-area" *ngIf="!showRegisterForm">
     <div class="lab-connect">
       <p id="connect">Conecte-se em <span>LABmedical</span></p>
       <p id="connect-text-below">Entre com os dados da sua conta abaixo</p>
@@ -19,7 +20,7 @@
     <div class="button-login" (click)="loginButtonClick()">
       <button>ENTRAR</button>
     </div>
-    <p id="forgot-pass">Esqueceu a senha?</p>
+    <p id="forgot-pass"><span (click)="onForgotPassword()">Esqueceu a senha?</span></p>
     <div class="line-or">
       <div class="line1"></div>
       <div class="text-line">
@@ -28,41 +29,46 @@
       <div class="line2"></div>
     </div>
     <div class="signup">
-      <p><span>Não possui uma conta?</span> Registre agora!</p>
+      <p>Não possui uma conta? <span (click)="toggleRegisterForm()">Registre agora!</span></p>
     </div>  
+  </div>
+
+  <div class="register-area" *ngIf="showRegisterForm">
+    <form [formGroup]="registerForm">
+      <div class="lab-register-area">
+        <p id="lab-register">Registre-se em <span>LABmedical</span></p>
+        <p id="lab-register-text">Preencha os campos abaixo para criar uma conta</p>
+      </div>
+      <div class="register-name">
+        <p>Nome</p>
+        <input type="text" id="input-name" formControlName="name">
+      </div>
+      <div class="register-email">
+        <p>E-mail</p>
+        <input type="email" id="input-email" formControlName="email">
+      </div>
+      <div class="register-password">
+        <p>Senha</p>
+        <input type="password" id="input-password" formControlName="password">
+      </div>
+      <div class="register-password-confirm">
+        <p>Confirmar senha</p>
+        <input type="password" id="input-password-confirm" formControlName="confirm">
+      </div>
+      <div class="register-buttons">
+        <button id="button-back" (click)="toggleRegisterForm()">VOLTAR</button>
+        <button id="button-register" (click)="register()">CRIAR CONTA</button>
+      </div>
+    </form>  
   </div>
 
 </div>
 
 
-  <!-- MODAL
-<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Recuperar senha</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p id="warning">Essa funcionalidade ainda está em construção!</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="close-btn-password-modal" data-bs-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Registro de usuário</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-    <form [formGroup]="registerForm">
-        <div class="modal-body">
-            <div class="input-group mb-3">
+    <!-- <form [formGroup]="registerForm">
+       
+           
                 <span class="input-group-text" id="basic-addon1">Nome</span>
                 <input type="text" class="form-control" id="input-name-modal" aria-label="name" aria-describedby="basic-addon1" formControlName="name">
               </div>
@@ -86,7 +92,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> --> 
 
   
-   -->
+  
