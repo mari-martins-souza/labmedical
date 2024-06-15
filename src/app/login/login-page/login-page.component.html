@@ -1,34 +1,42 @@
 
-<div class="login-logo"> 
-  <div class="container">
+<div class="container-1">
 
-
-  <img id="logo" src="../../../assets/images/logo-labmedical.png">
-
-    <form (submit)="loginButtonClick()">
-      <h2>Bem-vindo(a) de volta!</h2>
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" [(ngModel)]="email" name="email">
-            <label for="floatingInput">Email</label>
-        </div>
-        <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" [(ngModel)]="password" name="password">
-            <label for="floatingPassword">Senha</label>
-        </div>
-            <button id="btn-login" type="submit" class="btn btn-primary">Entrar</button>
-            <br>
-            <a id="forgot-password" href="" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Esqueceu a senha?</a>
-            <div class="signup">
-                <p>Não possui uma conta?</p>
-                <button id="btn-signup" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Criar conta</button>
-            </div>
-    </form>
+  <div class="logo">
+    <img id="logo-img" src="../../../assets/images/logo-labmedical.png">
   </div>
-  </div>
-  
 
- 
-  <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
+  <div class="login-area">
+    <div class="lab-connect">
+      <p id="connect">Conecte-se em <span>LABmedical</span></p>
+      <p id="connect-text-below">Entre com os dados da sua conta abaixo</p>
+    </div>
+    <div class="input-email">
+      <input type="email" id="email" name="email" placeholder="e-mail" [(ngModel)]="email">
+    </div>
+    <div class="input-password">
+      <input type="password" id="password" name="password" placeholder="senha" [(ngModel)]="password">
+    </div>
+    <div class="button-login" (click)="loginButtonClick()">
+      <button>ENTRAR</button>
+    </div>
+    <p id="forgot-pass">Esqueceu a senha?</p>
+    <div class="line-or">
+      <div class="line1"></div>
+      <div class="text-line">
+        <p>ou</p>  
+      </div>
+      <div class="line2"></div>
+    </div>
+    <div class="signup">
+      <p><span>Não possui uma conta?</span> Registre agora!</p>
+    </div>  
+  </div>
+
+</div>
+
+
+  <!-- MODAL
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -81,4 +89,4 @@
   </div>
 
   
-  
+   -->
