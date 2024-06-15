@@ -140,6 +140,11 @@ body {
     color: rgba(255, 255, 255, 0.295);
     font-family: "Quicksand", sans-serif;
     font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#forgot-pass:hover {
+    color: #FF4155;
 }
 
 .line-or{
@@ -184,11 +189,15 @@ body {
 }
 
 .signup p {
-    color: rgba(255, 255, 255, 0.747);
+    color: rgba(255, 255, 255, 0.295);
     font-size: 0.9rem;  
     font-family: "Quicksand", sans-serif;
 }
 
 .signup p span {
-    color: rgba(255, 255, 255, 0.295)
+    color: rgba(255, 255, 255, 0.747);
+}
+
+.signup p span:hover {
+    cursor: pointer;
 }

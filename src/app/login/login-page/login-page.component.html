@@ -1,3 +1,4 @@
+<app-dialog #dialog></app-dialog>
 
 <div class="container-1">
 
@@ -5,7 +6,7 @@
     <img id="logo-img" src="../../../assets/images/logo-labmedical.png">
   </div>
 
-  <div class="login-area">
+  <div class="login-area" *ngIf="!showRegisterForm">
     <div class="lab-connect">
       <p id="connect">Conecte-se em <span>LABmedical</span></p>
       <p id="connect-text-below">Entre com os dados da sua conta abaixo</p>
@@ -19,7 +20,7 @@
     <div class="button-login" (click)="loginButtonClick()">
       <button>ENTRAR</button>
     </div>
-    <p id="forgot-pass">Esqueceu a senha?</p>
+    <p id="forgot-pass"><span (click)="onForgotPassword()">Esqueceu a senha?</span></p>
     <div class="line-or">
       <div class="line1"></div>
       <div class="text-line">
@@ -28,11 +29,17 @@
       <div class="line2"></div>
     </div>
     <div class="signup">
-      <p><span>Não possui uma conta?</span> Registre agora!</p>
+      <p>Não possui uma conta? <span (click)="toggleRegisterForm()">Registre agora!</span></p>
     </div>  
   </div>
 
+  <div class="register-area" *ngIf="showRegisterForm">
+    <button (click)="toggleRegisterForm()">Voltar para o login</button>
+  </div>
+
 </div>
+
+
 
 
   <!-- MODAL
