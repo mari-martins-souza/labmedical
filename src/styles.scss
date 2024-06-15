@@ -35,8 +35,8 @@ $labmedical-theme: mat.define-light-theme((
 @include mat.all-component-themes($labmedical-theme);
 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-drawer-backdrop.mat-drawer-shown {
   background-color: transparent !important;
@@ -51,6 +51,10 @@ span.mdc-tab__text-label {
   font-size: 1.1rem;
 }
 
-body.login-page {
-  background-color: #218CF6;
+// body.login-page {
+//   background: linear-gradient(to right, #6b54f0 , rgb(236, 231, 208));
+// }
+
+body {
+  background-color: rgba(210, 194, 255, 0.678);
 }

@@ -1,4 +1,4 @@
-<mat-toolbar class="custom-toolbar">  
+<!-- <mat-toolbar class="custom-toolbar">  
     <button mat-icon-button class="toggle-sidebar" (click)="toggleSidebar()">
       <mat-icon>menu</mat-icon>
     </button>
@@ -11,7 +11,21 @@
             <img src="../../../assets/images/doctor.png" alt="Foto de Perfil">
         </div>    
     </div>
-</mat-toolbar>
+</mat-toolbar> -->
 
+<div class="toolbar">
+    <h1 class="page-title">{{ pageTitle }}</h1>
+    
+    <div class="user-info">
+        <span class="logged-user">Usuário:<strong> {{ userName }}</strong></span>
+        <div class="profile-icon">
+            <img src="../../../assets/images/doctor.png" alt="Foto de Perfil">
+        </div> 
+    <div id="logout-icon" (click)="cleanLoggedUser()">
+        <mat-icon>logout</mat-icon> 
+    </div>
+          
+    </div>
+</div>
   
   

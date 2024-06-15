@@ -19,10 +19,5 @@ export class SidebarMenuComponent {
     this.sidebarToogleService.showSidebar.subscribe(show => this.showSidebar = show);
    }
 
-  cleanLoggedUser() {
-    localStorage.setItem('loggedUser', '');
-    localStorage.setItem('isLogged', 'false');
-    this.router.navigate(['/']);
-  }
 
 }
