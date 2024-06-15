@@ -159,7 +159,6 @@ body {
     }
 }
 
-
 .line1 {
     width: 150px;
     height: 1px;
@@ -183,7 +182,6 @@ body {
     margin-left: 15px;
 }
 
-
 .signup {
     margin-top: 10px;
 }
@@ -200,4 +198,185 @@ body {
 
 .signup p span:hover {
     cursor: pointer;
+    color: #FF4155;
+}
+
+.register-area {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100%; 
+    background-color: rgb(45, 34, 70);
+}
+
+.lab-register-area {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 1366px) {
+    .lab-register-area {
+        width: 270px;
+    }
+}
+
+#lab-register {
+    color: rgba(255, 255, 255, 0.747);
+    font-family: "Quicksand", sans-serif;
+}
+
+#lab-register span {
+    color: #6b54f0;
+    font-weight: 800;
+}
+
+#lab-register-text {
+    color: rgba(255, 255, 255, 0.596);
+    font-family: "Quicksand", sans-serif;
+    font-size: 0.8rem;
+    margin-top: -10px;
+    margin-bottom: -5px;
+}
+
+#input-name{
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.295);
+    border-radius: 4px;
+    width: 350px;
+    height: 50px;
+    color: white;
+    padding-left: 15px;
+    font-size: 1rem;
+    font-family: "Quicksand", sans-serif;
+}
+
+@media only screen and (max-width: 1366px) {
+    #input-name {
+    width: 270px;
+    }
+}
+
+#input-email{
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.295);
+    border-radius: 4px;
+    width: 350px;
+    height: 50px;
+    color: white;
+    padding-left: 15px;
+    font-size: 1rem;
+    font-family: "Quicksand", sans-serif;
+}
+
+@media only screen and (max-width: 1366px) {
+    #input-email {
+    width: 270px;
+    }
+}
+
+#input-password{
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.295);
+    border-radius: 4px;
+    width: 350px;
+    height: 50px;
+    color: white;
+    padding-left: 15px;
+    font-size: 1rem;
+    font-family: "Quicksand", sans-serif;
+}
+
+@media only screen and (max-width: 1366px) {
+    #input-password {
+    width: 270px;
+    }
+}
+
+#input-password-confirm {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.295);
+    border-radius: 4px;
+    width: 350px;
+    height: 50px;
+    color: white;
+    padding-left: 15px;
+    font-size: 1rem;
+    font-family: "Quicksand", sans-serif;
+}
+
+@media only screen and (max-width: 1366px) {
+    #input-password-confirm {
+    width: 270px;
+    }
+}
+
+.register-name p, .register-email p, .register-password p, .register-password-confirm p {
+    color: rgba(255, 255, 255, 0.747);
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+.register-buttons {
+    display: flex;
+    width: 350px;
+}
+
+@media only screen and (max-width: 1366px) {
+    .register-buttons {
+        width: 270px;
+    }
+}
+
+#button-back {
+    background-color: #6b54f0;
+    border-radius: 4px;
+    width: 30%;
+    height: 50px;
+    color: white;
+    margin-top: 20px;
+    border-style: none;
+    font-size: 1rem;
+    font-family: "Dosis", sans-serif;
+    font-weight: 400;
+}
+
+// @media only screen and (max-width: 1366px) {
+//     #button-back {
+//         width: 270px;
+//     }
+// }
+
+#button-back:hover {
+    background-color: #FF4155;
+    color: black;
+}
+
+#button-register {
+    background-color: #6b54f0;
+    border-radius: 4px;
+    width: 70%;
+    height: 50px;
+    color: white;
+    margin-top: 20px;
+    border-style: none;
+    font-size: 1rem;
+    font-family: "Dosis", sans-serif;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+// @media only screen and (max-width: 1366px) {
+//     .button-login button {
+//         width: 270px;
+//     }
+// }
+
+#button-register:hover {
+    background-color: #FF4155;
+    color: black;
 }

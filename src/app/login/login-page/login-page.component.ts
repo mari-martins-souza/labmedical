@@ -71,7 +71,8 @@ export class LoginPageComponent implements OnInit {
       this.users.push(newUser);
 
       localStorage.setItem('savedUsers', JSON.stringify(this.users));
-      window.alert('Registro efetuado com sucesso. Você já pode efetuar login.')
+      this.dialog.openDialog('Registro efetuado com sucesso!'); 
+      this.registerForm.reset();
     }
   }  
   
@@ -80,7 +81,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   onForgotPassword() {
-    this.dialog.openDialog('Esta funcionalidade está temporariamente indisponível.'); 
+    this.dialog.openDialog('Esta funcionalidade está temporariamente indisponível.', false); 
   }
 
   toggleRegisterForm() {
