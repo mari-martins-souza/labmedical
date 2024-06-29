@@ -2,19 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { SidebarMenuComponent } from '../../shared/sidebar-menu/sidebar-menu.component';
 import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
 import { Title } from '@angular/platform-browser';
-import { MatCardModule } from '@angular/material/card';
 import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule, MatButton } from '@angular/material/button';
 import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-medical-record-list-page',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, MatCardModule, HttpClientModule, CommonModule, FormsModule, MatInputModule, MatButtonModule,MatButton, RouterModule],
+  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, CommonModule, FormsModule, RouterModule],
   providers: [DataService],
   templateUrl: './medical-record-list-page.component.html',
   styleUrl: './medical-record-list-page.component.scss'
