@@ -1,7 +1,8 @@
 <div class="search-area">
     <label for="search"></label>
     <input type="text" id="search" name="search" [(ngModel)]="searchTerm" placeholder="Digite o nome do paciente" matInput>
-    <button mat-raised-button id="btn-search" (click)="search()">BUSCAR</button>
+    <button id="btn-search" (click)="search()">BUSCAR</button>
+    <button id="btn-clear" (click)="clearSearch()">LIMPAR</button>
 </div>
 
 <div class="card-container">

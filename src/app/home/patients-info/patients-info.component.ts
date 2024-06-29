@@ -44,6 +44,12 @@ export class PatientsInfoComponent implements OnInit {
     }
   }
 
+  clearSearch() {
+    this.searchTerm = '';
+    this.filteredPatientsList = this.patientsList;
+  }
+  
+
   editPatient(id: string) {
     this.router.navigate(['/registro-paciente', id]);
   }

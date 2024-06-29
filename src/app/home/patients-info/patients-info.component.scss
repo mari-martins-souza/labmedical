@@ -93,7 +93,7 @@
 }
 
 #search {
-    width: 54vw;
+    width: 48vw;
     height: 40px;
     padding-left: 15px;
     padding-right: 15px;
@@ -136,6 +136,7 @@
     font-family: "Dosis", sans-serif;
     font-weight: 500;
     font-size: 1rem;
+    border: none;
   }
 
   @media only screen and (max-width: 1366px) {
@@ -145,6 +146,30 @@
 }
 
   #btn-search:hover {
+    background-color: #FF4155;
+    color: black;
+  }
+
+  #btn-clear {
+    background-color: #6b54f0;
+    color: white;
+    border-radius: 4px;
+    height: 40px;
+    width: 5vw;
+    margin-left: 1vw;
+    font-family: "Dosis", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+  }
+
+  @media only screen and (max-width: 1366px) {
+    #btn-clear {
+        width: 10.2vw;
+    }
+}
+
+  #btn-clear:hover {
     background-color: #FF4155;
     color: black;
   }

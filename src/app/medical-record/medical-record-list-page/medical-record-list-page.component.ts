@@ -44,6 +44,12 @@ export class MedicalRecordListPageComponent implements OnInit {
     }
   }
 
+  clearSearch() {
+    this.searchTerm = '';
+    this.filteredPatientsList = this.patientsList;
+  }
+  
+
   medicalRecords(id: string) {
     this.router.navigate(['/lista-prontuarios', id]);
   }
