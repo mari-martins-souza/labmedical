@@ -1,4 +1,5 @@
-<app-dialog (dialogClosed)="toggleRegisterForm()"></app-dialog>
+<!-- <app-dialog (dialogClosed)="toggleRegisterForm()"></app-dialog> -->
+<app-dialog></app-dialog>
 
 <div class="container-1">
 
@@ -50,6 +51,7 @@
       <div class="register-password">
         <p>Senha</p>
         <input type="password" id="input-password" formControlName="password">
+        <div *ngIf="registerForm.controls.password.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)" id="password-warning">Senha precisa ter 8 caracteres ou mais</div>
       </div>
       <div class="register-password-confirm">
         <p>Confirmar senha</p>
