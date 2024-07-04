@@ -2,13 +2,11 @@
 
 .sidenav-container {
   height: 100vh;
-  // overflow: hidden;
 }
   
 .sidenav {
   overflow-y: auto;
   background-color: $colorSideToolbar;
-  // border-top-right-radius: 130px;
   height: 100%;
   position: fixed;
   overflow: auto;
@@ -28,7 +26,6 @@
 .group-menu {
     display: flex;
     flex-direction: column;
-    // margin-bottom: 15px;
 }
 
 h2 {

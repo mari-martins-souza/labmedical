@@ -11,13 +11,8 @@
   }
 
   .search-area {
-    // margin-top: 20px;
-    // margin-bottom: 20px;
     display: flex;
     justify-content: left;
-    // flex-direction: column;
-    // background-color: white;
-    // border-radius: 4px;
   }
 
   #search {
@@ -38,26 +33,12 @@
   @media only screen and (max-width: 1366px) {
     #search {
         flex-grow: 1;
-        // margin-left: 20px;
     }
 }
-  
-  
-
-  // @media only screen and (max-width: 1366px) {
-  //   #search {
-  //     width: 100%;
-  //     margin-left: 20px;
-  //     margin-right: 20px;
-  //   }
-  // }
 
   .search-area h2 {
     font-family: "Dosis", sans-serif;
     font-size: 1.2rem;
-    // margin-bottom: 20px;
-    // margin-top: 20px;
-    // margin-left: 20px;
     margin: auto;
     margin-left: 20px;
     margin-right: 20px;
@@ -140,7 +121,6 @@
 .header-area {
     background-color: #6b54f0;
     height: 60px;
-    // margin-bottom: 15px;
 }
 
 .patient-card1:not(.header-area):nth-child(odd) {
@@ -192,12 +172,6 @@
   justify-content: center;
 }
 
-// #header-file {
-//   padding-right: 115px;
-//   display: flex;
-//   justify-content: center;
-// }
-
 #header-reg, #header-pat-name, #header-ins, #header-file {
   margin-top: auto;
   margin-bottom: auto;
@@ -207,157 +181,3 @@
   display: flex;
   align-items: center;
 }
-
-//   .list-area {
-//     width: 100%;
-//     border-radius: 4px;
-//     background-color: white;
-//     overflow: hidden;
-//     color: white;
-//     font-family: "Dosis", sans-serif;
-//     font-weight: 400;
-//     font-size: 1.8rem;
-// }
-
-// .patient-card1 {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-// }
-
-// .header-area {
-//     background-color: #6b54f0;
-//     height: 60px;
-// }
-
-// .card-content1 {
-//     color: black;
-//     font-family: "Roboto", sans-serif;
-//     font-size: 1.2rem;
-//     font-weight: 300;
-// }
-
-// #header-reg, #id {
-//     flex: 1;
-//     padding-left: 60px;
-//     text-align: center;
-// }
-
-// #header-pat-name, #name {
-//     flex: 4;
-//     padding-left: 30px;
-// }
-
-// #header-ins, #insurance, #header-file, #open-button {
-//     flex: 2;
-// }
-
-// #header-file, #open-button {
-//   text-align: center;
-// }
-
-// #open-button button {
-//     background-color: #6b54f0;
-//     border: none;
-//     border-radius: 4px;
-//     height: 35px;
-//     font-family: "Dosis", sans-serif;
-//     font-weight: 400;
-//     font-size: 1rem;
-//     color: white;
-// }
-
-// #open-button button:hover {
-//     background-color: #FF4155;
-//     color: black;
-// }
-
-
-// .list-area {
-//   width: 70%;
-//   border-radius: 4px;
-//   background-color: white;
-//   overflow: hidden;
-//   color: white;
-//   font-family: "Dosis", sans-serif;
-//   font-weight: 400;
-//   font-size: 1.8rem;
-// }
-
-// .patient-card1 {
-//   width: 100%;
-// }
-
-// .patient-card1 td {
-// border-bottom: 1px solid rgba(0, 0, 0, 0.178);
-// }
-
-// .header-area {
-// border-top-left-radius: 4px;
-// border-top-right-radius: 4px;
-// background-color: #6b54f0;
-// height: 60px;
-// }
-
-// .card-content1 {
-// color: black;
-// font-family: "Roboto", sans-serif;
-// font-size: 1.2rem;
-// font-weight: 300;
-// height: 55px;
-// }
-
-// td p {
-// overflow: hidden;
-// white-space: nowrap;
-// width: 90%;
-// }
-
-// #header-reg {
-//   width: 15%;
-//   padding-left: 30px;
-// }
-
-// #header-pat-name {
-// width: 42%;
-// }
-
-// #header-ins {
-// width: 20%;
-// }
-
-// #header-file {
-// width: 23%;
-// text-align: center;
-// }
-
-// #id {
-// padding-left: 50px;
-// }
-
-// #name {
-// display: flex;
-// justify-content: left;
-// }
-
-// #open-button {
-// display: flex;
-// justify-content: center;
-// }
-
-// #open-button button {
-// background-color: #6b54f0;
-// border: none;
-// border-radius: 4px;
-// height: 35px;
-// font-family: "Dosis", sans-serif;
-// font-weight: 400;
-// font-size: 1rem;
-// color: white;
-
-// }
-
-// #open-button button:hover {
-// background-color: #FF4155;
-// color: black;
-// }
