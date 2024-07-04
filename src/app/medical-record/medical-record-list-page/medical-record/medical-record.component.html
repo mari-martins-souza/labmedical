@@ -4,9 +4,76 @@
     <div style="display: flex; flex-grow: 1">
       <app-sidebar-menu></app-sidebar-menu>
     
-    <div class="container" style="flex-grow: 0.9">
-      
+      <!-- <div class="container" style="flex-grow: 0.9"></div> -->
+    <div class="container1">
+
       <div class="patient-title" *ngFor="let patient of patientsList">
+        <h2>Paciente: {{ patient.name }}</h2>
+      </div>
+
+      <app-slider [topics]="[
+  { 
+    title: 'PACIENTE', 
+    content: patientTemplate 
+  },
+  { 
+    title: 'CONSULTAS', 
+    content: appointmentTemplate 
+  },
+  { 
+    title: 'EXAMES', 
+    content: examTemplate 
+  }
+]"></app-slider>
+
+
+<ng-template #patientTemplate>
+  <div class="content" *ngFor="let patient of patientsList">
+    
+    <p>Nome: {{ patient.name }}</p>
+    <p>Convênio: {{ patient.healthInsurance }}</p>
+    <p>Contato de emergência: {{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
+    <p>Alergias: {{ patient.listOfAllergies }}</p>
+    <p>Cuidados específicos: {{ patient.careList }}</p>
+    <button id="edit-patient" (click)="editPatient(patient.id)">EDITAR</button>
+  </div>
+</ng-template>
+
+<ng-template #appointmentTemplate>
+  <div class="content" *ngFor="let appointment of appointmentsList, let i = index">
+    
+    <p>Motivo da Consulta: {{ appointment.reason }}</p>
+    <p>Data: {{ appointment.consultDate }} / Hora: {{ appointment.consultTime }}</p>
+    <p>Descrição do problema: {{ appointment.problemDescrip }}</p>
+    <p>Medicação receitada: {{ appointment.prescMed }}</p>
+    <p>Dosagens e precauções: {{ appointment.dosagesPrec }}</p>
+    <button id="edit-appoint" (click)="editAppointment(appointment.id)">EDITAR</button>
+    <mat-divider *ngIf="i < appointmentsList.length - 1"></mat-divider>
+    
+  </div>
+</ng-template>
+
+<ng-template #examTemplate>
+  <div class="content" *ngFor="let exam of examsList, let i = index">
+    
+    <p>Exame: {{ exam.exam }}</p>
+    <p>Data: {{ exam.examDate }} / Hora: {{ exam.examTime }}</p>
+    <p>Laboratório: {{ exam.lab }}</p>
+    <p>Url do documento: {{ exam.docUrl }}</p>
+    <p>Tipo de exame: {{ exam.examType }}</p>
+    <p>Resultados: {{ exam.result }}</p>
+    <button id="edit-exam" (click)="editExam(exam.id)">EDITAR</button> 
+    <mat-divider *ngIf="i < examsList.length - 1"></mat-divider>
+</div>
+</ng-template>
+
+      <!-- <app-slider [topics]="[
+      { title: 'Tópico 1', content: 'Conteúdo do Tópico 1' },
+      { title: 'Tópico 2', content: 'Conteúdo do Tópico 2' },
+      { title: 'Tópico 3', content: 'Conteúdo do Tópico 3' }
+    ]"></app-slider> -->
+      
+      <!-- <div class="patient-title" *ngFor="let patient of patientsList">
         <h2>Paciente: {{ patient.name }}</h2>
       </div>
       <mat-tab-group>
@@ -45,7 +112,7 @@
             <mat-divider></mat-divider>
         </div>
         </mat-tab>
-      </mat-tab-group>    
+      </mat-tab-group>     -->
     </div>
     </div>
 </div>

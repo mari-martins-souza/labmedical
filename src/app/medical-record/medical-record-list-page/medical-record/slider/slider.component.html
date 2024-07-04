@@ -1,0 +1,12 @@
+<div class="topics">
+    <button *ngFor="let topic of topics; let i = index" (click)="selectTopic(i)">
+      {{ topic.title }}
+    </button>
+  </div>
+  
+  <div class="slider-content">
+    <div *ngFor="let topic of topics; let i = index" [style.display]="i === selectedTopicIndex ? 'block' : 'none'">
+        <ng-container [ngTemplateOutlet]="topic.content"></ng-container>
+    </div>
+  </div>
+  

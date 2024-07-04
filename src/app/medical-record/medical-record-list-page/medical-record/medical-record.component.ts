@@ -10,11 +10,12 @@ import {MatDividerModule} from '@angular/material/divider';
 import { CommonModule } from '@angular/common';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { DateFormatPipe } from '../../../shared/pipes/date-format.pipe';
+import { SliderComponent } from './slider/slider.component';
 
 @Component({
   selector: 'app-medical-record',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule, RouterLink, MatButton, MatButtonModule, DateFormatPipe],
+  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule, RouterLink, MatButton, MatButtonModule, DateFormatPipe, SliderComponent],
   providers: [DataService],
   templateUrl: './medical-record.component.html',
   styleUrl: './medical-record.component.scss'
@@ -35,6 +36,7 @@ export class MedicalRecordComponent implements OnInit {
     
     this.dataService.getData('patients').subscribe((data: any) => {
       this.patientsList = data.filter((patient: { id: any; }) => patient.id === this.patientID);
+      
     });
   
     function convertDateFormat(date: string): string {
@@ -68,6 +70,10 @@ export class MedicalRecordComponent implements OnInit {
 
   editExam(id: string) {
     this.router.navigate(['/registro-exame', id]);
+  }
+
+  editPatient(id: string) {
+    this.router.navigate(['/registro-paciente', id]);
   }
 
 }
