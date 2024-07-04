@@ -345,12 +345,6 @@ body {
     font-weight: 400;
 }
 
-// @media only screen and (max-width: 1366px) {
-//     #button-back {
-//         width: 270px;
-//     }
-// }
-
 #button-back:hover {
     background-color: #FF4155;
     color: black;
@@ -370,13 +364,11 @@ body {
     margin-left: 10px;
 }
 
-// @media only screen and (max-width: 1366px) {
-//     .button-login button {
-//         width: 270px;
-//     }
-// }
-
 #button-register:hover {
     background-color: #FF4155;
     color: black;
+}
+
+#password-warning {
+    color: #FF4155;
 }

@@ -53,9 +53,9 @@ export class LoginPageComponent implements OnInit {
 
   register() {
     if(this.registerForm.value.password !== this.registerForm.value.confirm) {
-      window.alert('As senhas precisam ser idênticas.') 
+      this.dialog.openDialog('As senhas precisam ser idênticas.') 
     } else if(!this.registerForm.valid) {
-      window.alert('Preencha todos os campos corretamente.') 
+      this.dialog.openDialog('Preencha todos os campos corretamente.') 
       } else {
         const savedUsers = localStorage.getItem('savedUsers');
         if(savedUsers) {
@@ -71,8 +71,9 @@ export class LoginPageComponent implements OnInit {
       this.users.push(newUser);
 
       localStorage.setItem('savedUsers', JSON.stringify(this.users));
-      this.dialog.openDialog('Registro efetuado com sucesso!'); 
+      this.dialog.openDialog('Registro efetuado com sucesso! Você já pode efetuar login.'); 
       this.registerForm.reset();
+      this.toggleRegisterForm();
     }
   }  
   

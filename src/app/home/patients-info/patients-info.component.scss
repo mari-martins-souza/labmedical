@@ -32,7 +32,6 @@
     flex-direction: row;
     height: 100px;
     margin-top: -10px;
-    // margin-bottom: 10px;
 }
 
 #img-perfil {
@@ -68,7 +67,6 @@
     margin-top: 28px;
     z-index: 2;
     background-color: #2d1f7996;
-    // border-radius: 4px;
 }
 
 #name p {
@@ -93,7 +91,7 @@
 }
 
 #search {
-    width: 54vw;
+    width: 48vw;
     height: 40px;
     padding-left: 15px;
     padding-right: 15px;
@@ -102,13 +100,12 @@
     border: none;
     background-color: #6b54f042;
     outline: none;
-    // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.527), 0 0 0 1px rgba(0,0,0,0.08);
     transition: box-shadow 0.3s ease-in-out;
   }
 
   @media only screen and (max-width: 1366px) {
     #search {
-        width: 70vw;
+        width: 59vw;
     }
 }
   
@@ -117,13 +114,10 @@
     margin-bottom: 5px;
     display: flex;
     justify-content: center;
-    // margin-left: 20px;
-    // border: solid yellow 2px;
   }
   
   #search::placeholder{
-    // color: rgba(0, 0, 0, 0.548);
-    color: rgba(0, 0, 0, 0.315);
+    color: rgba(0, 0, 0, 0.541);
   }
   
   #btn-search {
@@ -136,6 +130,7 @@
     font-family: "Dosis", sans-serif;
     font-weight: 500;
     font-size: 1rem;
+    border: none;
   }
 
   @media only screen and (max-width: 1366px) {
@@ -145,6 +140,30 @@
 }
 
   #btn-search:hover {
+    background-color: #FF4155;
+    color: black;
+  }
+
+  #btn-clear {
+    background-color: #6b54f0;
+    color: white;
+    border-radius: 4px;
+    height: 40px;
+    width: 5vw;
+    margin-left: 1vw;
+    font-family: "Dosis", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+  }
+
+  @media only screen and (max-width: 1366px) {
+    #btn-clear {
+        width: 10.2vw;
+    }
+}
+
+  #btn-clear:hover {
     background-color: #FF4155;
     color: black;
   }

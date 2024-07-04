@@ -1,4 +1,4 @@
-<app-dialog (dialogClosed)="toggleRegisterForm()"></app-dialog>
+<app-dialog></app-dialog>
 
 <div class="container-1">
 
@@ -50,6 +50,7 @@
       <div class="register-password">
         <p>Senha</p>
         <input type="password" id="input-password" formControlName="password">
+        <div *ngIf="registerForm.controls.password.invalid && (registerForm.controls.password.dirty || registerForm.controls.password.touched)" id="password-warning">Senha precisa ter 8 caracteres ou mais</div>
       </div>
       <div class="register-password-confirm">
         <p>Confirmar senha</p>
@@ -63,36 +64,4 @@
   </div>
 
 </div>
-
-
-
-    <!-- <form [formGroup]="registerForm">
-       
-           
-                <span class="input-group-text" id="basic-addon1">Nome</span>
-                <input type="text" class="form-control" id="input-name-modal" aria-label="name" aria-describedby="basic-addon1" formControlName="name">
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Email</span>
-                <input type="email" class="form-control" id="input-email-modal"  aria-label="email" aria-describedby="basic-addon1" formControlName="email">
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Senha</span>
-                <input type="password" class="form-control" id="input-password-modal"  aria-label="password" aria-describedby="basic-addon1" formControlName="password" placeholder="a senha deve ter 8 caracteres ou mais">
-              </div>
-              <div class="input-group mb-3">
-                <span class="input-group-text" id="basic-addon1">Confirmar</span>
-                <input type="password" class="form-control" id="input-confirm-modal"  aria-label="password" aria-describedby="basic-addon1" formControlName="confirm" placeholder="digite a senha novamente">
-              </div>
-        </div>
-    </form>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="close-btn-modal" data-bs-dismiss="modal">Fechar</button>
-          <button (click)="register()" type="button" class="btn btn-primary" id="register-btn-modal">Registrar</button>
-        </div>
-      </div>
-    </div>
-  </div> --> 
-
-  
   

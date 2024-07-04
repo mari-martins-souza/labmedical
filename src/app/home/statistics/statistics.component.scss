@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: row;
     height: 250px;
-    // border: solid red 2px;
 }
 
 .container {
@@ -11,12 +10,10 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 20px;
-    // margin-left: 20px;
     background-color: #6b54f042;
     padding: 15px;
     width: 60vw;
     border-radius: 4px;
-    // border: solid 2px blue;
 }
 
 @media only screen and (max-width: 1366px) {
@@ -103,8 +100,7 @@
 }
 
 .label {
-    font-size: 1.8rem;
-    // margin-top: 20px;  
+    font-size: 1.8rem; 
     margin-left: 10px;
     margin-top: 10px;
     text-align: center;
