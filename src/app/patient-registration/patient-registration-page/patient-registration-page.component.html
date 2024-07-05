@@ -1,71 +1,75 @@
 <div *ngIf="showMessage" class="success-icon checkmark">
     <img src="../../../assets/images/check-save.png">
-  </div>
-
-<div style="display: flex; flex-direction: column; height: 100vh;">
+</div>
+ 
+ <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
-
+ 
     <div style="display: flex; flex-grow: 1;">
       <app-sidebar-menu></app-sidebar-menu>
-
-      <div class="form-container" style="flex-grow: 1;">
-        
-             
-        <div class="form-area" [formGroup]="patRegistration">
-            <div class="buttons-and-title">
-                <h3>Preencha os campos para cadastrar</h3>
-
-                <div id="button-group">
-                    <button mat-raised-button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditPat()">Salvar</button>
-                    <button mat-raised-button id="btn-save" *ngIf="!isEditing" (click)="savePatRegister()">Salvar</button>   
-                    <button mat-raised-button id="btn-edit" *ngIf="isEditing" (click)="editPatient()">Editar</button>
-                    <button mat-raised-button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
-                    <button mat-raised-button id="btn-del" *ngIf="isEditing" (click)="deletePatient(patientId)">Deletar</button>
-                    <button mat-raised-button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
+ 
+      <div class="form-container1" style="flex-grow: 0.9;">
+ 
+                <div id="button-group1">
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditPat()">Salvar</button>
+                    <button id="btn-save" *ngIf="!isEditing" (click)="savePatRegister()">Salvar</button>   
+                    <button id="btn-edit" *ngIf="isEditing" (click)="editPatient()">Editar</button>
+                    <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
+                    <button id="btn-del" *ngIf="isEditing" (click)="deletePatient(patientId)">Deletar</button>
+                    <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
                 </div>
-                     
-
-            </div>
-            <div>
-            <h4>Identificação</h4>
+ 
+            <div class="form-area2" [formGroup]="patRegistration"> 
                 
-                <mat-form-field class="form-field" id="name-form-field">
-                    <mat-label>Nome completo</mat-label>
-                    <input matInput formControlName="name" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="patRegistration.get('name')?.invalid && (patRegistration.get('name')?.dirty || patRegistration.get('name')?.touched)">
-                        Nome é obrigatório e deve ter entre 8 e 64 caracteres.
-                    </mat-error>
-                </mat-form-field>
+            <h4>Identificação</h4>
 
-                <mat-form-field class="form-field" id="gen-form-field">
-                    <mat-select placeholder="Gênero*" formControlName="gender">
-                    <mat-option value="Masculino">Masculino</mat-option>
-                    <mat-option value="Feminino">Feminino</mat-option>
-                    <!-- <mat-option value="Não informar">Não informar</mat-option> -->
-                    </mat-select>
-                </mat-form-field>
+               <div class="form-area3">
 
-                <mat-form-field class="form-field" id="date-form-field">
-                    <input matInput [matDatepicker]="picker" placeholder="Data de nascimento" formControlName="birthdate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-
-                <mat-form-field class="form-field" id="cpf-form-field">
-                    <mat-label>CPF</mat-label>
-                    <input matInput formControlName="cpf" mask="000.000.000-00">
-                </mat-form-field>
-
-                <mat-form-field class="form-field" id="rg-form-field">
-                    <mat-label>RG</mat-label>
-                    <input matInput type="number" formControlName="rg">
-                </mat-form-field>
-
-                <mat-form-field class="form-field" id="rg-org-form-field">
+                <div class="line1">
+                    <div class="form-field1" >
+                        <label for="name">Nome completo</label>
+                        <input matInput formControlName="name" [errorStateMatcher]="matcher" id="name-form-field">
+                        <mat-error *ngIf="patRegistration.get('name')?.invalid && (patRegistration.get('name')?.dirty || patRegistration.get('name')?.touched)">
+                            Nome é obrigatório e deve ter entre 8 e 64 caracteres
+                        </mat-error>
+                    </div>
+                    </div>
+                    <div class="line2">
+                        <div class="form-field1">
+                            <label for="gender">Gênero</label>
+                            <select formControlName="gender" name="gender" id="gen-form-field">
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                            </select>
+                        </div>
+                        <div class="form-field1">
+                            <label for="birthDate">Data de Nascimento</label>
+                            <input type="date" name="birthDate" formControlName="birthdate"  id="date-form-field">
+                        </div>
+                    </div>
+                    <div class="line3">
+                        <div class="form-field1">
+                            <label for="cpf">CPF</label>
+                            <input matInput formControlName="cpf" mask="000.000.000-00" id="cpf-form-field" name="cpf">
+                        </div>
+                        <div class="form-field1">
+                            <label for="rg">RG</label>
+                            <input matInput type="number" formControlName="rg" name="rg">
+                        </div>
+                   </div> 
+           
+                
+              
+             
+ 
+               
+                
+ 
+                <!-- <mat-form-field class="form-field" id="rg-org-form-field">
                     <mat-label>Órgão expedidor</mat-label>
                     <input matInput formControlName="issOrg">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="cs-form-field">
                     <mat-select placeholder="Estado Civil*" formControlName="maritalStatus">
                     <mat-option value="Solteiro(a)">Solteiro(a)</mat-option>
@@ -76,47 +80,47 @@
                     <mat-option value="União Estável">União Estável</mat-option>
                     </mat-select>
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="phone-form-field">
                     <mat-label>Telefone</mat-label>
                     <input matInput formControlName="phone" mask="(00) 0 0000-0009">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="email-form-field">
                     <mat-label>E-mail</mat-label>
                     <input matInput type="email" formControlName="email">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="nat-form-field">
                     <mat-label>Naturalidade</mat-label>
                     <input matInput formControlName="placeOfBirth">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="cont-form-field">
                     <mat-label>Contato de emergência</mat-label>
                     <input matInput formControlName="emergCont">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="phone-cont-form-field">
                     <mat-label>Telefone emergência</mat-label>
                     <input matInput formControlName="emergContNumber" mask="(00) 0 0000-0009">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="alle-form-field">
                     <mat-label>Lista de alergias</mat-label>
                     <input matInput formControlName="listOfAllergies">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="care-form-field">
                     <mat-label>Lista de cuidados específicos</mat-label>
                     <input matInput formControlName="careList">
                 </mat-form-field>
-
+ 
             </div>
-
+ 
             <div>
             <h4>Convênio</h4>
-
+ 
                 <mat-form-field class="form-field" id="insu-form-field">
                     <mat-select placeholder="Convênio*" formControlName="healthInsurance">
                         <mat-option value="Allianz Saúde">Allianz Saúde</mat-option>
@@ -129,71 +133,62 @@
                         <mat-option value="Particular">Particular</mat-option>
                     </mat-select>
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="insu-n-form-field">
                     <mat-label>Número do convênio</mat-label>
                     <input matInput type="number" formControlName="healthInsuranceNumber">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="insu-val-form-field">
                     <input matInput [matDatepicker]="picker2" placeholder="Validade do convênio" formControlName="healthInsuranceVal">
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2></mat-datepicker>
                 </mat-form-field>
             </div>
-
+ 
             <div>
                 <h4>Endereço</h4>
                 <mat-form-field class="form-field" id="zipcode-form-field">
                     <mat-label>CEP</mat-label>
                     <input matInput formControlName="zipcode">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="str-form-field">
                     <mat-label>Rua</mat-label>
                     <input matInput formControlName="street">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="addr-n-form-field">
                     <mat-label>Nº</mat-label>
                     <input matInput type="number" formControlName="addressNumber">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="addr-comp-form-field">
                     <mat-label>Complemento</mat-label>
                     <input matInput formControlName="complement">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="addr-ref-form-field">
                     <mat-label>Ponto de Referência</mat-label>
                     <input matInput formControlName="referencePoint">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="addr-neig-form-field">
                     <mat-label>Bairro</mat-label>
                     <input matInput formControlName="neighborhood">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="addr-city-form-field">
                     <mat-label>Cidade</mat-label>
                     <input matInput formControlName="city">
                 </mat-form-field>
-
+ 
                 <mat-form-field class="form-field" id="addr-sta-form-field">
                     <mat-label>Estado</mat-label>
                     <input matInput formControlName="state">
-                </mat-form-field>
+                </mat-form-field> 
+ 
+            </div> -->
 
-            </div>
-        </div>
     
   </div>
-
-  
-  
-            
-            
-            
-
-
- 
