@@ -69,6 +69,17 @@
                             </mat-error>
                         </div>
                         <div class="form-field1">
+                            <label for="issOrg">Órgão expedidor*</label>
+                            <input matInput formControlName="issOrg" name="issOrg">
+                            <mat-error *ngIf="patRegistration.get('issOrg')?.invalid && patRegistration.get('issOrg')?.touched">
+                                Obrigatório
+                            </mat-error>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="row1">
+                        <div class="form-field1">
                             <label for="maritalStatus">Estado Civil*</label>
                             <select formControlName="maritalStatus" id="cs-form-field" name="maritalStatus">
                                 <option value="Solteiro(a)">Solteiro(a)</option>
@@ -82,15 +93,6 @@
                                 Obrigatório
                             </mat-error>
                         </div>
-                        <div class="form-field1">
-                            <label for="phone">Telefone*</label>
-                            <input matInput formControlName="phone" mask="(00) 0 0000-0009" id="phone-form-field" name="phone">
-                            <mat-error *ngIf="patRegistration.get('phone')?.invalid && patRegistration.get('phone')?.touched">
-                                Obrigatório
-                            </mat-error>
-                        </div>
-                    </div>
-                    <div class="row1">
                         <div class="form-field1">
                             <label for="email">E-mail*</label>
                             <input matInput type="email" formControlName="email" name="email">
@@ -107,6 +109,13 @@
                         </div>
                    </div> 
                    <div class="row1">
+                    <div class="form-field1">
+                        <label for="phone">Telefone*</label>
+                        <input matInput formControlName="phone" mask="(00) 0 0000-0009" id="phone-form-field" name="phone">
+                        <mat-error *ngIf="patRegistration.get('phone')?.invalid && patRegistration.get('phone')?.touched">
+                            Obrigatório
+                        </mat-error>
+                    </div>
                         <div class="form-field1">
                             <label for="emergCont">Contato de emergência*</label>
                             <input matInput formControlName="emergCont" name="emergCont">
