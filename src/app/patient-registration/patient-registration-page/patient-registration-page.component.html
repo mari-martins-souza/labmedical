@@ -28,7 +28,7 @@
                 <h4>Identificação</h4>
 
                 <div class="row1">
-                    <div class="form-field1 name" >
+                    <div class="form-field1 name">
                         <label for="name">Nome completo*</label>
                         <input matInput formControlName="name" [errorStateMatcher]="matcher" id="name-form-field">
                         <mat-error *ngIf="patRegistration.get('name')?.invalid && (patRegistration.get('name')?.dirty || patRegistration.get('name')?.touched)">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-field1">
                         <label for="birthDate">Data de Nascimento*</label>
-                        <input type="date" name="birthDate" formControlName="birthdate"  id="date-form-field">
+                        <input type="date" name="birthDate" formControlName="birthdate">
                         <mat-error *ngIf="patRegistration.get('birthdate')?.invalid && patRegistration.get('birthdate')?.touched">
                             Obrigatório
                         </mat-error>
@@ -233,7 +233,7 @@
                                 <input matInput formControlName="state" name="state">
                             </div>
 
-                    </div>
+                        </div>
 
 
 
