@@ -7,12 +7,10 @@
     <div class="container-list" style="flex-grow: 0.9"> 
    
         <div class="search-area">
-            <div class="search-input-button">
                 <label for="search"></label>
                 <input type="text" id="search" name="search" [(ngModel)]="searchTerm" placeholder="Digite o nome do paciente">
-                <button id="btn-search1" (click)="search()">BUSCAR</button>
-                <button id="btn-clear1" (click)="clearSearch()">LIMPAR</button>
-            </div>
+                    <button id="btn-search1" (click)="search()">BUSCAR</button>
+                    <button id="btn-clear1" (click)="clearSearch()">LIMPAR</button>
         </div>
 
         <div class="list-area">

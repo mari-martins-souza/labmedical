@@ -121,7 +121,7 @@ mat-error {
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 #search {
@@ -142,35 +142,35 @@ mat-error {
 }
 
 
-// @keyframes checkmark {
-//     0% {
-//       opacity: 0;
-//       transform: scale(0);
-//     }
-//     20% {
-//       opacity: 1;
-//       transform: scale(1);
-//     }
-//     80% {
-//       opacity: 1;
-//     }
-//     100% {
-//       opacity: 0;
-//     }
-//   }
+@keyframes checkmark {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    20% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
   
-//   .checkmark {
-//     animation: checkmark 0.3s ease-in-out;
-//   }
+  .checkmark {
+    animation: checkmark 0.3s ease-in-out;
+  }
   
-//   .success-icon {
-//     position: fixed; 
-//     top: 50%; 
-//     left: 50%; 
-//     transform: translate(-50%, -50%); 
-//     animation: checkmark 0.3s ease-in-out;
-//     z-index: 9999; 
-//   }
+  .success-icon {
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    animation: checkmark 0.3s ease-in-out;
+    z-index: 9999; 
+  }
 
 
 //   .title {

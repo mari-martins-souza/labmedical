@@ -116,6 +116,11 @@ mat-error {
   color: rgb(212, 0, 0);
 }
 
+select:disabled {
+  background: #CFC6F7;
+  color: #000000;
+}
+
 
 
 // @keyframes checkmark {

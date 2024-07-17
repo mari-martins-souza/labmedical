@@ -75,7 +75,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
   setDate(date: Date) {
     let d = new Date(date);
-    d.setHours(d.getHours() + 24);
+    d.setHours(d.getHours());
     return d;
   }
     
@@ -132,8 +132,8 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     if (this.appointRegistration.valid) {
         
         const appointment = {
-          idPatient: this.appointRegistration.value.idPatient,
-          name: this.appointRegistration.value.name,
+          idPatient: this.appointRegistration.getRawValue().idPatient,
+          name: this.appointRegistration.getRawValue().name,
           reason: this.appointRegistration.value.reason,
           consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),
           consultTime: this.appointRegistration.value.consultTime,
@@ -169,14 +169,14 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     if (this.appointRegistration.valid) {
       const appointment = {
         id: this.appointmentId,
-        idPatient: this.appointRegistration.value.idPatient,
-          name: this.appointRegistration.value.name,
-          reason: this.appointRegistration.value.reason,
-          consultDate: moment(this.appointRegistration.value.consultDate).format('DD-MM-YYYY'),
-          consultTime: this.appointRegistration.value.consultTime,
-          problemDescrip: this.appointRegistration.value.problemDescrip,
-          prescMed: this.appointRegistration.value.prescMed,
-          dosagesPrec: this.appointRegistration.value.dosagesPrec,
+        idPatient: this.appointRegistration.getRawValue().idPatient,
+        name: this.appointRegistration.getRawValue().name,
+        reason: this.appointRegistration.value.reason,
+        consultDate: moment(this.appointRegistration.value.consultDate).format('DD-MM-YYYY'),
+        consultTime: this.appointRegistration.value.consultTime,
+        problemDescrip: this.appointRegistration.value.problemDescrip,
+        prescMed: this.appointRegistration.value.prescMed,
+        dosagesPrec: this.appointRegistration.value.dosagesPrec,
       }
   
       this.dataService.editData('appointments', this.appointmentId, appointment).subscribe(() => {

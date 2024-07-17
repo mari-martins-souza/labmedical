@@ -13,11 +13,17 @@ export class DataTransformService {
 
   formatDate(dateAny: any): any {
     const date = new Date(dateAny);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // meses começam do 0
-    const year = date.getFullYear();
+    const day = (date.getUTCDate()).toString().padStart(2, '0');
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, '0'); // meses começam do 0
+    const year = date.getUTCFullYear();
     return `${day}-${month}-${year}`;
+}
+
+  transformDateForForm(dateStr: string): string {
+    const dateParts = dateStr.split('-');
+    return `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
   }
+
 
   formatPhone(phone: any): any {
     return '(' + phone.substring(0, 2) + ') ' + phone.substring(2, 3) + ' ' + phone.substring(3, 7) + '-' + phone.substring(7, 11);

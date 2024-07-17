@@ -76,7 +76,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   setDate(date: Date) {
     let d = new Date(date);
-    d.setHours(d.getHours() + 24);
+    d.setHours(d.getHours());
     return d;
   }
 
@@ -135,8 +135,8 @@ export class ExamRegisterPageComponent implements OnInit {
     if (this.examRegister.valid) {
         
         const exam = {
-          idPatient: this.examRegister.value.idPatient,
-          name: this.examRegister.value.name,
+          idPatient: this.examRegister.getRawValue().idPatient,
+          name: this.examRegister.getRawValue().name,
           exam: this.examRegister.value.exam,
           examDate: this.dataTransformService.formatDate(this.examRegister.value.examDate),
           examTime: this.examRegister.value.examTime,
@@ -172,8 +172,8 @@ export class ExamRegisterPageComponent implements OnInit {
     if (this.examRegister.valid) {
       const exam = {
         id: this.examId,
-        idPatient: this.examRegister.value.idPatient,
-        name: this.examRegister.value.name,
+        idPatient: this.examRegister.getRawValue().idPatient,
+        name: this.examRegister.getRawValue().name,
         exam: this.examRegister.value.exam,
         examDate: moment(this.examRegister.value.examDate).format('DD-MM-YYYY'),
         examTime: this.examRegister.value.examTime,
