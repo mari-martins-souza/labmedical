@@ -6,8 +6,7 @@ import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ErrorStateMatcher, MatNativeDateModule } from '@angular/material/core';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { MatButtonModule, MatButton } from '@angular/material/button';
 import { FormBuilder, FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -18,8 +17,6 @@ import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,19 +28,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-medical-appointment-reg-page',
   standalone: true,
-  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
-  providers: [DataTransformService, DataService, {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
-    parse: {
-        dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
-    },
-    display: {
-        dateInput: 'input',
-        monthYearLabel: {year: 'numeric', month: 'short'},
-        dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-        monthYearA11yLabel: {year: 'numeric', month: 'long'},
-    }
-  }}
-],
+  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
+  providers: [DataTransformService, DataService],
   templateUrl: './medical-appointment-reg-page.component.html',
   styleUrl: './medical-appointment-reg-page.component.scss'
 })
@@ -87,8 +73,8 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
     if (this.appointmentId) {
       this.dataService.getData('appointments/' + this.appointmentId).subscribe(appointment => {
-        const consultDate = moment(appointment.consultDate, 'DD-MM-YYYY').toDate();
-        appointment.consultDate = consultDate;
+        appointment.consultDate = this.dataTransformService.transformDateForForm(appointment.consultDate);
+
         this.appointRegistration.patchValue(appointment);
       })
     } else {
@@ -172,7 +158,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
         idPatient: this.appointRegistration.getRawValue().idPatient,
         name: this.appointRegistration.getRawValue().name,
         reason: this.appointRegistration.value.reason,
-        consultDate: moment(this.appointRegistration.value.consultDate).format('DD-MM-YYYY'),
+        consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),
         consultTime: this.appointRegistration.value.consultTime,
         problemDescrip: this.appointRegistration.value.problemDescrip,
         prescMed: this.appointRegistration.value.prescMed,
