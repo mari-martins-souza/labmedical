@@ -46,7 +46,7 @@
                     
                     <div class="row1">
                         <div class="form-field1 reason">
-                            <label for="reason">Motivo da consulta</label>
+                            <label for="reason">Motivo da consulta*</label>
                             <input matInput formControlName="reason" name="reason">
                             <mat-error *ngIf="appointRegistration.get('reason')?.invalid && (appointRegistration.get('reason')?.dirty || appointRegistration.get('reason')?.touched)">
                                 Motivo da consulta é obrigatório e deve ter entre 8 e 64 caracteres
@@ -55,17 +55,17 @@
                     </div>
                     <div class="row1">
                         <div class="form-field1 consultDate">
-                            <label for="consultDate">Data da Consulta</label>
+                            <label for="consultDate">Data da consulta*</label>
                             <input type="date" name="consultDate" formControlName="consultDate">
                         </div>
                         <div class="form-field1 consultTime">
-                            <label for="consultTime">Hora da consulta</label>
+                            <label for="consultTime">Hora da consulta*</label>
                             <input type="time" name="consultTime" formControlName="consultTime">
                         </div>
                     </div>
                     <div class="row1">
                         <div class="form-field1 problemDescrip">
-                            <label for="problemDescrip">Descrição do problema</label>
+                            <label for="problemDescrip">Descrição do problema*</label>
                             <textarea name="problemDescrip" formControlName="problemDescrip" rows="4" cols="50"></textarea>
                                 <mat-error *ngIf="appointRegistration.get('problemDescrip')?.invalid && (appointRegistration.get('problemDescrip')?.dirty || appointRegistration.get('problemDescrip')?.touched)">
                                     Descrição do problema é obrigatório e deve ter entre 16 e 1024 caracteres
@@ -81,7 +81,7 @@
                     </div>
                     <div class="row1">
                         <div class="form-field1 dosagesPrec">
-                            <label for="dosagesPrec">Dosagens e precauções</label>
+                            <label for="dosagesPrec">Dosagens e precauções*</label>
                             <textarea name="dosagesPrec" formControlName="dosagesPrec" rows="4" cols="50"></textarea>
                                 <mat-error *ngIf="appointRegistration.get('dosagesPrec')?.invalid && (appointRegistration.get('dosagesPrec')?.dirty || appointRegistration.get('dosagesPrec')?.touched)">
                                     Dosagens e precauções é obrigatório e deve ter entre 16 e 256 caracteres
