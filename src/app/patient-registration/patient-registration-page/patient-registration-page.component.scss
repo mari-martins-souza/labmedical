@@ -37,13 +37,14 @@
  color: rgba(255, 255, 255, 0.466);
 }
 
-.form-area2 {
+.form-area3, .form-area4, .form-area5 {
  background-color: #6b54f042;
  border-radius: 4px;
  padding: 1%;
  padding-top: 20px;
  padding-bottom: 20px;
  margin-top: 20px;
+ margin-bottom: 20px;
  display: flex;
  flex-direction: column;
  justify-content: center;
@@ -53,26 +54,20 @@ h4 {
  font-size: 1.7rem;
  color: black;
  font-family: "Dosis", sans-serif;
- text-align: center;
+ text-align: left;
 }
 
 .form-area3 {
- width: 60%;
+ width: 100%;
  margin-right: auto;
  margin-left: auto;
 }
 
-.line1 {
+.row1 {
   display: flex;
   flex-direction: row;
   width: 100%;
-}
-
-.line2, .line3 {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: 20px;
+  gap: 10px;
   margin-top: 10px;
 }
 
@@ -80,13 +75,25 @@ h4 {
   display: flex;
   flex-direction: column;
   width: 100%;
+  flex: 1;
    input, select {
     width: 100%;
     border-radius: 4px;
     border: 2px solid #6b54f0a9;
     height: 35px;
-
    }
+}
+
+.number, .cep {
+  flex: 1;
+}
+
+.name, .insurance, .complement {
+  flex: 2;
+}
+
+.street {
+  flex: 3;
 }
 
 input, select {
@@ -104,6 +111,18 @@ label {
   font-weight: 500;
   color: #000000;
 }
+
+mat-error {
+  color: rgb(212, 0, 0);
+}
+
+select:disabled {
+  background: #CFC6F7;
+  color: #000000;
+}
+
+
+
 // @keyframes checkmark {
 //     0% {
 //       opacity: 0;

@@ -8,100 +8,88 @@
     <div style="display: flex; flex-grow: 1;">
       <app-sidebar-menu></app-sidebar-menu>
 
-      <div class="form-container" style="flex-grow: 1;">
-        
-        <div class="title">
-            <h3>Busque o paciente e preencha os dados da consulta</h3>
-        </div>
-
-        <div class="form-area" [formGroup]="appointRegistration">
+      <div class="form-container1" style="flex-grow: 0.9;">
             <div id="search-and-btn">
                 <div *ngIf="!isEditing">
-                    <label for="search"></label>
                     <input type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
-
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
-                      <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
+                    <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
                         {{patient.name}}
-                      </mat-option>
+                    </mat-option>
                     </mat-autocomplete>
                 </div>
-                <div class="button-group">
-                    <button mat-raised-button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditAppoint()">Salvar</button>
-                    <button mat-raised-button id="btn-save" *ngIf="!isEditing" (click)="saveAppointRegister()">Salvar</button>
-    
-                    <button mat-raised-button id="btn-edit" *ngIf="isEditing" (click)="editAppoint()">Editar</button>
-                    <button mat-raised-button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>
-                    
-                    <button mat-raised-button id="btn-del" *ngIf="isEditing" (click)="deleteAppoint()">Deletar</button>
-                    <button mat-raised-button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button>
-                </div> 
-            </div>
-            <div class="form">                                
-                <mat-form-field class="form-field" id="id-form-field">
-                    <mat-label>ID paciente</mat-label>
-                    <input matInput formControlName="idPatient">
-                </mat-form-field>
 
-                <mat-form-field class="form-field" id="name-form-field">
-                    <mat-label>Nome</mat-label>
-                    <input matInput formControlName="name">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="reason-form-field">
-                    <mat-label>Motivo da Consulta</mat-label>
-                    <input matInput formControlName="reason" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="appointRegistration.get('reason')?.invalid && (appointRegistration.get('reason')?.dirty || appointRegistration.get('reason')?.touched)">
-                        Motivo da consulta é obrigatório e deve ter entre 8 e 64 caracteres.
-                    </mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="consult-date-form-field">
-                    <mat-label>Data da Consulta</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="consultDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                
-                <mat-form-field class="form-field" id="consult-time-form-field">
-                    <mat-label>Horário da Consulta</mat-label>
-                    <input matInput [ngxTimepicker]="timePicker" formControlName="consultTime">
-                    <ngx-material-timepicker #timePicker></ngx-material-timepicker>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="problem-descrip-form-field">
-                    <mat-label>Descrição do problema</mat-label>
-                    <textarea matInput formControlName="problemDescrip" [errorStateMatcher]="matcher"></textarea>
-                    <mat-error *ngIf="appointRegistration.get('problemDescrip')?.invalid && (appointRegistration.get('problemDescrip')?.dirty || appointRegistration.get('problemDescrip')?.touched)">
-                        Descrição do problema é obrigatório e deve ter entre 16 e 1024 caracteres.
-                    </mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="presc-med-form-field">
-                    <mat-label>Medicação receitada</mat-label>
-                    <textarea matInput formControlName="prescMed"></textarea>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="dosages-prec-form-field">
-                    <mat-label>Dosagens e precauções</mat-label>
-                    <textarea matInput formControlName="dosagesPrec" [errorStateMatcher]="matcher"></textarea>
-                    <mat-error *ngIf="appointRegistration.get('dosagesPrec')?.invalid && (appointRegistration.get('dosagesPrec')?.dirty || appointRegistration.get('dosagesPrec')?.touched)">
-                        Dosagens e precauções é obrigatório e deve ter entre 16 e 256 caracteres.
-                    </mat-error>
-                </mat-form-field>
+                <div id="button-group1">
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditAppoint()">Salvar</button>
+                    <button id="btn-save" *ngIf="!isEditing" (click)="saveAppointRegister()">Salvar</button>   
+                    <button id="btn-edit" *ngIf="isEditing" (click)="editAppoint()">Editar</button>
+                    <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
+                    <button id="btn-del" *ngIf="isEditing" (click)="deleteAppoint()">Deletar</button>
+                    <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
+                </div>
+            </div>    
+
+            <div class="form-area2" [formGroup]="appointRegistration">
+           
+                <div class="form-area3">
+                    
+                    <div class="row1">
+                        <div class="form-field1 idPatient">
+                            <label for="idPatient">ID paciente</label>
+                            <input matInput formControlName="idPatient" name="idPatient">
+                        </div>
+                        <div class="form-field1 name">
+                            <label for="name">Nome</label>
+                            <input matInput formControlName="name" name="name">
+                        </div>
+                    </div>
+                    
+                    <div class="row1">
+                        <div class="form-field1 reason">
+                            <label for="reason">Motivo da consulta*</label>
+                            <input matInput formControlName="reason" name="reason">
+                            <mat-error *ngIf="appointRegistration.get('reason')?.invalid && (appointRegistration.get('reason')?.dirty || appointRegistration.get('reason')?.touched)">
+                                Motivo da consulta é obrigatório e deve ter entre 8 e 64 caracteres
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <div class="form-field1 consultDate">
+                            <label for="consultDate">Data da consulta*</label>
+                            <input type="date" name="consultDate" formControlName="consultDate">
+                        </div>
+                        <div class="form-field1 consultTime">
+                            <label for="consultTime">Hora da consulta*</label>
+                            <input type="time" name="consultTime" formControlName="consultTime">
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <div class="form-field1 problemDescrip">
+                            <label for="problemDescrip">Descrição do problema*</label>
+                            <textarea name="problemDescrip" formControlName="problemDescrip" rows="4" cols="50"></textarea>
+                                <mat-error *ngIf="appointRegistration.get('problemDescrip')?.invalid && (appointRegistration.get('problemDescrip')?.dirty || appointRegistration.get('problemDescrip')?.touched)">
+                                    Descrição do problema é obrigatório e deve ter entre 16 e 1024 caracteres
+                                </mat-error>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="form-field1 prescMed">
+                            <label for="problemDescrip">Medicação receitada</label>
+                            <textarea name="prescMed" formControlName="prescMed" rows="4" cols="50"></textarea>
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <div class="form-field1 dosagesPrec">
+                            <label for="dosagesPrec">Dosagens e precauções*</label>
+                            <textarea name="dosagesPrec" formControlName="dosagesPrec" rows="4" cols="50"></textarea>
+                                <mat-error *ngIf="appointRegistration.get('dosagesPrec')?.invalid && (appointRegistration.get('dosagesPrec')?.dirty || appointRegistration.get('dosagesPrec')?.touched)">
+                                    Dosagens e precauções é obrigatório e deve ter entre 16 e 256 caracteres
+                                </mat-error>
+                        </div>
+                    </div>
+                </div>
             </div>
-            
-        </div>
         </div>
     </div>
 </div>
-
-  
-  
-            
-            
-            
-
-
- 
-

@@ -18,8 +18,6 @@ import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,18 +30,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   selector: 'app-exam-register-page',
   standalone: true,
   imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
-  providers: [DataTransformService, DataService, {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
-    parse: {
-        dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
-    },
-    display: {
-        dateInput: 'input',
-        monthYearLabel: {year: 'numeric', month: 'short'},
-        dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-        monthYearA11yLabel: {year: 'numeric', month: 'long'},
-    }
-  }}
-  ],
+  providers: [DataTransformService, DataService],
   templateUrl: './exam-register-page.component.html',
   styleUrl: './exam-register-page.component.scss'
 })
@@ -76,7 +63,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   setDate(date: Date) {
     let d = new Date(date);
-    d.setHours(d.getHours() + 24);
+    d.setHours(d.getHours());
     return d;
   }
 
@@ -88,8 +75,8 @@ export class ExamRegisterPageComponent implements OnInit {
     
     if (this.examId) {
       this.dataService.getData('exams/' + this.examId).subscribe(exam => {
-        const examDate = moment(exam.examDate, 'DD-MM-YYYY').toDate();
-        exam.examDate = examDate;
+        exam.examDate = this.dataTransformService.transformDateForForm(exam.examDate);
+       
         this.examRegister.patchValue(exam);
       });
     } else {
@@ -122,7 +109,6 @@ export class ExamRegisterPageComponent implements OnInit {
   }
 
   setPatientData(patient: { id: any; name: any; }) {
-
     this.examRegister.patchValue({
       idPatient: patient.id,
       name: patient.name
@@ -135,8 +121,8 @@ export class ExamRegisterPageComponent implements OnInit {
     if (this.examRegister.valid) {
         
         const exam = {
-          idPatient: this.examRegister.value.idPatient,
-          name: this.examRegister.value.name,
+          idPatient: this.examRegister.getRawValue().idPatient,
+          name: this.examRegister.getRawValue().name,
           exam: this.examRegister.value.exam,
           examDate: this.dataTransformService.formatDate(this.examRegister.value.examDate),
           examTime: this.examRegister.value.examTime,
@@ -172,10 +158,10 @@ export class ExamRegisterPageComponent implements OnInit {
     if (this.examRegister.valid) {
       const exam = {
         id: this.examId,
-        idPatient: this.examRegister.value.idPatient,
-        name: this.examRegister.value.name,
+        idPatient: this.examRegister.getRawValue().idPatient,
+        name: this.examRegister.getRawValue().name,
         exam: this.examRegister.value.exam,
-        examDate: moment(this.examRegister.value.examDate).format('DD-MM-YYYY'),
+        examDate: this.dataTransformService.formatDate(this.examRegister.value.examDate),
         examTime: this.examRegister.value.examTime,
         examType: this.examRegister.value.examType,
         lab: this.examRegister.value.lab,
