@@ -5,7 +5,7 @@
     <button id="btn-clear" (click)="clearSearch()">LIMPAR</button>
 </div>
 
-<div class="card-container">
+<div class="card-container1">
     <div *ngFor="let patient of filteredPatientsList" class="patient-card">
         <mat-card>
             <div class="photo-and-name">
@@ -19,16 +19,16 @@
             </div>
 
        
-            <mat-card-content class="card-content" id="age">
+            <mat-card-content class="card-content1" id="age">
                 <p>{{ patient.birthdate | age }} anos</p>
             </mat-card-content>
-            <mat-card-content class="card-content" id="phone">
+            <mat-card-content class="card-content1" id="phone">
                 <p><strong>Telefone: </strong>{{ patient.phone }}</p>
             </mat-card-content>
-            <mat-card-content class="card-content" id="email">
+            <mat-card-content class="card-content1" id="email">
                 <p><strong>E-mail: </strong>{{ patient.email }}</p>
             </mat-card-content>
-            <mat-card-content class="card-content" id="insurance">
+            <mat-card-content class="card-content1" id="insurance">
                 <p><strong>Convênio: </strong>{{ patient.healthInsurance }}</p>
             </mat-card-content>
       

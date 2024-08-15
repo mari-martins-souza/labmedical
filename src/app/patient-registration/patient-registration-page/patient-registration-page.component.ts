@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SidebarMenuComponent } from '../../shared/sidebar-menu/sidebar-menu.component';
 import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
 import { Title } from '@angular/platform-browser';
@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, startWith } from 'rxjs';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -27,13 +28,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-patient-registration-page',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule],
+  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule, DialogComponent],
   providers: [provideNgxMask(), AddressService, DataService, DataTransformService],
   templateUrl: './patient-registration-page.component.html',
   styleUrl: './patient-registration-page.component.scss'
 })
 export class PatientRegistrationPageComponent implements OnInit {
-  showMessage = false;
+  // showMessage = false;
   patientId: any = '';
   patients: any[] = [];
   filteredPatients: Observable<any[]> | undefined;
@@ -44,6 +45,8 @@ export class PatientRegistrationPageComponent implements OnInit {
   constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id');
   }
 
+  @ViewChild(DialogComponent) dialog!: DialogComponent;
+  
   matcher = new MyErrorStateMatcher()
 
   patRegistration = this.fb.group({
@@ -164,17 +167,18 @@ private _filter(name: string): any[] {
         }
 
         this.dataService.saveData('patients', patient).subscribe(() => {
-          this.showMessage = true;
+          // this.showMessage = true;
+          this.dialog.openDialog('O registro foi salvo com sucesso.'); 
 
           this.patRegistration.reset();
 
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 1000);
+          // setTimeout(() => {
+          //   this.showMessage = false;
+          // }, 1000);
       
     });
   } else {
-    window.alert('Preencha todos os campos obrigatórios corretamente.')
+    this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
   }
 }
 
@@ -209,17 +213,18 @@ saveEditPat() {
     }
 
     this.dataService.editData('patients', this.patientId, patient).subscribe(() => {
-      this.showMessage = true;
+      // this.showMessage = true;
+      this.dialog.openDialog('O registro foi salvo com sucesso.');
       this.patRegistration.disable();
       this.saveDisabled = true;
 
-      setTimeout(() => {
-        this.showMessage = false;
-      }, 1000);
+      // setTimeout(() => {
+      //   this.showMessage = false;
+      // }, 1000);
 
     });
   } else {
-    window.alert('Preencha todos os campos obrigatórios corretamente.');
+    this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
   }
 }
 
@@ -235,10 +240,10 @@ deletePatient(id: string) {
       const hasExam = exams.some((exam: { idPatient: string; }) => exam.idPatient === id);
 
       if (hasAppointment || hasExam) {
-        alert('O paciente tem exames ou consultas vinculadas a ele e não pode ser deletado.');
+        this.dialog.openDialog('O paciente tem exames ou consultas vinculadas a ele e não pode ser deletado.');
       } else {
         this.dataService.deleteData('patients', this.patientId).subscribe(() => {
-          window.alert('O registro de paciente foi excluído.');
+          this.dialog.openDialog('O registro de paciente foi excluído.');
           this.router.navigate(['/home']);
         });
       }

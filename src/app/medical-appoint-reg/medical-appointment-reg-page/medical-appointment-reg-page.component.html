@@ -10,14 +10,12 @@
 
       <div class="form-container1" style="flex-grow: 0.9;">
             <div id="search-and-btn">
-                <div *ngIf="!isEditing">
-                    <input type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
+                    <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
                     <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
                         {{patient.name}}
                     </mat-option>
                     </mat-autocomplete>
-                </div>
 
                 <div id="button-group1">
                     <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditAppoint()">Salvar</button>

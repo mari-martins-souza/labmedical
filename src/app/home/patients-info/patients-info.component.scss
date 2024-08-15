@@ -1,6 +1,6 @@
 @import '../../../assets/styles/variables';
 
-.card-container {
+.card-container1 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -11,8 +11,12 @@
     width: 60vw;
 }
 
+mat-card {
+  box-shadow: none !important;
+}
+
 @media only screen and (max-width: 1366px) {
-    .card-container {
+    .card-container1 {
         width: 81.2vw;
     }
 }
@@ -46,7 +50,7 @@
     z-index: 3;
 }
 
-.card-content {
+.card-content1 {
     text-align: left;
     display: flex;
     margin-left: 35px;

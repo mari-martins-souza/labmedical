@@ -12,8 +12,8 @@
   
   .dialog-content1 {
     display: flex;
-    background-color: #fefefe;
-    border: 1px solid #888;
+    background-color: rgb(45, 34, 70);
+    border: 1px solid #ffffff;
     border-radius: 4px;
     justify-content: space-between;
   }
@@ -24,6 +24,7 @@
     font-size: 1.1rem;
     padding: 4%;
     margin-bottom: 0;
+    color: white;
   }
   
   .dialog-content1 img {
