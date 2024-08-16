@@ -35,7 +35,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrl: './medical-appointment-reg-page.component.scss'
 })
 export class MedicalAppointmentRegPageComponent implements OnInit {
-  // showMessage = false;
+  showMessage = false;
   patients: any[] = [];
   filteredPatients: Observable<any[]> | undefined;
   patientSearchControl = new FormControl();
@@ -132,12 +132,11 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
         }
 
         this.dataService.saveData('appointments', appointment).subscribe(() => {
-          this.dialog.openDialog('O registro foi salvo com sucesso.'); 
-          // this.showMessage = true;
+          this.showMessage = true;
 
-          // setTimeout(() => {
-          //   this.showMessage = false;
-          // }, 1000);
+          setTimeout(() => {
+            this.showMessage = false;
+          }, 1000);
 
           const consultDateControl = this.appointRegistration.get('consultDate');
           const consultTimeControl = this.appointRegistration.get('consultTime');
@@ -170,14 +169,13 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
       }
   
       this.dataService.editData('appointments', this.appointmentId, appointment).subscribe(() => {
-        this.dialog.openDialog('O registro foi salvo com sucesso.');
-        // this.showMessage = true;
+        this.showMessage = true;
         this.appointRegistration.disable();
         this.saveDisabled = true;
   
-        // setTimeout(() => {
-        //   this.showMessage = false;
-        // }, 1000);
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 1000);
   
       });
     } else {
@@ -192,7 +190,6 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
   deleteAppoint(){
     this.dataService.deleteData('appointments', this.appointmentId).subscribe(() => {
-      this.dialog.openDialog('O registro foi excluído.');
       this.router.navigate(['/lista-prontuarios']);
     });
   }

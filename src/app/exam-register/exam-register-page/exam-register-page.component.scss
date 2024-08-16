@@ -139,32 +139,25 @@ mat-error {
 
 
 @keyframes checkmark {
-    0% {
-      opacity: 0;
-      transform: scale(0);
-    }
-    20% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    80% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
+  0% {
+    opacity: 0;
   }
-  
-  .checkmark {
-    animation: checkmark 0.3s ease-in-out;
+  5% {
+    opacity: 1;
   }
-  
-  .success-icon {
-    position: fixed; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    animation: checkmark 0.3s ease-in-out;
-    z-index: 9999; 
+  95% {
+    opacity: 1;
   }
+  100% {
+    opacity: 0;
+  }
+}
+
+.checkmark {
+  position: fixed; 
+  top: 40%; 
+  left: 50%; 
+  animation: checkmark 1s;
+  z-index: 9999; 
+}
 

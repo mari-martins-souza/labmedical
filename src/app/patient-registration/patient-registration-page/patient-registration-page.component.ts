@@ -34,7 +34,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrl: './patient-registration-page.component.scss'
 })
 export class PatientRegistrationPageComponent implements OnInit {
-  // showMessage = false;
+  showMessage = false;
   patientId: any = '';
   patients: any[] = [];
   filteredPatients: Observable<any[]> | undefined;
@@ -167,14 +167,13 @@ private _filter(name: string): any[] {
         }
 
         this.dataService.saveData('patients', patient).subscribe(() => {
-          // this.showMessage = true;
-          this.dialog.openDialog('O registro foi salvo com sucesso.'); 
+          this.showMessage = true;
 
           this.patRegistration.reset();
 
-          // setTimeout(() => {
-          //   this.showMessage = false;
-          // }, 1000);
+          setTimeout(() => {
+            this.showMessage = false;
+          }, 1000);
       
     });
   } else {
@@ -213,14 +212,14 @@ saveEditPat() {
     }
 
     this.dataService.editData('patients', this.patientId, patient).subscribe(() => {
-      // this.showMessage = true;
-      this.dialog.openDialog('O registro foi salvo com sucesso.');
+      this.showMessage = true;
+
       this.patRegistration.disable();
       this.saveDisabled = true;
 
-      // setTimeout(() => {
-      //   this.showMessage = false;
-      // }, 1000);
+      setTimeout(() => {
+        this.showMessage = false;
+      }, 1000);
 
     });
   } else {
@@ -243,7 +242,7 @@ deletePatient(id: string) {
         this.dialog.openDialog('O paciente tem exames ou consultas vinculadas a ele e não pode ser deletado.');
       } else {
         this.dataService.deleteData('patients', this.patientId).subscribe(() => {
-          this.dialog.openDialog('O registro de paciente foi excluído.');
+
           this.router.navigate(['/home']);
         });
       }

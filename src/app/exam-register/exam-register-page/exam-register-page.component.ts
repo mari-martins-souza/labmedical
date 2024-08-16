@@ -159,7 +159,6 @@ export class ExamRegisterPageComponent implements OnInit {
   }  
 
   saveEditExam() {
-    console.log('saveEditExam called');
     if (this.examRegister.valid) {
       const exam = {
         id: this.examId,
@@ -173,28 +172,9 @@ export class ExamRegisterPageComponent implements OnInit {
         docUrl: this.examRegister.value.docUrl,
         result: this.examRegister.value.result,
       }
-
-      console.log('Exam before save:', exam);
   
       this.dataService.editData('exams', this.examId, exam).subscribe(() => {
-        
-        // this.dialog.openDialog('O registro foi salvo com sucesso.');
         this.showMessage = true;
-        console.log('Exam saved successfully');
-
-        this.examRegister.patchValue({
-          idPatient: exam.idPatient,
-          name: exam.name,
-          exam: exam.exam,
-          examDate: exam.examDate,
-          examTime: exam.examTime,
-          examType: exam.examType,
-          lab: exam.lab,
-          docUrl: exam.docUrl,
-          result: exam.result
-        });
-
-        console.log('Form values after patch:', this.examRegister.value);
 
         this.examRegister.disable();
         this.saveDisabled = true;
@@ -203,9 +183,6 @@ export class ExamRegisterPageComponent implements OnInit {
         setTimeout(() => {
           this.showMessage = false;
         }, 1000);
-  
-      }, error => {
-        console.error('Error saving exam:', error);
       });
 
     } else {
@@ -220,7 +197,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   deleteExam(){
     this.dataService.deleteData('exams', this.examId).subscribe(() => {
-      this.dialog.openDialog('O registro foi excluído.');
+
       this.router.navigate(['/lista-prontuarios']);
     });
   }

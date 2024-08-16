@@ -36,7 +36,7 @@ h2 {
 }
 
 button {
-    background-color: rgba(210, 194, 255, 0.678);
+    background-color: #6b54f0;
     border: none;
     margin-right: 10px;
     margin-left: 10px;
@@ -45,7 +45,7 @@ button {
     height: 36px;
     display: flex;
     justify-content: flex-start;
-    color: $colorFontTitle;
+    color: white;
     padding-top: 2px;
     border-radius: 4px;
 
@@ -53,11 +53,15 @@ button {
 
 button:hover {
   background-color: $colorHoverBtnSideBar;
-  color: white;
+  color: black;
+}
+
+#btn-text:hover {
+  font-weight: 500;
 }
 
 button:hover .mat-icon {
-  color: white;
+  color: black;
 }
 
 
@@ -66,7 +70,7 @@ button:hover .mat-icon {
     display: flex;
     justify-content: flex-start;
     margin-top: 5px;
-    color: $colorSidebarIcon;
+    color: white;
   }
   
   #btn-text {
@@ -74,7 +78,7 @@ button:hover .mat-icon {
     margin-left: 5px;
     margin-top: 3px;
     font-family: "Dosis", sans-serif;
-    font-weight: 600;
+    font-weight: 400;
   }
 
   #toggle-sidebar {
