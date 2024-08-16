@@ -58,7 +58,7 @@ export class PatientRegistrationPageComponent implements OnInit {
     issOrg: ['', Validators.required],
     maritalStatus: ['', Validators.required],
     phone: ['', Validators.required],
-    email: ['', Validators.required, Validators.email],
+    email: ['', [Validators.email, Validators.required]],
     placeOfBirth: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(64)]],
     emergCont: ['', Validators.required],
     emergContNumber: ['', Validators.required],

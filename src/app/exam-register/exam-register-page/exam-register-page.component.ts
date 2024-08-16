@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DataTransformService } from '../../shared/services/data-transform.service';
 import { SidebarMenuComponent } from '../../shared/sidebar-menu/sidebar-menu.component';
@@ -18,6 +18,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -29,7 +30,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-exam-register-page',
   standalone: true,
-  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
+  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent],
   providers: [DataTransformService, DataService],
   templateUrl: './exam-register-page.component.html',
   styleUrl: './exam-register-page.component.scss'
@@ -46,6 +47,8 @@ export class ExamRegisterPageComponent implements OnInit {
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id');
   }
+
+  @ViewChild(DialogComponent) dialog!: DialogComponent;
 
   matcher = new MyErrorStateMatcher()
 
@@ -134,6 +137,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
         this.dataService.saveData('exams', exam).subscribe(() => {
           this.showMessage = true;
+          // this.dialog.openDialog('O registro foi salvo com sucesso.'); 
 
           setTimeout(() => {
             this.showMessage = false;
@@ -150,11 +154,12 @@ export class ExamRegisterPageComponent implements OnInit {
           }
           });
           } else {
-            window.alert('Preencha todos os campos obrigatórios corretamente.')
+            this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
   }  
 
   saveEditExam() {
+    console.log('saveEditExam called');
     if (this.examRegister.valid) {
       const exam = {
         id: this.examId,
@@ -168,19 +173,43 @@ export class ExamRegisterPageComponent implements OnInit {
         docUrl: this.examRegister.value.docUrl,
         result: this.examRegister.value.result,
       }
+
+      console.log('Exam before save:', exam);
   
       this.dataService.editData('exams', this.examId, exam).subscribe(() => {
+        
+        // this.dialog.openDialog('O registro foi salvo com sucesso.');
         this.showMessage = true;
+        console.log('Exam saved successfully');
+
+        this.examRegister.patchValue({
+          idPatient: exam.idPatient,
+          name: exam.name,
+          exam: exam.exam,
+          examDate: exam.examDate,
+          examTime: exam.examTime,
+          examType: exam.examType,
+          lab: exam.lab,
+          docUrl: exam.docUrl,
+          result: exam.result
+        });
+
+        console.log('Form values after patch:', this.examRegister.value);
+
         this.examRegister.disable();
         this.saveDisabled = true;
+        
   
         setTimeout(() => {
           this.showMessage = false;
         }, 1000);
   
+      }, error => {
+        console.error('Error saving exam:', error);
       });
+
     } else {
-      window.alert('Preencha todos os campos obrigatórios corretamente.');
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
   }
 
@@ -191,7 +220,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   deleteExam(){
     this.dataService.deleteData('exams', this.examId).subscribe(() => {
-      window.alert('O registro foi excluído.');
+      this.dialog.openDialog('O registro foi excluído.');
       this.router.navigate(['/lista-prontuarios']);
     });
   }

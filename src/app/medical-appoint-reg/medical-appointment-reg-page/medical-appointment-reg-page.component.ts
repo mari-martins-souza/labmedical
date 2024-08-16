@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DataTransformService } from '../../shared/services/data-transform.service';
 import { SidebarMenuComponent } from '../../shared/sidebar-menu/sidebar-menu.component';
@@ -17,6 +17,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,13 +29,13 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-medical-appointment-reg-page',
   standalone: true,
-  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
+  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent],
   providers: [DataTransformService, DataService],
   templateUrl: './medical-appointment-reg-page.component.html',
   styleUrl: './medical-appointment-reg-page.component.scss'
 })
 export class MedicalAppointmentRegPageComponent implements OnInit {
-  showMessage = false;
+  // showMessage = false;
   patients: any[] = [];
   filteredPatients: Observable<any[]> | undefined;
   patientSearchControl = new FormControl();
@@ -45,6 +46,8 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id')
    }
+
+   @ViewChild(DialogComponent) dialog!: DialogComponent;
 
    matcher = new MyErrorStateMatcher()
   
@@ -129,11 +132,12 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
         }
 
         this.dataService.saveData('appointments', appointment).subscribe(() => {
-          this.showMessage = true;
+          this.dialog.openDialog('O registro foi salvo com sucesso.'); 
+          // this.showMessage = true;
 
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 1000);
+          // setTimeout(() => {
+          //   this.showMessage = false;
+          // }, 1000);
 
           const consultDateControl = this.appointRegistration.get('consultDate');
           const consultTimeControl = this.appointRegistration.get('consultTime');
@@ -146,7 +150,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   }
     });
   } else {
-    window.alert('Preencha todos os campos obrigatórios corretamente.')
+    this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
 
     }
   }  
@@ -166,17 +170,18 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
       }
   
       this.dataService.editData('appointments', this.appointmentId, appointment).subscribe(() => {
-        this.showMessage = true;
+        this.dialog.openDialog('O registro foi salvo com sucesso.');
+        // this.showMessage = true;
         this.appointRegistration.disable();
         this.saveDisabled = true;
   
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 1000);
+        // setTimeout(() => {
+        //   this.showMessage = false;
+        // }, 1000);
   
       });
     } else {
-      window.alert('Preencha todos os campos obrigatórios corretamente.');
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
   }
 
@@ -187,7 +192,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
   deleteAppoint(){
     this.dataService.deleteData('appointments', this.appointmentId).subscribe(() => {
-      window.alert('O registro foi excluído.');
+      this.dialog.openDialog('O registro foi excluído.');
       this.router.navigate(['/lista-prontuarios']);
     });
   }
