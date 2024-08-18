@@ -17,6 +17,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, startWith } from 'rxjs';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,7 +29,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-patient-registration-page',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule, DialogComponent],
+  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule, DialogComponent, ConfirmDialogComponent],
   providers: [provideNgxMask(), AddressService, DataService, DataTransformService],
   templateUrl: './patient-registration-page.component.html',
   styleUrl: './patient-registration-page.component.scss'
@@ -46,6 +47,7 @@ export class PatientRegistrationPageComponent implements OnInit {
   }
 
   @ViewChild(DialogComponent) dialog!: DialogComponent;
+  @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
   
   matcher = new MyErrorStateMatcher()
 
@@ -241,10 +243,18 @@ deletePatient(id: string) {
       if (hasAppointment || hasExam) {
         this.dialog.openDialog('O paciente tem exames ou consultas vinculadas a ele e não pode ser deletado.');
       } else {
-        this.dataService.deleteData('patients', this.patientId).subscribe(() => {
 
-          this.router.navigate(['/home']);
+        this.confirmDialog.openDialog("Tem certeza que deseja excluir o paciente? Essa ação não pode ser desfeita.")
+    const subscription = this.confirmDialog.confirm.subscribe(result => {
+      if (result) {
+        this.dataService.deleteData('patients', this.patientId).subscribe(() => {
+          this.router.navigate(['/lista-prontuarios']);
+          subscription.unsubscribe();
         });
+      } else {
+        subscription.unsubscribe();
+        }
+      });
       }
     });
   });
