@@ -14,7 +14,7 @@
                     <img *ngIf="patient.gender === 'Feminino'" src="../../../assets/images/pat-female.png">
                     </mat-card-content>
                 <mat-card-content id="name">
-                        <p>{{ patient.name }}</p>
+                        <p>{{ patient.name | shortenName }}</p>
                 </mat-card-content>
             </div>
 

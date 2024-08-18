@@ -192,6 +192,10 @@ export class ExamRegisterPageComponent implements OnInit {
 
   editExam(){
     this.examRegister.enable();
+
+    this.examRegister.get('idPatient')!.disable();
+    this.examRegister.get('name')!.disable();
+
     this.saveDisabled = false;
   }
 

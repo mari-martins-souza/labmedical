@@ -185,6 +185,10 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
   editAppoint(){
     this.appointRegistration.enable();
+
+    this.appointRegistration.get('idPatient')!.disable();
+    this.appointRegistration.get('name')!.disable();
+
     this.saveDisabled = false;
   }
 
