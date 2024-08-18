@@ -19,6 +19,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,7 +31,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-exam-register-page',
   standalone: true,
-  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent],
+  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent, ConfirmDialogComponent],
   providers: [DataTransformService, DataService],
   templateUrl: './exam-register-page.component.html',
   styleUrl: './exam-register-page.component.scss'
@@ -49,6 +50,7 @@ export class ExamRegisterPageComponent implements OnInit {
   }
 
   @ViewChild(DialogComponent) dialog!: DialogComponent;
+  @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
 
   matcher = new MyErrorStateMatcher()
 
@@ -137,7 +139,6 @@ export class ExamRegisterPageComponent implements OnInit {
 
         this.dataService.saveData('exams', exam).subscribe(() => {
           this.showMessage = true;
-          // this.dialog.openDialog('O registro foi salvo com sucesso.'); 
 
           setTimeout(() => {
             this.showMessage = false;
@@ -200,12 +201,18 @@ export class ExamRegisterPageComponent implements OnInit {
   }
 
   deleteExam(){
-    this.dataService.deleteData('exams', this.examId).subscribe(() => {
-
-      this.router.navigate(['/lista-prontuarios']);
-    });
-  }
-  
+    this.confirmDialog.openDialog("Tem certeza que deseja excluir o exame? Essa ação não pode ser desfeita.")
+    const subscription = this.confirmDialog.confirm.subscribe(result => {
+      if (result) {
+        this.dataService.deleteData('exams', this.examId).subscribe(() => {
+          this.router.navigate(['/lista-prontuarios']);
+          subscription.unsubscribe();
+        });
+      } else {
+        subscription.unsubscribe();
+        }
+      });
+    }
 }
   
   

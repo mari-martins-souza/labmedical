@@ -18,6 +18,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -29,7 +30,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-medical-appointment-reg-page',
   standalone: true,
-  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent],
+  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent, ConfirmDialogComponent],
   providers: [DataTransformService, DataService],
   templateUrl: './medical-appointment-reg-page.component.html',
   styleUrl: './medical-appointment-reg-page.component.scss'
@@ -48,6 +49,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
    }
 
    @ViewChild(DialogComponent) dialog!: DialogComponent;
+   @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
 
    matcher = new MyErrorStateMatcher()
   
@@ -193,12 +195,16 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   }
 
   deleteAppoint(){
-    this.dataService.deleteData('appointments', this.appointmentId).subscribe(() => {
-      this.router.navigate(['/lista-prontuarios']);
+    this.confirmDialog.openDialog("Tem certeza que deseja excluir a consulta? Essa ação não pode ser desfeita.")
+    const subscription = this.confirmDialog.confirm.subscribe(result => {
+      if (result) {
+        this.dataService.deleteData('appointments', this.appointmentId).subscribe(() => {
+          this.router.navigate(['/lista-prontuarios']);
+          subscription.unsubscribe();
+        });
+      } else {
+        subscription.unsubscribe();
+      }
     });
   }
-  
 }
-  
-  
-
