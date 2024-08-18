@@ -8,6 +8,7 @@ import { MatButtonModule, MatButton } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { AgePipe } from "../../shared/pipes/age.pipe";
 import { Router } from '@angular/router';
+import { ShortenNamePipe } from '../../shared/pipes/shorten-name.pipe';
 
 @Component({
     selector: 'app-patients-info',
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
     providers: [DataService],
     templateUrl: './patients-info.component.html',
     styleUrl: './patients-info.component.scss',
-    imports: [MatCardModule, FormsModule, HttpClientModule, MatInputModule, MatButtonModule, MatButton, CommonModule, AgePipe]
+    imports: [MatCardModule, FormsModule, HttpClientModule, MatInputModule, MatButtonModule, MatButton, CommonModule, AgePipe, ShortenNamePipe]
 })
 export class PatientsInfoComponent implements OnInit {
   patientID: any = '';

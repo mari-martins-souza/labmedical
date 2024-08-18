@@ -1,6 +1,9 @@
-<div *ngIf="showMessage" class="success-icon checkmark">
+<div *ngIf="showMessage" class="checkmark">
     <img src="../../../assets/images/check-save.png">
 </div>
+
+<app-dialog></app-dialog>
+<app-confirm-dialog></app-confirm-dialog>
  
  <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
@@ -234,19 +237,6 @@
                             </div>
 
                         </div>
-
-
-
                 </div>
-    
   </div>
 
-
-  <!--
- 
-                <mat-form-field class="form-field" id="addr-sta-form-field">
-                    <mat-label>Estado</mat-label>
-                    <input matInput formControlName="state">
-                </mat-form-field> 
- 
-            </div> -->

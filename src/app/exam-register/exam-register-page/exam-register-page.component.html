@@ -1,6 +1,9 @@
-<div *ngIf="showMessage" class="success-icon checkmark">
+<div *ngIf="showMessage" class="checkmark">
     <img src="../../../assets/images/check-save.png">
   </div>
+
+  <app-dialog></app-dialog>
+  <app-confirm-dialog></app-confirm-dialog>
 
   <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
@@ -11,17 +14,15 @@
 
         <div class="form-container1" style="flex-grow: 0.9;">
             <div id="search-and-btn">
-                <div *ngIf="!isEditing">
-                    <input type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
+                    <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
                     <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
                         {{patient.name}}
                     </mat-option>
                     </mat-autocomplete>
-                </div>
 
                 <div id="button-group1">
-                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveExamRegister()">Salvar</button>
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditExam()">Salvar</button>
                     <button id="btn-save" *ngIf="!isEditing" (click)="saveExamRegister()">Salvar</button>   
                     <button id="btn-edit" *ngIf="isEditing" (click)="editExam()">Editar</button>
                     <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
