@@ -1,46 +1,52 @@
 @import '../../../../assets/styles/variables';
 
-.container {
-    margin-top: 100px;
+.container1 {
+    margin-top: 85px;
     margin-bottom: 50px;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 100%;
+}
+
+.patient-title {
+    background-color: white;
+    border-radius: 4px;
+    height: 50px;
+    margin-bottom: 20px;
+    vertical-align: middle;   
+}
+
+.patient-title h2 {
+    font-size: 1.7rem;
+    color: black;
+    padding-left: 15px;
+    font-family: "Dosis", sans-serif;
+    padding-top: 7px;
 }
 
 .content {
-    padding-top: 15px;
+    padding-top: 20px;
+    width: 100%;
 }
 
-h2 {
-    font-size: 1.7rem;
-    // text-align: center;
-    margin-bottom: 40px;
-    color: $colorFontTitle;
+#edit-exam, #edit-appoint, #edit-patient {
+    background-color: #6b54f0;
+    color: white;
+    border-radius: 4px;
+    height: 35px;
+    width: 75px;
+    border: none;
+    font-family: "Dosis", sans-serif;
+    margin-bottom: 15px;
 }
 
-h4 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    color: rgba(0, 0, 0, 0.719);
+#edit-exam:hover, #edit-appoint:hover, #edit-patient:hover {
+    background-color: #FF4155;
+    color: black;
+    
 }
 
-h5 {
-    font-size: 1.3rem;
-    padding-bottom: 20px;
-    color: rgba(0, 0, 0, 0.719);
-}
-
-p {
-    font-size: 1.2rem;
-    padding-bottom: 5px;
-    color: rgba(0, 0, 0, 0.719);
-}
-
-#edit-exam, #edit-appoint {
-    background-color: $colorButton;
-    color: $colorButtonFont;
-    border-radius: 25px;
-    height: 40px;
-    width: 85px;
+mat-divider {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

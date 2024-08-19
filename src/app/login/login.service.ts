@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { DialogLoginService } from '../shared/dialog/dialog-login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class LoginService {
   password!: string;
   isLogged: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dialogLoginService: DialogLoginService) { }
 
   getUsers() {
     const savedUsers = localStorage.getItem('savedUsers');
@@ -29,7 +30,7 @@ export class LoginService {
       localStorage.setItem('isLogged', 'true');
       this.router.navigate(['/home']);
     } else {
-      window.alert('Senha ou email inválidos.')
+      this.dialogLoginService.showDialog('Senha ou email inválidos.');
     }
 
   }

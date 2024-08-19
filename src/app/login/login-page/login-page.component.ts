@@ -1,20 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule, Router } from '@angular/router';
 import { LoginService } from '../login.service';
 import { CommonModule } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
-  imports: [RouterModule, FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [RouterModule, FormsModule, ReactiveFormsModule, CommonModule, DialogComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent implements OnInit {
   email!: string;
   password!: string;
+  showRegisterForm = false;
 
   registerForm = new FormGroup({
     name: new FormControl('',Validators.required),
@@ -26,8 +28,11 @@ export class LoginPageComponent implements OnInit {
   users = [
     {name: 'Mariana', email: 'mariana@labmedical.com', password: '123'},
   ] 
-    
+  
   constructor(private router: Router, private loginService: LoginService, private titleService: Title) { }
+
+  @ViewChild(DialogComponent) dialog!: DialogComponent;
+
 
   ngOnInit() {
     this.titleService.setTitle('LABMedical - Login');
@@ -48,9 +53,9 @@ export class LoginPageComponent implements OnInit {
 
   register() {
     if(this.registerForm.value.password !== this.registerForm.value.confirm) {
-      window.alert('As senhas precisam ser idênticas.') 
+      this.dialog.openDialog('As senhas precisam ser idênticas.') 
     } else if(!this.registerForm.valid) {
-      window.alert('Preencha todos os campos corretamente.') 
+      this.dialog.openDialog('Preencha todos os campos corretamente.') 
       } else {
         const savedUsers = localStorage.getItem('savedUsers');
         if(savedUsers) {
@@ -66,12 +71,22 @@ export class LoginPageComponent implements OnInit {
       this.users.push(newUser);
 
       localStorage.setItem('savedUsers', JSON.stringify(this.users));
-      window.alert('Registro efetuado com sucesso. Você já pode efetuar login.')
+      this.dialog.openDialog('Registro efetuado com sucesso! Você já pode efetuar login.'); 
+      this.registerForm.reset();
+      this.toggleRegisterForm();
     }
   }  
   
   loginButtonClick() {
     this.loginService.logon(this.email, this.password);
+  }
+
+  onForgotPassword() {
+    this.dialog.openDialog('Esta funcionalidade está temporariamente indisponível.', false); 
+  }
+
+  toggleRegisterForm() {
+    this.showRegisterForm = !this.showRegisterForm;
   }
 
 }

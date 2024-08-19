@@ -1,101 +1,109 @@
-<div *ngIf="showMessage" class="success-icon checkmark">
+<div *ngIf="showMessage" class="checkmark">
     <img src="../../../assets/images/check-save.png">
   </div>
-<div class="toolbar" style="display: flex; flex-direction: column; height: 100vh;">
+
+  <app-dialog></app-dialog>
+  <app-confirm-dialog></app-confirm-dialog>
+
+  <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
-    <div class="sidebar" style="display: flex; flex-grow: 1;">
-      <app-sidebar-menu></app-sidebar-menu>
 
-      <div class="form-container" style="flex-grow: 1;">
-        
-        <div class="title">
-            <h3>Busque o paciente e preencha os dados do exame</h3>   
-        </div>
+    <div style="display: flex; flex-grow: 1;">
+        <app-sidebar-menu></app-sidebar-menu>
 
-        <div class="form-area" [formGroup]="examRegister">
+
+        <div class="form-container1" style="flex-grow: 0.9;">
             <div id="search-and-btn">
-                <div *ngIf="!isEditing">
-                    <label for="search"></label>
-                    <input type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
+                    <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
-                      <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
+                    <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
                         {{patient.name}}
-                      </mat-option>
+                    </mat-option>
                     </mat-autocomplete>
+
+                <div id="button-group1">
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditExam()">Salvar</button>
+                    <button id="btn-save" *ngIf="!isEditing" (click)="saveExamRegister()">Salvar</button>   
+                    <button id="btn-edit" *ngIf="isEditing" (click)="editExam()">Editar</button>
+                    <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
+                    <button id="btn-del" *ngIf="isEditing" (click)="deleteExam()">Deletar</button>
+                    <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
                 </div>
-                <div class="button-group">
-                    <button mat-raised-button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditExam()">Salvar</button>
-                    <button mat-raised-button id="btn-save" *ngIf="!isEditing" (click)="saveExamRegister()">Salvar</button>   
-                    <button mat-raised-button id="btn-edit" *ngIf="isEditing" (click)="editExam()">Editar</button>
-                    <button mat-raised-button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
-                    <button mat-raised-button id="btn-del" *ngIf="isEditing" (click)="deleteExam()">Deletar</button>
-                    <button mat-raised-button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button>              
+            </div>    
+
+            <div class="form-area2" [formGroup]="examRegister">
+           
+                <div class="form-area3">
+                    
+                    <div class="row1">
+                        <div class="form-field1 idPatient">
+                            <label for="idPatient">ID paciente</label>
+                            <input matInput formControlName="idPatient" name="idPatient">
+                        </div>
+                        <div class="form-field1 name">
+                            <label for="name">Nome</label>
+                            <input matInput formControlName="name" name="name">
+                        </div>
+                    </div>
+                    
+                    <div class="row1">
+                        <div class="form-field1 exam">
+                            <label for="exam">Nome do exame*</label>
+                            <input matInput formControlName="exam" name="exam">
+                            <mat-error *ngIf="examRegister.get('exam')?.invalid && (examRegister.get('exam')?.dirty || examRegister.get('exam')?.touched)">
+                                Nome do exame é obrigatório e deve ter entre 8 e 64 caracteres
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <div class="form-field1 examDate">
+                            <label for="examDate">Data do exame*</label>
+                            <input type="date" name="examDate" formControlName="examDate">
+                        </div>
+                        <div class="form-field1 examTime">
+                            <label for="examTime">Hora do exame*</label>
+                            <input type="time" name="examTime" formControlName="examTime">
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <div class="row1">
+                            <div class="form-field1 examType">
+                                <label for="examType">Tipo do exame*</label>
+                                <input matInput formControlName="examType" name="examType">
+                                <mat-error *ngIf="examRegister.get('examType')?.invalid && (examRegister.get('examType')?.dirty || examRegister.get('examType')?.touched)">
+                                    Tipo do exame é obrigatório e deve ter entre 4 e 32 caracteres
+                                </mat-error>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row1">
+                        <div class="form-field1 lab">
+                            <label for="lab">Laboratório*</label>
+                            <input matInput name="lab" formControlName="lab">
+                            <mat-error *ngIf="examRegister.get('lab')?.invalid && (examRegister.get('lab')?.dirty || examRegister.get('lab')?.touched)">
+                                Laboratório é obrigatório e deve ter entre 4 e 32 caracteres
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <div class="form-field1 docUrl">
+                            <label for="docUrl">URL do documento</label>
+                            <input matInput name="docUrl" formControlName="docUrl">
+                        </div>
+                    </div>
+                    <div class="row1">
+                        <div class="form-field1 result">
+                            <label for="result">Resultados*</label>
+                            <textarea name="result" formControlName="result" rows="4" cols="50"></textarea>
+                                <mat-error *ngIf="examRegister.get('result')?.invalid && (examRegister.get('result')?.dirty || examRegister.get('result')?.touched)">
+                                    Resultados é obrigatório e deve ter entre 16 e 1024 caracteres
+                                </mat-error>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="form">                  
-                <mat-form-field class="form-field" id="id-form-field">
-                    <mat-label>ID paciente</mat-label>
-                    <input matInput formControlName="idPatient">
-                </mat-form-field>
-
-                <mat-form-field class="form-field" id="name-form-field">
-                    <mat-label>Nome</mat-label>
-                    <input matInput formControlName="name">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="exam-name-form-field">
-                    <mat-label>Nome do exame</mat-label>
-                    <input matInput formControlName="exam" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="examRegister.get('exam')?.invalid && (examRegister.get('exam')?.dirty || examRegister.get('exam')?.touched)">
-                        Nome do exame é obrigatório e deve ter entre 8 e 64 caracteres.
-                    </mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="exam-date-form-field">
-                    <mat-label>Data do Exame</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="examDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-                
-                <mat-form-field class="form-field" id="exam-time-form-field">
-                    <mat-label>Horário do Exame</mat-label>
-                    <input matInput [ngxTimepicker]="timePicker" formControlName="examTime">
-                    <ngx-material-timepicker #timePicker></ngx-material-timepicker>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="exam-type-form-field">
-                    <mat-label>Tipo do exame</mat-label>
-                    <input matInput formControlName="examType" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="examRegister.get('examType')?.invalid && (examRegister.get('examType')?.dirty || examRegister.get('examType')?.touched)">
-                        Tipo do exame é obrigatório e deve ter entre 4 e 32 caracteres.
-                    </mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="lab-form-field">
-                    <mat-label>Laboratório</mat-label>
-                    <input matInput formControlName="lab" [errorStateMatcher]="matcher">
-                    <mat-error *ngIf="examRegister.get('lab')?.invalid && (examRegister.get('lab')?.dirty || examRegister.get('lab')?.touched)">
-                        Laboratório é obrigatório e deve ter entre 4 e 32 caracteres.
-                    </mat-error>
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="doc-url-form-field">
-                    <mat-label>URL do documento</mat-label>
-                    <input matInput formControlName="docUrl">
-                </mat-form-field>
-                <br>
-                <mat-form-field class="form-field" id="result-form-field">
-                    <mat-label>Resultados</mat-label>
-                    <textarea matInput formControlName="result"  [errorStateMatcher]="matcher"></textarea>
-                    <mat-error *ngIf="examRegister.get('result')?.invalid && (examRegister.get('result')?.dirty || examRegister.get('result')?.touched)">
-                        Resultados é obrigatório e deve ter entre 16 e 1024 caracteres.
-                    </mat-error>
-                </mat-form-field>
-            </div>    
         </div>
-        </div>
-
 
     </div>
 </div>

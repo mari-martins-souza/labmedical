@@ -4,48 +4,69 @@
     <div style="display: flex; flex-grow: 1">
       <app-sidebar-menu></app-sidebar-menu>
     
-    <div class="container" style="flex-grow: 0.9">
-      
+      <!-- <div class="container" style="flex-grow: 0.9"></div> -->
+    <div class="container1">
+
       <div class="patient-title" *ngFor="let patient of patientsList">
         <h2>Paciente: {{ patient.name }}</h2>
       </div>
-      <mat-tab-group>
-        <mat-tab label="Paciente">
-          <div class="content" *ngFor="let patient of patientsList">
-            <h4>Nome: {{ patient.name }}</h4>
-            <p><Strong>Convênio:</Strong> {{ patient.healthInsurance }}</p>
-            <p><Strong>Contato de emergência:</Strong> {{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
-            <p><Strong>Alergias:</Strong> {{ patient.listOfAllergies }}</p>
-            <p><Strong>Cuidados específicos:</Strong> {{ patient.careList }}</p>
-            <mat-divider></mat-divider>
-          </div>
-        </mat-tab>
 
-        <mat-tab label="Consultas">
-          <div class="content" *ngFor="let appointment of appointmentsList">
-            <button mat-raised-button id="edit-appoint" (click)="editAppointment(appointment.id)">Editar</button>
-            <h4>Motivo da Consulta: {{ appointment.reason }}</h4>
-            <h5><strong>Data:</strong> {{ appointment.consultDate }} - <strong>Hora:</strong> {{ appointment.consultTime }}</h5>
-            <p><strong>Descrição do problema:</strong> {{ appointment.problemDescrip }}</p>
-            <p><Strong>Medicação receitada:</Strong> {{ appointment.prescMed }}</p>
-            <p><Strong>Dosagens e precauções:</Strong> {{ appointment.dosagesPrec }}</p>
-            <mat-divider></mat-divider>
-          </div>
-        </mat-tab>
-          
-        <mat-tab label="Exames">
-          <div class="content" *ngFor="let exam of examsList">
-            <button mat-raised-button id="edit-exam" (click)="editExam(exam.id)">Editar</button> 
-            <h4>Exame: {{ exam.exam }}</h4>
-            <h5><Strong>Data:</Strong> {{ exam.examDate }} - <strong>Hora:</strong> {{ exam.examTime }}</h5>
-            <h5><Strong>Laboratório:</Strong> {{ exam.lab }}</h5>
-            <h5><strong>Url do documento:</strong> {{ exam.docUrl }}</h5>
-            <p><Strong>Tipo de exame:</Strong> {{ exam.examType }}</p>
-            <p><strong>Resultados:</strong> {{ exam.result }}</p>
-            <mat-divider></mat-divider>
-        </div>
-        </mat-tab>
-      </mat-tab-group>    
+      <app-slider [topics]="[
+  { 
+    title: 'PACIENTE', 
+    content: patientTemplate 
+  },
+  { 
+    title: 'CONSULTAS', 
+    content: appointmentTemplate 
+  },
+  { 
+    title: 'EXAMES', 
+    content: examTemplate 
+  }
+]"></app-slider>
+
+
+<ng-template #patientTemplate>
+  <div class="content" *ngFor="let patient of patientsList">
+    
+    <p>Nome: {{ patient.name }}</p>
+    <p>Convênio: {{ patient.healthInsurance }}</p>
+    <p>Contato de emergência: {{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
+    <p>Alergias: {{ patient.listOfAllergies }}</p>
+    <p>Cuidados específicos: {{ patient.careList }}</p>
+    <button id="edit-patient" (click)="editPatient(patient.id)">EDITAR</button>
+  </div>
+</ng-template>
+
+<ng-template #appointmentTemplate>
+  <div class="content" *ngFor="let appointment of appointmentsList, let i = index">
+    
+    <p>Motivo da Consulta: {{ appointment.reason }}</p>
+    <p>Data: {{ appointment.consultDate }} / Hora: {{ appointment.consultTime }}</p>
+    <p>Descrição do problema: {{ appointment.problemDescrip }}</p>
+    <p>Medicação receitada: {{ appointment.prescMed }}</p>
+    <p>Dosagens e precauções: {{ appointment.dosagesPrec }}</p>
+    <button id="edit-appoint" (click)="editAppointment(appointment.id)">EDITAR</button>
+    <mat-divider *ngIf="i < appointmentsList.length - 1"></mat-divider>
+    
+  </div>
+</ng-template>
+
+<ng-template #examTemplate>
+  <div class="content" *ngFor="let exam of examsList, let i = index">
+    
+    <p>Exame: {{ exam.exam }}</p>
+    <p>Data: {{ exam.examDate }} / Hora: {{ exam.examTime }}</p>
+    <p>Laboratório: {{ exam.lab }}</p>
+    <p>Url do documento: {{ exam.docUrl }}</p>
+    <p>Tipo de exame: {{ exam.examType }}</p>
+    <p>Resultados: {{ exam.result }}</p>
+    <button id="edit-exam" (click)="editExam(exam.id)">EDITAR</button> 
+    <mat-divider *ngIf="i < examsList.length - 1"></mat-divider>
+</div>
+</ng-template>
+
     </div>
     </div>
 </div>

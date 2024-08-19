@@ -1,45 +1,37 @@
 <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
 
-
     <div style="display: flex; flex-grow: 1">
       <app-sidebar-menu></app-sidebar-menu>
     
-    
-    
     <div class="container-list" style="flex-grow: 0.9"> 
-
+   
         <div class="search-area">
-            <label for="search"></label>
-            <input type="text" id="search" name="search" [(ngModel)]="searchTerm" placeholder="Digite o nome do paciente" matInput>
-            <button mat-raised-button id="btn-search" (click)="search()">Buscar</button>
+                <label for="search"></label>
+                <input type="text" id="search" name="search" [(ngModel)]="searchTerm" placeholder="Digite o nome do paciente">
+                    <button id="btn-search1" (click)="search()">BUSCAR</button>
+                    <button id="btn-clear1" (click)="clearSearch()">LIMPAR</button>
         </div>
 
-        <mat-card class="header-list">
-            <mat-card-content class="card-content" id="header-id">
-                <h4 id="pat-id">Registro</h4>
-            </mat-card-content>
-            <mat-card-content class="card-content" id="header-name">
-                <h4 id="pat-name">Nome do paciente</h4>
-            </mat-card-content>
-            <mat-card-content class="card-content" id="header-ins">
-                <h4 id="pat-ins">Convênio</h4>
-            </mat-card-content>
-        </mat-card> 
-
-      <mat-card *ngFor="let patient of filteredPatientsList" class="patient-card">
-            <mat-card-content class="card-content" id="id">
-                <img src="../../../assets/images/open.png" width="25px" (click)="medicalRecords(patient.id)">
-                <p>{{ patient.id }}</p>
-            </mat-card-content>
-            <mat-card-content class="card-content" id="name">
-                <p>{{ patient.name }}</p>
-            </mat-card-content>
-            <mat-card-content class="card-content" id="insurance">
-                <p>{{ patient.healthInsurance }}</p>
-            </mat-card-content>     
-      </mat-card>
+        <div class="list-area">
+            <div class="patient-card1 header-area">
+                <div id="header-reg">Registro</div>
+                <div id="header-pat-name">Nome do paciente</div>
+                <div id="header-ins">Convênio</div>
+                <div id="header-file">Arquivo</div>
+            </div>
+            <div *ngFor="let patient of filteredPatientsList" class="patient-card1">
+                <div class="card-content1" id="id">{{ patient.id }}</div>
+                <div class="card-content1" id="name">{{ patient.name }}</div>
+                <div class="card-content1" id="insurance">{{ patient.healthInsurance }}</div>
+                <div class="card-content1" id="open-button">
+                    <button (click)="medicalRecords(patient.id)">PRONTUÁRIO</button>
+                </div>
+            </div>
+        </div>
+       
     </div>
+
     </div>
 </div>
 

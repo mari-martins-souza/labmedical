@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SidebarMenuComponent } from '../../shared/sidebar-menu/sidebar-menu.component';
 import { ToolbarComponent } from '../../shared/toolbar/toolbar.component';
 import { Title } from '@angular/platform-browser';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule, MatButton } from '@angular/material/button';
 import { FormBuilder, FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
@@ -16,11 +14,10 @@ import { DataService } from '../../shared/services/data.service';
 import { DataTransformService } from '../../shared/services/data-transform.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
-import moment from 'moment';
 import { Observable, map, startWith } from 'rxjs';
-import {ErrorStateMatcher} from '@angular/material/core';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -32,18 +29,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-patient-registration-page',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule],
-  providers: [provideNgxMask(), AddressService, DataService, DataTransformService, {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
-    parse: {
-        dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
-    },
-    display: {
-        dateInput: 'input',
-        monthYearLabel: {year: 'numeric', month: 'short'},
-        dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-        monthYearA11yLabel: {year: 'numeric', month: 'long'},
-    }
-  }}],
+  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule, DialogComponent, ConfirmDialogComponent],
+  providers: [provideNgxMask(), AddressService, DataService, DataTransformService],
   templateUrl: './patient-registration-page.component.html',
   styleUrl: './patient-registration-page.component.scss'
 })
@@ -57,9 +44,11 @@ export class PatientRegistrationPageComponent implements OnInit {
   isEditing: boolean = false;
   
   constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id');
-
   }
 
+  @ViewChild(DialogComponent) dialog!: DialogComponent;
+  @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
+  
   matcher = new MyErrorStateMatcher()
 
   patRegistration = this.fb.group({
@@ -71,7 +60,7 @@ export class PatientRegistrationPageComponent implements OnInit {
     issOrg: ['', Validators.required],
     maritalStatus: ['', Validators.required],
     phone: ['', Validators.required],
-    email: ['', Validators.email],
+    email: ['', [Validators.email, Validators.required]],
     placeOfBirth: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(64)]],
     emergCont: ['', Validators.required],
     emergContNumber: ['', Validators.required],
@@ -89,12 +78,6 @@ export class PatientRegistrationPageComponent implements OnInit {
     city: [''],
     state: [''],
   })
-
-  setDate(date: Date) {
-    let d = new Date(date);
-    d.setHours(d.getHours() + 24);
-    return d;
-  }
   
   ngOnInit() {
     this.titleService.setTitle('Registro de Pacientes');
@@ -112,21 +95,13 @@ export class PatientRegistrationPageComponent implements OnInit {
     
   if (this.patientId) {
     this.dataService.getData('patients/' + this.patientId).subscribe(patient => {
-      const birthdate = moment(patient.birthdate, 'DD-MM-YYYY').toDate();
-      patient.birthdate = birthdate;
-      if (patient.healthInsuranceVal && patient.healthInsuranceVal.trim() !== '') {
-        const healthInsuranceVal = moment(patient.healthInsuranceVal, 'DD-MM-YYYY');
-        if (healthInsuranceVal.isValid()) {
-          patient.healthInsuranceVal = healthInsuranceVal.toDate();
-        } else {
-          patient.healthInsuranceVal = '';
-        }
-      } else {
-        patient.healthInsuranceVal = '';
-      }
+      patient.birthdate = this.dataTransformService.transformDateForForm(patient.birthdate);
+      patient.healthInsuranceVal = this.dataTransformService.transformDateForForm(patient.healthInsuranceVal);
+  
       this.patRegistration.patchValue(patient);
     });
   }
+  
     
     this.dataService.getData('patients').subscribe(data => {
       this.patients = data;
@@ -182,7 +157,7 @@ private _filter(name: string): any[] {
           careList: this.patRegistration.value.careList,
           healthInsurance: this.patRegistration.value.healthInsurance,
           healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
-          healthInsuranceVal: this.patRegistration.value.healthInsuranceVal,
+          healthInsuranceVal: this.dataTransformService.formatDate(this.patRegistration.value.healthInsuranceVal),
           zipcode: this.patRegistration.value.zipcode,
           street: this.patRegistration.value.street,
           addressNumber: this.patRegistration.value.addressNumber,
@@ -204,28 +179,16 @@ private _filter(name: string): any[] {
       
     });
   } else {
-    window.alert('Preencha todos os campos obrigatórios corretamente.')
+    this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
   }
 }
 
 saveEditPat() {
   if (this.patRegistration.valid) {
-    let birthdate: any = this.patRegistration.value.birthdate;
-    let healthInsuranceVal: any = this.patRegistration.value.healthInsuranceVal;
-
-    if (birthdate instanceof Date) {
-      birthdate = `${("0" + birthdate.getDate()).slice(-2)}-${("0" + (birthdate.getMonth() + 1)).slice(-2)}-${birthdate.getFullYear()}`;
-    }
-
-    if (healthInsuranceVal instanceof Date) {
-      healthInsuranceVal = `${("0" + healthInsuranceVal.getDate()).slice(-2)}-${("0" + (healthInsuranceVal.getMonth() + 1)).slice(-2)}-${healthInsuranceVal.getFullYear()}`;
-    } else if (!healthInsuranceVal) {
-      healthInsuranceVal = '';
-    }
         const patient = {
           name: this.patRegistration.value.name,
           gender: this.patRegistration.value.gender,
-          birthdate: birthdate,
+          birthdate: this.dataTransformService.formatDate(this.patRegistration.value.birthdate),
           cpf: this.dataTransformService.formatCpf(this.patRegistration.value.cpf),
           rg: this.patRegistration.value.rg,
           issOrg: this.patRegistration.value.issOrg,
@@ -239,7 +202,7 @@ saveEditPat() {
           careList: this.patRegistration.value.careList,
           healthInsurance: this.patRegistration.value.healthInsurance,
           healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
-          healthInsuranceVal: healthInsuranceVal,
+          healthInsuranceVal: this.dataTransformService.formatDate(this.patRegistration.value.healthInsuranceVal),
           zipcode: this.patRegistration.value.zipcode,
           street: this.patRegistration.value.street,
           addressNumber: this.patRegistration.value.addressNumber,
@@ -252,6 +215,7 @@ saveEditPat() {
 
     this.dataService.editData('patients', this.patientId, patient).subscribe(() => {
       this.showMessage = true;
+
       this.patRegistration.disable();
       this.saveDisabled = true;
 
@@ -261,7 +225,7 @@ saveEditPat() {
 
     });
   } else {
-    window.alert('Preencha todos os campos obrigatórios corretamente.');
+    this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
   }
 }
 
@@ -277,12 +241,20 @@ deletePatient(id: string) {
       const hasExam = exams.some((exam: { idPatient: string; }) => exam.idPatient === id);
 
       if (hasAppointment || hasExam) {
-        alert('O paciente tem exames ou consultas vinculadas a ele e não pode ser deletado.');
+        this.dialog.openDialog('O paciente tem exames ou consultas vinculadas a ele e não pode ser deletado.');
       } else {
+
+        this.confirmDialog.openDialog("Tem certeza que deseja excluir o paciente? Essa ação não pode ser desfeita.")
+    const subscription = this.confirmDialog.confirm.subscribe(result => {
+      if (result) {
         this.dataService.deleteData('patients', this.patientId).subscribe(() => {
-          window.alert('O registro de paciente foi excluído.');
-          this.router.navigate(['/home']);
+          this.router.navigate(['/lista-prontuarios']);
+          subscription.unsubscribe();
         });
+      } else {
+        subscription.unsubscribe();
+        }
+      });
       }
     });
   });

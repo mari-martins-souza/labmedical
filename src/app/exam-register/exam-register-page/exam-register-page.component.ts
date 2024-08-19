@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { DataTransformService } from '../../shared/services/data-transform.service';
 import { SidebarMenuComponent } from '../../shared/sidebar-menu/sidebar-menu.component';
@@ -18,8 +18,8 @@ import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { CustomDateAdapter } from '../../shared/CustomDateAdapter';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,19 +31,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-exam-register-page',
   standalone: true,
-  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule],
-  providers: [DataTransformService, DataService, {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}, { provide: DateAdapter, useClass: CustomDateAdapter }, { provide: MAT_DATE_FORMATS, useValue: {
-    parse: {
-        dateInput: {month: 'short', year: 'numeric', day: 'numeric'}
-    },
-    display: {
-        dateInput: 'input',
-        monthYearLabel: {year: 'numeric', month: 'short'},
-        dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-        monthYearA11yLabel: {year: 'numeric', month: 'long'},
-    }
-  }}
-  ],
+  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent, ConfirmDialogComponent],
+  providers: [DataTransformService, DataService],
   templateUrl: './exam-register-page.component.html',
   styleUrl: './exam-register-page.component.scss'
 })
@@ -59,6 +48,9 @@ export class ExamRegisterPageComponent implements OnInit {
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) { 
     this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id');
   }
+
+  @ViewChild(DialogComponent) dialog!: DialogComponent;
+  @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
 
   matcher = new MyErrorStateMatcher()
 
@@ -76,7 +68,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   setDate(date: Date) {
     let d = new Date(date);
-    d.setHours(d.getHours() + 24);
+    d.setHours(d.getHours());
     return d;
   }
 
@@ -88,8 +80,8 @@ export class ExamRegisterPageComponent implements OnInit {
     
     if (this.examId) {
       this.dataService.getData('exams/' + this.examId).subscribe(exam => {
-        const examDate = moment(exam.examDate, 'DD-MM-YYYY').toDate();
-        exam.examDate = examDate;
+        exam.examDate = this.dataTransformService.transformDateForForm(exam.examDate);
+       
         this.examRegister.patchValue(exam);
       });
     } else {
@@ -122,7 +114,6 @@ export class ExamRegisterPageComponent implements OnInit {
   }
 
   setPatientData(patient: { id: any; name: any; }) {
-
     this.examRegister.patchValue({
       idPatient: patient.id,
       name: patient.name
@@ -135,8 +126,8 @@ export class ExamRegisterPageComponent implements OnInit {
     if (this.examRegister.valid) {
         
         const exam = {
-          idPatient: this.examRegister.value.idPatient,
-          name: this.examRegister.value.name,
+          idPatient: this.examRegister.getRawValue().idPatient,
+          name: this.examRegister.getRawValue().name,
           exam: this.examRegister.value.exam,
           examDate: this.dataTransformService.formatDate(this.examRegister.value.examDate),
           examTime: this.examRegister.value.examTime,
@@ -164,7 +155,7 @@ export class ExamRegisterPageComponent implements OnInit {
           }
           });
           } else {
-            window.alert('Preencha todos os campos obrigatórios corretamente.')
+            this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
   }  
 
@@ -172,10 +163,10 @@ export class ExamRegisterPageComponent implements OnInit {
     if (this.examRegister.valid) {
       const exam = {
         id: this.examId,
-        idPatient: this.examRegister.value.idPatient,
-        name: this.examRegister.value.name,
+        idPatient: this.examRegister.getRawValue().idPatient,
+        name: this.examRegister.getRawValue().name,
         exam: this.examRegister.value.exam,
-        examDate: moment(this.examRegister.value.examDate).format('DD-MM-YYYY'),
+        examDate: this.dataTransformService.formatDate(this.examRegister.value.examDate),
         examTime: this.examRegister.value.examTime,
         examType: this.examRegister.value.examType,
         lab: this.examRegister.value.lab,
@@ -185,31 +176,43 @@ export class ExamRegisterPageComponent implements OnInit {
   
       this.dataService.editData('exams', this.examId, exam).subscribe(() => {
         this.showMessage = true;
+
         this.examRegister.disable();
         this.saveDisabled = true;
+        
   
         setTimeout(() => {
           this.showMessage = false;
         }, 1000);
-  
       });
+
     } else {
-      window.alert('Preencha todos os campos obrigatórios corretamente.');
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
   }
 
   editExam(){
     this.examRegister.enable();
+
+    this.examRegister.get('idPatient')!.disable();
+    this.examRegister.get('name')!.disable();
+
     this.saveDisabled = false;
   }
 
   deleteExam(){
-    this.dataService.deleteData('exams', this.examId).subscribe(() => {
-      window.alert('O registro foi excluído.');
-      this.router.navigate(['/lista-prontuarios']);
-    });
-  }
-  
+    this.confirmDialog.openDialog("Tem certeza que deseja excluir o exame? Essa ação não pode ser desfeita.")
+    const subscription = this.confirmDialog.confirm.subscribe(result => {
+      if (result) {
+        this.dataService.deleteData('exams', this.examId).subscribe(() => {
+          this.router.navigate(['/lista-prontuarios']);
+          subscription.unsubscribe();
+        });
+      } else {
+        subscription.unsubscribe();
+        }
+      });
+    }
 }
   
   

@@ -1,30 +1,110 @@
+.stats {
+    display: flex;
+    flex-direction: row;
+    height: 250px;
+}
+
 .container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 50px;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #6b54f042;
+    padding: 15px;
+    width: 60vw;
+    border-radius: 4px;
 }
 
-#card-stat-patients, #card-stat-appointments, #card-stat-exams {
+@media only screen and (max-width: 1366px) {
+    .container {
+        width: 81.2vw;
+        justify-content: space-evenly;
+    }
+}
+
+.card-stat {
+    width: 15vw;
+    height: 190px;
+    border-radius: 4px;
+    background-color: white; 
+}
+
+@media only screen and (max-width: 1366px) {
+    .card-stat {
+        width: 20vw;
+    }
+}
+
+.card-health-ins {
+    background-color: white;
+    border-radius: 4px;
+    margin: 20px;
+    height: 230px;
+    flex-grow: 1;
+    padding: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.inner-ins {
+    background-color: #C2B4FB;
+    height: 190px;
+    border-radius: 4px;
+    
+}
+
+.grid-container {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    width: 280px;
+    flex-wrap: wrap;
+    
 }
 
-#num {
-    margin-top: 5px;
-    font-size: 2.5rem;
-    margin-right: 10px;
+.grid-container p {
+    text-align: left;
+    padding: 10px;
 }
 
-#label {
+.label-health-ins {
+    padding-top: 15px;
+    font-family: "Dosis", sans-serif;
+    font-weight: 500;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.card-health-ins p {
+    line-height: 0.6;
     font-size: 1.5rem;
-    margin-top: 5px;
+    font-family: "Dosis", sans-serif;
+    font-weight: 500;
+    margin-left: 70px;
 }
 
-#patients {
-    width: 100px;
-    padding: 15px;
+.icon-num {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
+
+.patients {
+    height: 100px;
+}
+
+.num {
+    font-size: 4rem;
+    font-family: "Dosis", sans-serif;
+    font-weight: 500;
+}
+
+.label {
+    font-size: 1.8rem; 
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+    font-family: "Dosis", sans-serif;
+    font-weight: 500;
+}
+
