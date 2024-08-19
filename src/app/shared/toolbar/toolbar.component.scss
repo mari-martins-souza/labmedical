@@ -51,6 +51,10 @@ img {
   color: $colorPageTitle;
 }
 
+.mat-icon:hover {
+  color: #FF4155;
+}
+
 #logout-icon {
   margin-left: 15px;
   scale:(1.3);
