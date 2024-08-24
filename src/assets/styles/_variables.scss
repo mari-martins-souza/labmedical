@@ -1,81 +1,83 @@
 // original scheme colors
-
+// $transparent: transparent;
 // $white: #FFFFFF;
 // $black: #000000;
-// $transparent: transparent;
-// $purple-light: #E0D5FF;
-// $purple-medium: #C2B4FB;
-// $purple-dark: #6b54f0;
-// $purple-placeholder: #6956d89a;
-// $purple-border: #6b54f0a9;
-// $purple-disable: #6b54f034;
-// $red: #FF4155;
-// $danger-form: #fd0019;
-// $login-background: rgb(45, 34, 70);
+// $highlights: #6b54f0;
+// $light: #E0D5FF;
+// $mediumLight: #C2B4FB;
+// $hover: #FF4155;
+// $loginBackground: rgb(45, 34, 70);
+// $formBorder: #6b54f0a9;
+// $searchPlaceholder: #6956d89a;
+// $buttonDisable: #6b54f034;
+// $danger: #ff0019;
+// $registerDanger: #FF4155;
+// $inputPlaceholder: #ffffff34;
 
 
 // basic colors
+$transparent: transparent;
 $white: #FFFFFF;
 $black: #000000;
-$transparent: transparent;
+$highlights: #6b54f0;
+$light: #E0D5FF;
+$mediumLight: #C2B4FB;
+$hover: #FF4155;
 
-$purple-light: #E0D5FF;
-$purple-medium: #C2B4FB;
-$purple-dark: #6b54f0;
+$loginBackground: rgb(45, 34, 70);
 
-$purple-placeholder: #6956d89a;
-$purple-border: #6b54f0a9;
-$purple-disable: #6b54f034;
+$formBorder: #6b54f0a9;
+$searchPlaceholder: #6956d89a;
+$buttonDisable: #6b54f034;
+$danger: #ff0019;
+$registerDanger: #FF4155;
+$inputPlaceholder: #ffffff34;
 
-$red: #FF4155;
-$danger-form: #fd0019;
-
-$login-background: rgb(45, 34, 70);
-
-
-// projetc colors
-$colorPageBackground: $purple-light;
+// project colors
+$colorPageBackground: $light;
 
 $colorBrand: $white;
-$colorSearchBackground: $purple-medium;
-$colorSearchPlaceholder: $purple-placeholder;
+$colorSearchBackground: $mediumLight;
+$colorSearchPlaceholder: $searchPlaceholder;
 $colorGeneralCard: $white;
-$colorAreaBackground: $purple-medium;
-$colorHeaderArea: $purple-dark;
+$colorAreaBackground: $mediumLight;
+$colorHeaderArea: $highlights;
 $colorBackgroundSidebarMenu: $white;
 $colorBorderSidebarMenu: $transparent;
 $colorBackgroundToolbar: $white;
-$colorInterleavedList1: $purple-medium;
-$colorInterleavedList2: $purple-light;
+$colorInterleavedList1: $mediumLight;
+$colorInterleavedList2: $light;
 $colorFontHeaderForm: $white;
 
 // buttons
-$colorButton: $purple-dark;
+$colorButton: $highlights;
 $colorFontButton: $white;
-$colorHover: $red;
+$colorHover: $hover;
 $colorFontButtonHover: $black;
-$colorButtonDisable: $purple-disable;
+$colorButtonDisable: $buttonDisable;
 $colorFontButtonDisable: rgba($white, 0.466);
+$colorMedRecButton: $transparent;
+$colorFontMedRecButton: $black;
 
 // fonts
 $colorGeneralFont: $black;
 $colorTitleToolbar: $black;
 $colorFontToolbar: $black;
-$colorTextDanger: $red;
+$colorTextDanger: $registerDanger;
 
 // icons
 $colorIcon: $white;
 $colorHoverIcon: $black;
 $colorExitIcon: $black;
-$colorHoverExitIcon: $red;
+$colorHoverExitIcon: $hover;
 
 // forms
-$colorFormBorder: $purple-border;
+$colorFormBorder: $formBorder;
 $colorLabelForms: $black;
 $colorTitleSectionForm: $black;
 $colorBackgroundDisable: #CFC6F7;
 $colorFontDisable: $black;
-$colorTextDangerForm: $danger-form;
+$colorTextDangerForm: $danger;
 
 // login
 $colorFontClearLogin: rgba($white, 0.747);
@@ -84,15 +86,15 @@ $colorFontDarkLogin: $white;
 $colorFontFormsLoginRegister: $white;
 $colorLabelLoginRegister: $white;
 $colorFormBorderLoginRegister: rgba($white, 0.295);
-$colorBackgroundFormSideLogin: $login-background;
+$colorBackgroundFormSideLogin: $loginBackground;
 $colorBackgroundLogoSigeLogin: $white;
-$colorLabMedicalBrand: $purple-dark;
+$colorLabMedicalBrand: $highlights;
 $colorFontInput: $white;
-$colorInputPlaceholder: rgba($white, 0.295);
+$colorInputPlaceholder: $inputPlaceholder;
 $colorInputBackground: $transparent;
 
 // dialog
-$colorBackgroundDialog: $login-background;
-$colorBorderDialog: $red;
+$colorBackgroundDialog: $loginBackground;
+$colorBorderDialog: $hover;
 $colorFontDialog: $white;
 
