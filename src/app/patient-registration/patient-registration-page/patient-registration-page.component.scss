@@ -18,31 +18,31 @@ font-weight: 500;
 font-size: 1rem;
 text-transform: uppercase;
  margin-left: 10px;
- background-color: #6b54f0;
+ background-color: $colorButton;
  border: none;
  border-radius: 4px;
- color: white;
+ color: $colorFontButton;
  height: 40px;
  width: 85px;
 }
 
 #button-group1 button:disabled {
- background-color: #6b54f034;
- color: rgba(255, 255, 255, 0.466);
+ background-color: $colorButtonDisable;
+ color: $colorFontButtonDisable;
 }
 
 #button-group1 button:hover {
- background-color: #FF4155;
- color: black;
+ background-color: $colorHover;
+ color: $colorFontButtonHover;
 }
 
 #button-group1 button:disabled:hover {
- background-color: #6b54f034;
- color: rgba(255, 255, 255, 0.466);
+ background-color: $colorButtonDisable;
+ color: $colorFontButtonDisable;
 }
 
 .form-area3, .form-area4, .form-area5 {
- background-color: #6b54f042;
+ background-color: $colorAreaBackground;
  border-radius: 4px;
  padding: 1%;
  padding-top: 20px;
@@ -56,7 +56,7 @@ text-transform: uppercase;
 
 h4 {
  font-size: 1.7rem;
- color: black;
+ color: $colorTitleSectionForm;
  font-family: "Dosis", sans-serif;
  text-align: left;
 }
@@ -83,7 +83,7 @@ h4 {
    input, select {
     width: 100%;
     border-radius: 4px;
-    border: 2px solid #6b54f0a9;
+    border: 2px solid $colorFormBorder;
     height: 35px;
    }
 }
@@ -102,27 +102,27 @@ h4 {
 
 input, select {
   font-family: "Dosis", sans-serif;
-  color: black;
   padding-left: 10px;
   padding-top: 2px;
   border-radius: 4px;
   font-size: 1.2rem;
 }
 
+
 label {
   font-family: "Dosis", sans-serif;
   font-size: 1.3rem;
   font-weight: 500;
-  color: #000000;
+  color: $colorLabelForms;
 }
 
 mat-error {
-  color: rgb(212, 0, 0);
+  color: $colorTextDangerForm;
 }
 
-select:disabled {
-  background: #CFC6F7;
-  color: #000000;
+select:disabled, input:disabled {
+  background: $colorBackgroundDisable;
+  color: $colorFontDisable;
 }
 
 @keyframes checkmark {

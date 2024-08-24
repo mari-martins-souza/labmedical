@@ -1,16 +1,100 @@
-$colorSideToolbar: #ffffff;
-$colorButton: #b6e0f9;
-$colorFontTitle: #000000;
-$colorTitleMenu: #b6e0f9;
-$colorButtonSidebar: #ffffff;
-$colorHoverSidebar: #000000;
-$colorToogleMenu: #ffffff;
-$colorSidebarIcon: #000000;
-$colorPageTitle: #000000;
-$colorButtonFont: #218CF6;
-$colorButtonDisabled: #b6e0f9c2;
-$colorButtonDisFont: #218cf67e;
-$colorHoverBtnSideBar: #FF4155;
+// original scheme colors
+// $transparent: transparent;
+// $white: #FFFFFF;
+// $black: #000000;
+// $highlights: #6b54f0;
+// $light: #E0D5FF;
+// $mediumLight: #C2B4FB;
+// $hover: #FF4155;
+// $loginBackground: rgb(45, 34, 70);
+// $formBorder: #6b54f0a9;
+// $searchPlaceholder: #6956d89a;
+// $buttonDisable: #6b54f034;
+// $danger: #ff0019;
+// $registerDanger: #FF4155;
+// $inputPlaceholder: #ffffff34;
 
 
+// basic colors
+$transparent: transparent;
+$white: #FFFFFF;
+$black: #000000;
+$highlights: #6b54f0;
+$light: #E0D5FF;
+$mediumLight: #C2B4FB;
+$hover: #FF4155;
+
+$loginBackground: rgb(45, 34, 70);
+
+$formBorder: #6b54f0a9;
+$searchPlaceholder: #6956d89a;
+$buttonDisable: #6b54f034;
+$danger: #ff0019;
+$registerDanger: #FF4155;
+$inputPlaceholder: #ffffff34;
+
+// project colors
+$colorPageBackground: $light;
+
+$colorBrand: $white;
+$colorSearchBackground: $mediumLight;
+$colorSearchPlaceholder: $searchPlaceholder;
+$colorGeneralCard: $white;
+$colorAreaBackground: $mediumLight;
+$colorHeaderArea: $highlights;
+$colorBackgroundSidebarMenu: $white;
+$colorBorderSidebarMenu: $transparent;
+$colorBackgroundToolbar: $white;
+$colorInterleavedList1: $mediumLight;
+$colorInterleavedList2: $light;
+$colorFontHeaderForm: $white;
+
+// buttons
+$colorButton: $highlights;
+$colorFontButton: $white;
+$colorHover: $hover;
+$colorFontButtonHover: $black;
+$colorButtonDisable: $buttonDisable;
+$colorFontButtonDisable: rgba($white, 0.466);
+$colorMedRecButton: $transparent;
+$colorFontMedRecButton: $black;
+
+// fonts
+$colorGeneralFont: $black;
+$colorTitleToolbar: $black;
+$colorFontToolbar: $black;
+$colorTextDanger: $registerDanger;
+
+// icons
+$colorIcon: $white;
+$colorHoverIcon: $black;
+$colorExitIcon: $black;
+$colorHoverExitIcon: $hover;
+
+// forms
+$colorFormBorder: $formBorder;
+$colorLabelForms: $black;
+$colorTitleSectionForm: $black;
+$colorBackgroundDisable: #CFC6F7;
+$colorFontDisable: $black;
+$colorTextDangerForm: $danger;
+
+// login
+$colorFontClearLogin: rgba($white, 0.747);
+$colorFontMidLogin: rgba($white, 0.596);
+$colorFontDarkLogin: $white;
+$colorFontFormsLoginRegister: $white;
+$colorLabelLoginRegister: $white;
+$colorFormBorderLoginRegister: rgba($white, 0.295);
+$colorBackgroundFormSideLogin: $loginBackground;
+$colorBackgroundLogoSigeLogin: $white;
+$colorLabMedicalBrand: $highlights;
+$colorFontInput: $white;
+$colorInputPlaceholder: $inputPlaceholder;
+$colorInputBackground: $transparent;
+
+// dialog
+$colorBackgroundDialog: $loginBackground;
+$colorBorderDialog: $hover;
+$colorFontDialog: $white;
 
