@@ -1,16 +1,67 @@
-$colorSideToolbar: #ffffff;
-$colorButton: #b6e0f9;
-$colorFontTitle: #000000;
-$colorTitleMenu: #b6e0f9;
-$colorButtonSidebar: #ffffff;
-$colorHoverSidebar: #000000;
-$colorToogleMenu: #ffffff;
-$colorSidebarIcon: #000000;
-$colorPageTitle: #000000;
-$colorButtonFont: #218CF6;
-$colorButtonDisabled: #b6e0f9c2;
-$colorButtonDisFont: #218cf67e;
-$colorHoverBtnSideBar: #FF4155;
+// general colors
+
+$colorPageBackground:#E0D5FF;
+
+$colorBrand:#FFFFFF;
+$colorSearchBackground:#C2B4FB;
+$colorSearchPlaceholder: #6956d89a;
+$colorGeneralCard:#FFFFFF;
+$colorAreaBackground:#C2B4FB;
+$colorHeaderArea:#6b54f0;
+$colorBackgroundSidebarMenu:#FFFFFF;
+$colorBorderSidebarMenu: transparent;
+$colorBackgroundToolbar:#FFFFFF;
+$colorInterleavedList1: #C2B4FB;
+$colorInterleavedList2: #e0d5ff;
+$colorFontHeaderForm: #ffffff;
+
+// buttons colors
+$colorButton: #6b54f0;
+$colorFontButton:#FFFFFF;
+$colorHover:#FF4155;
+$colorFontButtonHover:#000000;
+$colorButtonDisable:#6b54f034;
+$colorFontButtonDisable: rgba(255, 255, 255, 0.466);
+
+//fonts color
+$colorGeneralFont:#000000;
+$colorTitleToolbar:#000000;
+$colorFontToolbar:#000000;
+$colorTextDanger:#FF4155;
+
+//icons colors
+$colorIcon:#FFFFFF;
+$colorHoverIcon:#000000;
+$colorExitIcon: #000000;
+$colorHoverExitIcon: #FF4155;
+
+//forms colors
+$colorFormBorder:#6b54f0a9;
+$colorLabelForms:#000000;
+$colorTitleSectionForm:#000000;
+$colorBackgroundDisable: #CFC6F7;
+$colorFontDisable: #000000;
+$colorTextDangerForm:#fd0019;
+
+//login and register page
+$colorFontClearLogin:rgba(255, 255, 255, 0.747);
+$colorFontMidLogin: rgba(255, 255, 255, 0.596);
+$colorFontDarkLogin:#FFFFFF;
+$colorFontFormsLoginRegister:#FFFFFF;
+$colorLabelLoginRegister:#FFFFFF;
+$colorFormBorderLoginRegister:rgba(255, 255, 255, 0.295);
+$colorBackgroundFormSideLogin: rgb(45, 34, 70);
+$colorBackgroundLogoSigeLogin: #FFFFFF;
+$colorLabMedicalBrand: #6b54f0;
+$colorFontInput: #FFFFFF;
+$colorInputPlaceholder: rgba(255, 255, 255, 0.295);
+$colorInputBackground: transparent;
+
+//dialog e dialog-confirm
+
+$colorBackgroundDialog: rgb(45, 34, 70);
+$colorBorderDialog: #FF4155;
+$colorFontDialog: #FFFFFF;
 
 
 

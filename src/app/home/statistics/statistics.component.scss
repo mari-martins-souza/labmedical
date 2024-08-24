@@ -1,3 +1,5 @@
+@import '../../../assets/styles/variables';
+
 .stats {
     display: flex;
     flex-direction: row;
@@ -10,7 +12,7 @@
     justify-content: space-around;
     align-items: center;
     margin-top: 20px;
-    background-color: #6b54f042;
+    background-color: $colorAreaBackground;
     padding: 15px;
     width: 60vw;
     border-radius: 4px;
@@ -27,60 +29,13 @@
     width: 15vw;
     height: 190px;
     border-radius: 4px;
-    background-color: white; 
+    background-color: $colorGeneralCard; 
 }
 
 @media only screen and (max-width: 1366px) {
     .card-stat {
         width: 20vw;
     }
-}
-
-.card-health-ins {
-    background-color: white;
-    border-radius: 4px;
-    margin: 20px;
-    height: 230px;
-    flex-grow: 1;
-    padding: 15px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-
-.inner-ins {
-    background-color: #C2B4FB;
-    height: 190px;
-    border-radius: 4px;
-    
-}
-
-.grid-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    
-}
-
-.grid-container p {
-    text-align: left;
-    padding: 10px;
-}
-
-.label-health-ins {
-    padding-top: 15px;
-    font-family: "Dosis", sans-serif;
-    font-weight: 500;
-    font-size: 1.8rem;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.card-health-ins p {
-    line-height: 0.6;
-    font-size: 1.5rem;
-    font-family: "Dosis", sans-serif;
-    font-weight: 500;
-    margin-left: 70px;
 }
 
 .icon-num {

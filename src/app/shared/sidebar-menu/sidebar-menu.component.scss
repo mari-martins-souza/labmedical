@@ -6,12 +6,12 @@
   
 .sidenav {
   overflow-y: auto;
-  background-color: $colorSideToolbar;
+  background-color: $colorBackgroundSidebarMenu;
   height: 100%;
   position: fixed;
   overflow: auto;
   padding-top: 65px;
-  border-color: transparent;
+  border-color: $colorBackgroundSidebarMenu;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
@@ -28,15 +28,8 @@
     flex-direction: column;
 }
 
-h2 {
-    font-size: 1rem;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    color: $colorTitleMenu;
-}
-
 button {
-    background-color: #6b54f0;
+    background-color: $colorButton;
     border: none;
     margin-right: 10px;
     margin-left: 10px;
@@ -45,14 +38,14 @@ button {
     height: 36px;
     display: flex;
     justify-content: flex-start;
-    color: white;
+    color: $colorFontButton;
     padding-top: 2px;
     border-radius: 4px;
 }
 
 button:hover {
-  background-color: $colorHoverBtnSideBar;
-  color: black;
+  background-color: $colorHover;
+  color: $colorFontButtonHover;
 }
 
 #btn-text:hover {
@@ -60,7 +53,7 @@ button:hover {
 }
 
 button:hover .mat-icon {
-  color: black;
+  color: $colorHoverIcon;
 }
 
 .mat-icon {
@@ -68,7 +61,7 @@ button:hover .mat-icon {
     display: flex;
     justify-content: flex-start;
     margin-top: 5px;
-    color: white;
+    color: $colorIcon;
   }
   
   #btn-text {
@@ -88,6 +81,6 @@ button:hover .mat-icon {
   }
 
  .mat-drawer {
-  background-color: $colorSideToolbar;
+  background-color: $colorBackgroundSidebarMenu;
   height: 100vh;
  }
