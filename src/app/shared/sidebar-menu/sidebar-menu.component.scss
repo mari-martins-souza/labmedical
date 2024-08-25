@@ -6,7 +6,7 @@
   
 .sidenav {
   overflow-y: auto;
-  background-color: $colorBackgroundSidebarMenu;
+  background: $colorBackgroundSidebarMenu;
   height: 100%;
   position: fixed;
   overflow: auto;
@@ -29,7 +29,7 @@
 }
 
 button {
-    background-color: $colorButton;
+    background: $colorButton;
     border: none;
     margin-right: 10px;
     margin-left: 10px;
@@ -44,7 +44,7 @@ button {
 }
 
 button:hover {
-  background-color: $colorHover;
+  background: $colorHover;
   color: $colorFontButtonHover;
 }
 
@@ -81,6 +81,6 @@ button:hover .mat-icon {
   }
 
  .mat-drawer {
-  background-color: $colorBackgroundSidebarMenu;
+  background: $colorBackgroundSidebarMenu;
   height: 100vh;
  }

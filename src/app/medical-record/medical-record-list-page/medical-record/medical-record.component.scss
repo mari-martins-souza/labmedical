@@ -9,7 +9,7 @@
 }
 
 .patient-title {
-    background-color: $colorGeneralCard;
+    background: $colorGeneralCard;
     border-radius: 4px;
     height: 50px;
     margin-bottom: 20px;
@@ -30,7 +30,7 @@
 }
 
 #edit-exam, #edit-appoint, #edit-patient {
-    background-color: $colorButton;
+    background: $colorButton;
     color: $colorFontButton;
     border-radius: 4px;
     height: 35px;
@@ -41,7 +41,7 @@
 }
 
 #edit-exam:hover, #edit-appoint:hover, #edit-patient:hover {
-    background-color: $colorHover;
+    background: $colorHover;
     color: $colorFontButtonHover;
     
 }

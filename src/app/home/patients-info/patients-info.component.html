@@ -18,10 +18,15 @@
                 </mat-card-content>
             </div>
 
-       
+       <div class="info-content">
+        <div class="age-and-btn">
             <mat-card-content class="card-content1" id="age">
                 <p>{{ patient.birthdate | age }} anos</p>
+
             </mat-card-content>
+            <button class="btn-edit-card"(click)="editPatient(patient.id)">EDITAR</button>
+        </div>
+            
             <mat-card-content class="card-content1" id="phone">
                 <p><strong>Telefone: </strong>{{ patient.phone }}</p>
             </mat-card-content>
@@ -31,8 +36,9 @@
             <mat-card-content class="card-content1" id="insurance">
                 <p><strong>Convênio: </strong>{{ patient.healthInsurance }}</p>
             </mat-card-content>
+        </div>
       
-                <button class="btn-more"(click)="editPatient(patient.id)">EDITAR</button>
+                
              
         </mat-card>
     </div>
