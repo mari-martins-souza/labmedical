@@ -1,3 +1,5 @@
+@import '../../../assets/styles/variables';
+
 .dialog1 {
     position: fixed;
     z-index: 1002;
@@ -12,8 +14,8 @@
   
   .dialog-content1 {
     display: flex;
-    background-color: rgb(45, 34, 70);
-    border: 2px solid #FF4155;
+    background: $colorBackgroundDialog;
+    border: 2px solid $colorBorderDialog;
     border-radius: 4px;
     justify-content: space-between;
     flex-direction: column;
@@ -25,7 +27,7 @@
     font-size: 1.1rem;
     padding: 4%;
     margin-bottom: 0;
-    color: white;
+    color: $colorFontDialog;
   }
 
   .dialog-actions {
@@ -37,17 +39,19 @@
   }
   
  .btn-cancel, .btn-confirm {
-    // font-family: "Dosis", sans-serif;
+    font-family: "Dosis", sans-serif;
+    text-transform: uppercase;
     font-size: 1rem;
     padding: 7px;
-    background-color: #6b54f0;
-    color: white;
+    background: $colorButton;
+    color: $colorFontButton;
     border-radius: 4px;
     border-style: none;
     width: 100px;
+    font-weight: 500;
  }
 
  .btn-cancel:hover, .btn-confirm:hover {
-    background-color: #FF4155;
-    color: black;
+    background: $colorHover;
+    color: $colorFontButtonHover
 }

@@ -324,17 +324,6 @@
       "problemDescrip": "Consulta para marcar exames de rotina",
       "prescMed": "",
       "dosagesPrec": "Agendar os exames necessários"
-    },
-    {
-      "id": "388e",
-      "idPatient": "9d62",
-      "name": "Ana Souza",
-      "reason": "fffffffffffffffffffffffffffffffff",
-      "consultDate": "18-08-2024",
-      "consultTime": "10:16",
-      "problemDescrip": "fffffffffffffffffffffffffffff",
-      "prescMed": "",
-      "dosagesPrec": "fffffffffffffffffffffffffffffffffffffffffff"
     }
   ],
   "exams": [
