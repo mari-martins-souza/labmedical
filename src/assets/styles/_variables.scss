@@ -1,16 +1,105 @@
-$colorSideToolbar: #ffffff;
-$colorButton: #b6e0f9;
-$colorFontTitle: #000000;
-$colorTitleMenu: #b6e0f9;
-$colorButtonSidebar: #ffffff;
-$colorHoverSidebar: #000000;
-$colorToogleMenu: #ffffff;
-$colorSidebarIcon: #000000;
-$colorPageTitle: #000000;
-$colorButtonFont: #218CF6;
-$colorButtonDisabled: #b6e0f9c2;
-$colorButtonDisFont: #218cf67e;
-$colorHoverBtnSideBar: #FF4155;
+// basic colors
+$transparent: transparent;
+$white: #FFFFFF;
+$black: #000000;
 
+$brand: #FF4155;
+$loginBackground: rgb(45, 34, 70);
+$purpleDark: #3A2362;
+$bodyGradient: linear-gradient(to right, #9091cc, #b779ff);
 
+$mediumLight: #ffffff98;
+
+$hover: #FF4155;
+$softHover: #ff4154a6;
+$btnLoginRegister: #6b54f0;
+
+$btnEditPatCard: #4668fd1c;
+$btnFontEditCard: black;
+$areaContentCard: rgba(255, 255, 255, 0.452);
+$patCardName: #4668fd1c;
+
+$formBorder: #b779ff;
+$searchPlaceholder: #00000041;
+$inputPlaceholder: #ffffff34;
+$buttonDisable: #6b54f034;
+
+$formDisable: #6b54f034;
+$interval: #F3EAFE;
+
+$danger: #ff0019;
+$registerDanger: #FF4155;
+
+// project colors
+$colorPageBackground: $bodyGradient;
+
+$colorBrand: $white;
+$colorSearchBackground: $mediumLight;
+$colorSearchPlaceholder: $searchPlaceholder;
+$colorGeneralCard: $white;
+$colorAreaBackground: $mediumLight;
+$colorBackgroundSidebarMenu: $white;
+$colorBorderSidebarMenu: $transparent;
+$colorBackgroundToolbar: $white;
+$colorPatCardNameBackground: $patCardName;
+$colorCardContent: $areaContentCard;
+
+// medical record list
+$colorInterleavedList1: $interval;
+$colorInterleavedList2: $transparent;
+$colorMedRecListHover: $softHover;
+$colorFontHeaderForm: $white;
+$colorFontHeaderArea: $black;
+$colorContainerList: $mediumLight;
+$colorHeaderArea: $interval;
+
+// buttons
+$colorButton: $purpleDark;
+$colorFontButton: $white;
+$colorHover: $hover;
+$colorFontButtonHover: $black;
+$colorButtonDisable: $buttonDisable;
+$colorFontButtonDisable: rgba($white, 0.266);
+$colorButtonLoginRegister: $btnLoginRegister;
+$colorButtonEditPatientCard: $btnEditPatCard;
+$colorFontBtnEditPatCard: $btnFontEditCard;
+
+// fonts
+$colorGeneralFont: $black;
+$colorTitleToolbar: $black;
+$colorFontToolbar: $black;
+$colorTextDanger: $registerDanger;
+
+// icons
+$colorIcon: $white;
+$colorHoverIcon: $black;
+$colorExitIcon: $black;
+$colorHoverExitIcon: $hover;
+
+// forms
+$colorFormBorder: $formBorder;
+$colorLabelForms: $black;
+$colorTitleSectionForm: $black;
+$colorBackgroundDisable: $formDisable;
+$colorFontDisable: $black;
+$colorTextDangerForm: $danger;
+
+// login
+$colorFontClearLogin: rgba($white, 0.747);
+$colorFontMidLogin: rgba($white, 0.596);
+$colorFontDarkLogin: $white;
+$colorFontFormsLoginRegister: $white;
+$colorLabelLoginRegister: $white;
+$colorFormBorderLoginRegister: rgba($white, 0.295);
+$colorBackgroundFormSideLogin: $loginBackground;
+$colorBackgroundLogoSigeLogin: $white;
+$colorLabMedicalBrand: $brand;
+$colorFontInput: $white;
+$colorInputPlaceholder: $inputPlaceholder;
+$colorInputBackground: $transparent;
+
+// dialog
+$colorBackgroundDialog: $loginBackground;
+$colorBorderDialog: $hover;
+$colorFontDialog: $white;
 

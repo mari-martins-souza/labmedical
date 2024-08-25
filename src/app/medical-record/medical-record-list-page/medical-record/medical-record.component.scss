@@ -9,7 +9,7 @@
 }
 
 .patient-title {
-    background-color: white;
+    background: $colorGeneralCard;
     border-radius: 4px;
     height: 50px;
     margin-bottom: 20px;
@@ -18,7 +18,7 @@
 
 .patient-title h2 {
     font-size: 1.7rem;
-    color: black;
+    color: $colorTitleToolbar;
     padding-left: 15px;
     font-family: "Dosis", sans-serif;
     padding-top: 7px;
@@ -30,8 +30,8 @@
 }
 
 #edit-exam, #edit-appoint, #edit-patient {
-    background-color: #6b54f0;
-    color: white;
+    background: $colorButton;
+    color: $colorFontButton;
     border-radius: 4px;
     height: 35px;
     width: 75px;
@@ -41,8 +41,8 @@
 }
 
 #edit-exam:hover, #edit-appoint:hover, #edit-patient:hover {
-    background-color: #FF4155;
-    color: black;
+    background: $colorHover;
+    color: $colorFontButtonHover;
     
 }
 

@@ -13,20 +13,18 @@
                     <button id="btn-clear1" (click)="clearSearch()">LIMPAR</button>
         </div>
 
-        <div class="list-area">
-            <div class="patient-card1 header-area">
-                <div id="header-reg">Registro</div>
-                <div id="header-pat-name">Nome do paciente</div>
-                <div id="header-ins">Convênio</div>
-                <div id="header-file">Arquivo</div>
-            </div>
-            <div *ngFor="let patient of filteredPatientsList" class="patient-card1">
-                <div class="card-content1" id="id">{{ patient.id }}</div>
-                <div class="card-content1" id="name">{{ patient.name }}</div>
-                <div class="card-content1" id="insurance">{{ patient.healthInsurance }}</div>
-                <div class="card-content1" id="open-button">
-                    <button (click)="medicalRecords(patient.id)">PRONTUÁRIO</button>
-                </div>
+        <div class="container-list-area">
+            <div class="list-area">
+                    <div class="patient-card1 header-area">
+                        <div id="header-reg">Registro</div>
+                        <div id="header-pat-name">Nome do paciente</div>
+                        <div id="header-ins">Convênio</div>
+                    </div>
+                    <div *ngFor="let patient of filteredPatientsList" class="patient-card1">
+                        <div (click)="medicalRecords(patient.id)" class="card-content1" id="id">{{ patient.id }}</div>
+                        <div (click)="medicalRecords(patient.id)" class="card-content1" id="name">{{ patient.name }}</div>
+                        <div (click)="medicalRecords(patient.id)" class="card-content1" id="insurance">{{ patient.healthInsurance }}</div>
+                    </div>
             </div>
         </div>
        
