@@ -18,7 +18,7 @@ font-weight: 500;
 font-size: 1rem;
 text-transform: uppercase;
  margin-left: 10px;
- background-color: $colorButton;
+ background: $colorButton;
  border: none;
  border-radius: 4px;
  color: $colorFontButton;
@@ -27,22 +27,22 @@ text-transform: uppercase;
 }
 
 #button-group1 button:disabled {
- background-color: $colorButtonDisable;
+ background: $colorButtonDisable;
  color: $colorFontButtonDisable;
 }
 
 #button-group1 button:hover {
- background-color: $colorHover;
+ background: $colorHover;
  color: $colorFontButtonHover;
 }
 
 #button-group1 button:disabled:hover {
- background-color: $colorButtonDisable;
+ background: $colorButtonDisable;
  color: $colorFontButtonDisable;
 }
 
 .form-area3, .form-area4, .form-area5 {
- background-color: $colorAreaBackground;
+ background: $colorAreaBackground;
  border-radius: 4px;
  padding: 1%;
  padding-top: 20px;

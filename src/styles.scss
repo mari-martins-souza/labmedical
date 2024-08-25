@@ -17,7 +17,7 @@ $labmedical-theme: mat.define-light-theme((
 
 @include mat.all-component-themes($labmedical-theme);
 .mat-drawer-backdrop.mat-drawer-shown {
-  background-color: transparent !important;
+  background: transparent !important;
 }
 
 span.mdc-tab__text-label {
@@ -25,5 +25,5 @@ span.mdc-tab__text-label {
 }
 
 body {
-  background-color: $colorPageBackground;
+  background: $colorPageBackground;
 }
