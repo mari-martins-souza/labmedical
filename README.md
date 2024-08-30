@@ -1,10 +1,10 @@
-# LABmedical
+# LABmedical :hospital:
 
 LABmedical is an application built with Angular version 17.3.0 and aims to manage hospital patients, exams, and appointments. Initially conceived as an evaluative project for a course, it does not yet have a backend. User data is saved in localStorage and patient data in the JSON Server.
 
 With it, it is possible to register all patient information quickly and safely. Designed to provide all information simply, linking the patient to their appointments and exams and making it possible to edit all information, as needed by the user (doctors and nurses).
 
-## Features
+## Features :clipboard:
 
 **Login and registration screen**: Allows quick user registration and system authentication. The following features can only be viewed after authentication. User data is saved in the browser’s localStorage. Authentication is given by the isLogged: True key that will be stored in localStorage after successful login.  
 
@@ -14,7 +14,7 @@ With it, it is possible to register all patient information quickly and safely. 
 
 **Medical records**: On the screen that lists the medical records, it is possible to quickly view all patients, including ID, name, and health insurance of the patient. There is also a search field to facilitate the search for the patient, using the name. By clicking on the medical record folder next to the patient’s ID, the user is directed to that patient’s medical record, where it is possible to view some specific care data with the patient, in addition to all data related to exams and appointments performed by that patient. Appointments and exams are listed in chronological order, from the most recent to the oldest. An edit button for appointments and exams is also provided on this page, where the user will be directed to the registration screen, allowing to edit and even delete exams and appointments.
 
-## How to use
+## How to use :mag_right:
 
 1. Clone the project to your machine.
 2. Make sure you have Node.js, npm, and Angular CLI installed on your machine. If not, you will need to install them.
@@ -23,7 +23,7 @@ With it, it is possible to register all patient information quickly and safely. 
 5. In a new terminal, run the `ng serve` command to start the development server.
 6. Open the browser and access `http://localhost:4200/`.
 
-## Project Dependencies
+## Project Dependencies :books:
 
 This project was built using the following technologies and libraries:
 
@@ -36,7 +36,7 @@ This project was built using the following technologies and libraries:
 
 - - - - - - - - - - - - - - - - - - -
 
-# LABmedical
+# LABmedical :hospital:
 
 O LABmedical é uma aplicação construída com a versão 17.3.0 do Angular e tem como objetivo o gerenciamento hospitalar de pacientes, exames e consultas. 
 Inicialmente pensada como projeto avaliativo de um curso, ainda não possui backend. Dados dos usuários são salvos no localStorage e dados dos pacientes no JSON Server.
@@ -44,7 +44,7 @@ Inicialmente pensada como projeto avaliativo de um curso, ainda não possui back
 Com ele é possível registrar todas as informações do paciente de forma rápida e segura. 
 Projetado para disponibilizar todas as informações de forma simples, vinculando o paciente às suas consultas e exames e tornando possível a edição de todas as informações, conforme necessidade do usuário (médicos e enfermeiros).
 
-## Recursos
+## Recursos :clipboard:
 
 **Tela de login e cadastro**: Permite o cadastro rápido de usuários e a autenticação no sistema. Os recursos a seguir só podem ser visualizados após a autenticação. Os dados de usuários são salvos no localStorage do navegador. A autenticação se dá pela chave isLogged: True que ficará armazenada no localStorage após login efetuado com sucesso.  
 
@@ -54,7 +54,7 @@ Projetado para disponibilizar todas as informações de forma simples, vinculand
 
 **Prontuários**: Na tela que lista os prontuários, é possível visualizar rapidamente todos os pacientes, incluindo ID, nome e convênio de saúde do paciente. Também há um campo de busca para facilitar a busca pelo paciente, utilizando o nome. Ao clicar na pasta do prontuário ao lado da ID do paciente, o usuário é direcionado para o prontuário daquele paciente, onde é possível visualizar alguns dados específicos de cuidados com o paciente, além de todos os dados relacionados a exames e consultas realizadas por aquele paciente. As consultas e exames estão listadas em ordem cronológica, do mais recente para o mais antigo. Também é disponibilizado um botão de edição para consultas e exames nessa página, onde o usuário será direcionado até a tela de cadastro, permitindo editar e até deletar exames e consultas.
 
-## Como usar
+## Como usar :mag_right:
 
 1. Faça o clone do projeto para sua máquina.
 2. Certifique-se de ter o Node.js, npm e Angular CLI instalados na sua máquina. Se não tiver, você precisará instalá-los.
@@ -63,7 +63,7 @@ Projetado para disponibilizar todas as informações de forma simples, vinculand
 5. Em um novo terminal, execute o comando `ng serve` para iniciar o servidor de desenvolvimento.
 6. Abra o navegador e acesse `http://localhost:4200/`.
 
-## Dependências do Projeto
+## Dependências do Projeto :books:
 
 Este projeto foi construído usando as seguintes tecnologias e bibliotecas:
 
