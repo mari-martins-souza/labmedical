@@ -43,12 +43,12 @@
     text-transform: uppercase;
     font-size: 1rem;
     padding: 7px;
-    background: $colorButton;
-    color: $colorFontButton;
+    background: $colorBtnDialog;
+    color: $colorFontBtnDialog;
     border-radius: 4px;
     border-style: none;
     width: 100px;
-    font-weight: 500;
+    font-weight: 600;
  }
 
  .btn-cancel:hover, .btn-confirm:hover {

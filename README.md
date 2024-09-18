@@ -1,4 +1,4 @@
-# LABmedical
+# LABmedical :hospital:
 
 LABmedical is an application built with Angular version 17.3.0 and aims to manage hospital patients, exams, and appointments. Initially conceived as an evaluative project for a course, it does not yet have a backend. User data is saved in localStorage and patient data in the JSON Server.
 
