@@ -6,10 +6,12 @@ import { MedicalAppointmentRegPageComponent } from './medical-appoint-reg/medica
 import { ExamRegisterPageComponent } from './exam-register/exam-register-page/exam-register-page.component';
 import { authGuard } from './shared/guards/auth.guard';
 import { authChildGuard } from './shared/guards/auth-child.guard';
+import { UserRegisterComponent } from './user-register/user-register.component';
 
 export const routes: Routes = [
     { path: '', component: LoginPageComponent },
     { path: 'home', component: HomePageComponent, canActivate: [authGuard] },
+    { path: 'registro-usuario', component: UserRegisterComponent, canActivate: [authGuard] },
     { path: 'registro-paciente/:id', component: PatientRegistrationPageComponent, canActivate: [authGuard] },
     { path: 'registro-paciente', component: PatientRegistrationPageComponent, canActivate: [authGuard] },
     { path: 'registro-consulta/:id', component: MedicalAppointmentRegPageComponent, canActivate: [authGuard] },
