@@ -9,6 +9,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatError } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { Title } from '@angular/platform-browser';
+import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -20,7 +21,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-user-register',
   standalone: true,
-  imports: [DialogComponent, ConfirmDialogComponent, ToolbarComponent, SidebarMenuComponent, ReactiveFormsModule, MatError, CommonModule],
+  imports: [DialogComponent, ConfirmDialogComponent, ToolbarComponent, SidebarMenuComponent, ReactiveFormsModule, MatError, CommonModule, NgxMaskDirective, NgxMaskPipe],
+  providers: [provideNgxMask()],
   templateUrl: './user-register.component.html',
   styleUrl: './user-register.component.scss'
 })
@@ -33,16 +35,16 @@ export class UserRegisterComponent implements OnInit {
 
   registerForm = this.fb.group({
     roleName: ['', Validators.required],
-    name: ['', Validators.required],
+    name: ['', [Validators.required, Validators.maxLength(255)]],
     email: ['', [Validators.required, Validators.email]],
     birthdate: ['', Validators.required],
     cpf: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    confirm: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]],
+    confirm: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(255)]],
   });
   
   ngOnInit() {
-    this.titleService.setTitle('Registro de Usuários');
+    this.titleService.setTitle('Registro de Usuário');
   }
 
   

@@ -18,8 +18,6 @@ export class StatisticsComponent implements OnInit {
     countPatients: number = 0;
     countAppointments: number = 0;
     countExams: number = 0;
-    healthInsuranceStats: any;
-    otherHealthInsuranceCount: number = 0;
 
   constructor(private dataService: DataService) { }
 
@@ -27,11 +25,5 @@ export class StatisticsComponent implements OnInit {
     this.dataService.countData('patients').subscribe(num => this.countPatients = num);
     this.dataService.countData('appointments').subscribe(num => this.countAppointments = num);
     this.dataService.countData('exams').subscribe(num => this.countExams = num);
-    this.dataService.getHealthInsuranceStats().subscribe(stats => {
-      this.healthInsuranceStats = stats;
-      const otherStats = Object.values(stats).slice(3);
-      this.otherHealthInsuranceCount = otherStats.reduce((acc, curr) => acc + curr, 0);
-    });
   }
-  
 }

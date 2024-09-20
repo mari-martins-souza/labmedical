@@ -80,7 +80,7 @@ export class PatientRegistrationPageComponent implements OnInit {
   })
   
   ngOnInit() {
-    this.titleService.setTitle('Registro de Pacientes');
+    this.titleService.setTitle('Registro de Paciente');
    
     const zipcodeControl = this.patRegistration.get('zipcode');
   if (zipcodeControl) {

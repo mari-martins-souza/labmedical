@@ -10,7 +10,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   saveData(collection: string, data: any) {
-    //return this.http.post(`http://localhost:3000/${collection}`, data);
+    return this.http.post(`https://66ed7b79380821644cdd0059.mockapi.io/`, data);
   }
 
   getData(collection: string, id?: string): Observable<any> {
@@ -18,17 +18,17 @@ export class DataService {
       return this.http.get(`https://66ed7b79380821644cdd0059.mockapi.io/${id}`);
       //return this.http.get(`http://localhost:3000/${collection}/${id}`);
     } else {
-    return this.http.get(`http://localhost:3000/${collection}`);
+    return this.http.get(`https://66ed7b79380821644cdd0059.mockapi.io`);
       //return this.http.get(`http://localhost:3000/${collection}`);
    }
   }
 
   editData(collection: string, id: number, data: any) {
-   // return this.http.put(`http://localhost:3000/${collection}/${id}`, data);
+  return this.http.put(`https://66ed7b79380821644cdd0059.mockapi.io/${id}`, data);
   }
 
   deleteData(collection: string, id: number) {
-    //return this.http.delete(`http://localhost:3000/${collection}/${id}`);
+    return this.http.get(`https://66ed7b79380821644cdd0059.mockapi.io/${id}`);
   }
 
   countData(collection: string): Observable<any> {
