@@ -3,6 +3,7 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 import { IConfig } from 'ngx-mask';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
+import { provideHttpClient } from '@angular/common/http';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -13,6 +14,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     ...appConfig.providers,
     provideEnvironmentNgxMask(maskConfig),
+    provideHttpClient()
   ],
 })
 .catch((err) => console.error(err));
