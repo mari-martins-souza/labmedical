@@ -6,7 +6,7 @@ import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule, MatButton } from '@angular/material/button';
-import { FormBuilder, FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
 import { HttpClientModule } from '@angular/common/http';
 import { AddressService } from '../address.service';
@@ -18,6 +18,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { Patient } from '../../models/patient.model';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -42,8 +43,36 @@ export class PatientRegistrationPageComponent implements OnInit {
   patientSearchControl = new FormControl();
   saveDisabled: boolean = false;
   isEditing: boolean = false;
+  patRegistration: FormGroup;
   
-  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id');
+  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id'),
+    this.patRegistration = this.fb.group({
+      name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
+      gender: ['', Validators.required],
+      birthdate: ['', Validators.required],
+      cpf: ['', Validators.required],
+      rg: ['', [Validators.required, Validators.maxLength(20)]],
+      issOrg: ['', Validators.required],
+      maritalStatus: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.email, Validators.required]],
+      placeOfBirth: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(64)]],
+      emergCont: ['', Validators.required],
+      emergContNumber: ['', Validators.required],
+      listOfAllergies: [''],
+      careList: [''],
+      healthInsurance: ['',Validators.required],
+      healthInsuranceNumber: [''],
+      healthInsuranceVal: [''],
+      zipcode: ['', Validators.required],
+      street: [''],
+      addressNumber: [''],
+      complement: [''],
+      referencePoint: [''],
+      neighborhood: [''],
+      city: [''],
+      state: [''],
+    });
   }
 
   @ViewChild(DialogComponent) dialog!: DialogComponent;
@@ -51,34 +80,6 @@ export class PatientRegistrationPageComponent implements OnInit {
   
   matcher = new MyErrorStateMatcher()
 
-  patRegistration = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
-    gender: ['', Validators.required],
-    birthdate: ['', Validators.required],
-    cpf: ['', Validators.required],
-    rg: ['', [Validators.required, Validators.maxLength(20)]],
-    issOrg: ['', Validators.required],
-    maritalStatus: ['', Validators.required],
-    phone: ['', Validators.required],
-    email: ['', [Validators.email, Validators.required]],
-    placeOfBirth: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(64)]],
-    emergCont: ['', Validators.required],
-    emergContNumber: ['', Validators.required],
-    listOfAllergies: [''],
-    careList: [''],
-    healthInsurance: ['',Validators.required],
-    healthInsuranceNumber: [''],
-    healthInsuranceVal: [''],
-    zipcode: ['', Validators.required],
-    street: [''],
-    addressNumber: [''],
-    complement: [''],
-    referencePoint: [''],
-    neighborhood: [''],
-    city: [''],
-    state: [''],
-  })
-  
   ngOnInit() {
     this.titleService.setTitle('Registro de Paciente');
    
@@ -102,7 +103,6 @@ export class PatientRegistrationPageComponent implements OnInit {
     });
   }
   
-    
     this.dataService.getData('patients').subscribe(data => {
       this.patients = data;
       this.filteredPatients = this.patientSearchControl.valueChanges
@@ -137,14 +137,17 @@ private _filter(name: string): any[] {
     this.patientSearchControl.setValue('');
   }
 
-  savePatRegister() {
+  patientRegister() {
     if (this.patRegistration.valid) {
-        
-        const patient = {
+  
+      const cpf = this.patRegistration.value.cpf.replace(/\D/g, '');
+      const formattedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
+      const newPatient: Patient = {
           name: this.patRegistration.value.name,
           gender: this.patRegistration.value.gender,
-          birthdate: this.dataTransformService.formatDate(this.patRegistration.value.birthdate),
-          cpf: this.dataTransformService.formatCpf(this.patRegistration.value.cpf),
+          birthdate: this.patRegistration.value.birthdate,
+          cpf: formattedCpf,
           rg: this.patRegistration.value.rg,
           issOrg: this.patRegistration.value.issOrg,
           maritalStatus: this.patRegistration.value.maritalStatus,
@@ -157,7 +160,8 @@ private _filter(name: string): any[] {
           careList: this.patRegistration.value.careList,
           healthInsurance: this.patRegistration.value.healthInsurance,
           healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
-          healthInsuranceVal: this.dataTransformService.formatDate(this.patRegistration.value.healthInsuranceVal),
+          healthInsuranceVal: this.patRegistration.value.healthInsuranceVal ?
+          this.patRegistration.value.healthInsuranceVal : null,
           zipcode: this.patRegistration.value.zipcode,
           street: this.patRegistration.value.street,
           addressNumber: this.patRegistration.value.addressNumber,
@@ -166,22 +170,24 @@ private _filter(name: string): any[] {
           neighborhood: this.patRegistration.value.neighborhood,
           city: this.patRegistration.value.city,
           state: this.patRegistration.value.state,
-        }
+      };
 
-        this.dataService.saveData('patients', patient).subscribe(() => {
+      this.dataService.savePatient(newPatient).subscribe({
+        next: (response) => {
+          console.log('Patient saved successfully:', response);
           this.showMessage = true;
-
           this.patRegistration.reset();
-
+      
           setTimeout(() => {
             this.showMessage = false;
           }, 1000);
-      
-    });
-  } else {
-    this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
+        },
+        error: (error) => {
+          console.error('Error saving patient:', error);
+        }
+      });
+    }
   }
-}
 
 saveEditPat() {
   if (this.patRegistration.valid) {

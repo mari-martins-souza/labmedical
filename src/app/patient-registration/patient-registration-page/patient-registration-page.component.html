@@ -14,12 +14,12 @@
       <div class="form-container1" style="flex-grow: 0.9;">
  
                 <div id="button-group1">
-                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditPat()">Salvar</button>
-                    <button id="btn-save" *ngIf="!isEditing" (click)="savePatRegister()">Salvar</button>   
-                    <button id="btn-edit" *ngIf="isEditing" (click)="editPatient()">Editar</button>
-                    <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
-                    <button id="btn-del" *ngIf="isEditing" (click)="deletePatient(patientId)">Deletar</button>
+                    <button id="btn-save" *ngIf="!isEditing" (click)="patientRegister()">Salvar</button>  
+                    <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>   
                     <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditPat()">Salvar</button>
+                    <button id="btn-edit" *ngIf="isEditing" (click)="editPatient()">Editar</button>       
+                    <button id="btn-del" *ngIf="isEditing" (click)="deletePatient(patientId)">Deletar</button>
                 </div>
  
             <div class="form-area2" [formGroup]="patRegistration"> 
@@ -114,7 +114,7 @@
                    <div class="row1">
                     <div class="form-field1">
                         <label for="phone">Telefone*</label>
-                        <input matInput formControlName="phone" mask="(00) 0 0000-0009" id="phone-form-field" name="phone">
+                        <input matInput formControlName="phone" mask="(00)00000-0009" id="phone-form-field" name="phone">
                         <mat-error *ngIf="patRegistration.get('phone')?.invalid && patRegistration.get('phone')?.touched">
                             Obrigatório
                         </mat-error>
@@ -128,7 +128,7 @@
                         </div>
                         <div class="form-field1">
                             <label for="emergContNumber">Telefone emergência*</label>
-                            <input matInput formControlName="emergContNumber" mask="(00) 0 0000-0009" name="emergContNumber">
+                            <input matInput formControlName="emergContNumber" mask="(00)00000-0009" name="emergContNumber">
                             <mat-error *ngIf="patRegistration.get('emergContNumber')?.invalid && patRegistration.get('emergContNumber')?.touched">
                                 Obrigatório
                             </mat-error>
