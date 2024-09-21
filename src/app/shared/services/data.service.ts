@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { User } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,13 @@ export class DataService {
   private apiUrl = 'http://localhost:8081';
 
   constructor(private http: HttpClient) { }
+
+  saveUser(user: User): Observable<User> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.post<User>(`${this.apiUrl}/users`, user, { headers });
+  }
 
   saveData(collection: string, data: any) {
     return this.http.post(`http://localhost:3000/${collection}`, data);

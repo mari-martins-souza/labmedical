@@ -7,7 +7,7 @@ import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { AuthService } from '../auth.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
-import { AuthInterceptor } from '../../auth.interceptor';
+import { AuthInterceptor } from '../auth.interceptor';
 
 @Component({
   selector: 'app-login-page',

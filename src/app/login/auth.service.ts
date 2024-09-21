@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-import { CustomJwtPayload } from '../shared/jwt-payload.model';
+import { CustomJwtPayload } from './jwt-payload.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,7 +40,5 @@ export class AuthService {
     const decodedToken = this.getDecodedToken();
     return decodedToken ? decodedToken.name : null;
   }
-  
-  
   
 }

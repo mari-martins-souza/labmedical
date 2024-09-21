@@ -15,12 +15,12 @@
         <div class="form-container1" style="flex-grow: 0.9;">
 
                 <div id="button-group1">
-                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditExam()">Salvar</button>
-                    <button id="btn-save" *ngIf="!isEditing" (click)="saveExamRegister()">Salvar</button>   
-                    <button id="btn-edit" *ngIf="isEditing" (click)="editExam()">Editar</button>
-                    <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
-                    <button id="btn-del" *ngIf="isEditing" (click)="deleteExam()">Deletar</button>
+                    <button id="btn-save" *ngIf="!isEditing" (click)="registerUser()">Salvar</button> 
+                    <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>          
                     <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditExam()">Salvar</button>
+                    <button id="btn-edit" *ngIf="isEditing" (click)="editExam()">Editar</button>
+                    <button id="btn-del" *ngIf="isEditing" (click)="deleteExam()">Deletar</button>
                 </div>  
 
                 <div class="form-area2" [formGroup]="registerForm">
@@ -32,8 +32,8 @@
                             <div class="form-field1 roleName">
                                 <label for="roleName">Perfil do usuário*</label>
                             <select formControlName="roleName" id="role-form-field" name="roleName">
-                                <option value="Administrador">Administrador(a)</option>
-                                <option value="Médico(a)">Médico(a)</option>
+                                <option value="ROLE_ADMIN">Administrador(a)</option>
+                                <option value="ROLE_MEDICO">Médico(a)</option>
                                 <!-- <option value="Paciente">Paciente</option> -->
                                 </select>
                             <mat-error *ngIf="registerForm.get('roleName')?.invalid && registerForm.get('roleName')?.touched">

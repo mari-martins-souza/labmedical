@@ -21,6 +21,6 @@ export const routes: Routes = [
     { path: 'lista-prontuarios',
         canActivateChild: [authChildGuard],
         loadChildren:    
-        () => import('../app/shared/shared.module').then(m => m.SharedModule)
+        () => import('../app/shared/modules/shared.module').then(m => m.SharedModule)
     },
 ];
