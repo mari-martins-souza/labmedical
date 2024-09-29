@@ -184,60 +184,119 @@ private _filter(name: string): any[] {
         },
         error: (error) => {
           console.error('Error saving patient:', error);
+        
         }
       });
+    } else {
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
   }
 
-saveEditPat() {
+// saveEditPat() {
+//   if (this.patRegistration.valid) {
+//         const patient = {
+//           name: this.patRegistration.value.name,
+//           gender: this.patRegistration.value.gender,
+//           birthdate: this.dataTransformService.formatDate(this.patRegistration.value.birthdate),
+//           cpf: this.dataTransformService.formatCpf(this.patRegistration.value.cpf),
+//           rg: this.patRegistration.value.rg,
+//           issOrg: this.patRegistration.value.issOrg,
+//           maritalStatus: this.patRegistration.value.maritalStatus,
+//           phone: this.dataTransformService.formatPhone(this.patRegistration.value.phone),
+//           email: this.patRegistration.value.email,
+//           placeOfBirth: this.patRegistration.value.placeOfBirth,
+//           emergCont: this.patRegistration.value.emergCont,
+//           emergContNumber: this.dataTransformService.formatPhone(this.patRegistration.value.emergContNumber),
+//           listOfAllergies: this.patRegistration.value.listOfAllergies,
+//           careList: this.patRegistration.value.careList,
+//           healthInsurance: this.patRegistration.value.healthInsurance,
+//           healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
+//           healthInsuranceVal: this.dataTransformService.formatDate(this.patRegistration.value.healthInsuranceVal),
+//           zipcode: this.patRegistration.value.zipcode,
+//           street: this.patRegistration.value.street,
+//           addressNumber: this.patRegistration.value.addressNumber,
+//           complement: this.patRegistration.value.complement,
+//           referencePoint: this.patRegistration.value.referencePoint,
+//           neighborhood: this.patRegistration.value.neighborhood,
+//           city: this.patRegistration.value.city,
+//           state: this.patRegistration.value.state,
+//     }
+
+//     this.dataService.editData('patients', this.patientId, patient).subscribe(() => {
+//       this.showMessage = true;
+
+//       this.patRegistration.disable();
+//       this.saveDisabled = true;
+
+//       setTimeout(() => {
+//         this.showMessage = false;
+//       }, 1000);
+
+//     });
+//   } else {
+//     this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
+//   }
+// }
+
+saveEditPatient(){
+  this.patRegistration.enable();
+  this.saveDisabled = false;
+
   if (this.patRegistration.valid) {
-        const patient = {
-          name: this.patRegistration.value.name,
-          gender: this.patRegistration.value.gender,
-          birthdate: this.dataTransformService.formatDate(this.patRegistration.value.birthdate),
-          cpf: this.dataTransformService.formatCpf(this.patRegistration.value.cpf),
-          rg: this.patRegistration.value.rg,
-          issOrg: this.patRegistration.value.issOrg,
-          maritalStatus: this.patRegistration.value.maritalStatus,
-          phone: this.dataTransformService.formatPhone(this.patRegistration.value.phone),
-          email: this.patRegistration.value.email,
-          placeOfBirth: this.patRegistration.value.placeOfBirth,
-          emergCont: this.patRegistration.value.emergCont,
-          emergContNumber: this.dataTransformService.formatPhone(this.patRegistration.value.emergContNumber),
-          listOfAllergies: this.patRegistration.value.listOfAllergies,
-          careList: this.patRegistration.value.careList,
-          healthInsurance: this.patRegistration.value.healthInsurance,
-          healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
-          healthInsuranceVal: this.dataTransformService.formatDate(this.patRegistration.value.healthInsuranceVal),
-          zipcode: this.patRegistration.value.zipcode,
-          street: this.patRegistration.value.street,
-          addressNumber: this.patRegistration.value.addressNumber,
-          complement: this.patRegistration.value.complement,
-          referencePoint: this.patRegistration.value.referencePoint,
-          neighborhood: this.patRegistration.value.neighborhood,
-          city: this.patRegistration.value.city,
-          state: this.patRegistration.value.state,
-    }
+  
+    const cpf = this.patRegistration.value.cpf.replace(/\D/g, '');
+    const formattedCpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
 
-    this.dataService.editData('patients', this.patientId, patient).subscribe(() => {
-      this.showMessage = true;
+    const newPatient: Patient = {
+        name: this.patRegistration.value.name,
+        gender: this.patRegistration.value.gender,
+        birthdate: this.patRegistration.value.birthdate,
+        cpf: formattedCpf,
+        rg: this.patRegistration.value.rg,
+        issOrg: this.patRegistration.value.issOrg,
+        maritalStatus: this.patRegistration.value.maritalStatus,
+        phone: this.dataTransformService.formatPhone(this.patRegistration.value.phone),
+        email: this.patRegistration.value.email,
+        placeOfBirth: this.patRegistration.value.placeOfBirth,
+        emergCont: this.patRegistration.value.emergCont,
+        emergContNumber: this.dataTransformService.formatPhone(this.patRegistration.value.emergContNumber),
+        listOfAllergies: this.patRegistration.value.listOfAllergies,
+        careList: this.patRegistration.value.careList,
+        healthInsurance: this.patRegistration.value.healthInsurance,
+        healthInsuranceNumber: this.patRegistration.value.healthInsuranceNumber,
+        healthInsuranceVal: this.patRegistration.value.healthInsuranceVal ?
+        this.patRegistration.value.healthInsuranceVal : null,
+        zipcode: this.patRegistration.value.zipcode,
+        street: this.patRegistration.value.street,
+        addressNumber: this.patRegistration.value.addressNumber,
+        complement: this.patRegistration.value.complement,
+        referencePoint: this.patRegistration.value.referencePoint,
+        neighborhood: this.patRegistration.value.neighborhood,
+        city: this.patRegistration.value.city,
+        state: this.patRegistration.value.state,
+    };
 
-      this.patRegistration.disable();
-      this.saveDisabled = true;
+    this.dataService.editPatient(newPatient).subscribe({
+      next: (response) => {
+        console.log('Patient updated successfully:', response);
+        this.showMessage = true;
+        this.patRegistration.reset();
 
-      setTimeout(() => {
-        this.showMessage = false;
-      }, 1000);
-
+        this.patRegistration.disable();
+        this.saveDisabled = true;
+    
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 1000);
+      },
+      error: (error) => {
+        console.error('Error updating patient:', error);
+      
+      }
     });
   } else {
     this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
   }
-}
-
-editPatient(){
-  this.patRegistration.enable();
-  this.saveDisabled = false;
 }
 
 deletePatient(id: string) {

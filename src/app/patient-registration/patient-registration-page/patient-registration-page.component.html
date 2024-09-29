@@ -17,8 +17,8 @@
                     <button id="btn-save" *ngIf="!isEditing" (click)="patientRegister()">Salvar</button>  
                     <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>   
                     <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
-                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditPat()">Salvar</button>
-                    <button id="btn-edit" *ngIf="isEditing" (click)="editPatient()">Editar</button>       
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing">Salvar</button>
+                    <button id="btn-edit" *ngIf="isEditing" (click)="saveEditPatient()">Editar</button>       
                     <button id="btn-del" *ngIf="isEditing" (click)="deletePatient(patientId)">Deletar</button>
                 </div>
  

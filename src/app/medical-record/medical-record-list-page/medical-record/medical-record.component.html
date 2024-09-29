@@ -26,46 +26,92 @@
   }
 ]"></app-slider>
 
-
 <ng-template #patientTemplate>
-  <div class="content" *ngFor="let patient of patientsList">
-    
-    <p>Nome: {{ patient.name }}</p>
-    <p>Convênio: {{ patient.healthInsurance }}</p>
-    <p>Contato de emergência: {{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
-    <p>Alergias: {{ patient.listOfAllergies }}</p>
-    <p>Cuidados específicos: {{ patient.careList }}</p>
-    <button id="edit-patient" (click)="editPatient(patient.id)">EDITAR</button>
+<div class="content-container">
+  <div class="edit-button">
+    <button id="edit-patient">EDITAR</button>
   </div>
+  <div class="content-label">
+    <p>Nome:</p>
+    <p>Convênio:</p>
+    <p>Contato de emergência:</p>
+    <p>Alergias:</p>
+    <p>Cuidados específicos:</p>
+  </div>
+  <div class="content-patient" *ngIf="patient">
+    <p>{{ patient.name }}</p>
+    <p>{{ patient.healthInsurance }}</p>
+    <p>{{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
+    <p *ngIf="patient?.listOfAllergies; else noAllergies">{{ patient.listOfAllergies }}</p>
+    <ng-template #noAllergies>
+      <p>Nenhuma</p>
+    </ng-template>
+    <p *ngIf="patient?.careList; else noCareList">{{ patient.careList }}</p>
+    <ng-template #noCareList>
+      <p>Nenhum</p>
+    </ng-template>
+    </div>
+</div>
 </ng-template>
 
 <ng-template #appointmentTemplate>
-  <div class="content" *ngFor="let appointment of appointmentsList, let i = index">
-    
-    <p>Motivo da Consulta: {{ appointment.reason }}</p>
-    <p>Data: {{ appointment.consultDate }} / Hora: {{ appointment.consultTime }}</p>
-    <p>Descrição do problema: {{ appointment.problemDescrip }}</p>
-    <p>Medicação receitada: {{ appointment.prescMed }}</p>
-    <p>Dosagens e precauções: {{ appointment.dosagesPrec }}</p>
-    <button id="edit-appoint" (click)="editAppointment(appointment.id)">EDITAR</button>
-    <mat-divider *ngIf="i < appointmentsList.length - 1"></mat-divider>
-    
+<div class="content-container" *ngFor="let appointment of appointmentsList, let i = index">
+  <div class="edit-button">
+    <button id="edit-appoint">EDITAR</button>
   </div>
+    <div class="content-label">
+      <p>Motivo da Consulta:</p>
+      <p>Data:</p>
+      <p>Hora:</p>
+      <p>Descrição do problema:</p>
+      <p>Medicação receitada:</p>
+      <p>Dosagens e precauções:</p>
+    </div>
+    <div class="content-appointment">
+      <p>{{ appointment.reason }}</p>
+      <p>{{ appointment.consultDate | dateFormat }}</p>
+      <p>{{ appointment.consultTime | timeFormat }}</p>
+      <p>{{ appointment.problemDescrip }}</p>
+      <p *ngIf="appointment?.prescMed; else noPrescMed">{{ appointment.prescMed }}</p>
+      <ng-template #noPrescMed>
+        <p>Nenhuma</p>
+      </ng-template>
+      <p>{{ appointment.dosagesPrec }}</p>
+    </div>
+</div>   
 </ng-template>
 
 <ng-template #examTemplate>
-  <div class="content" *ngFor="let exam of examsList, let i = index">
-    
-    <p>Exame: {{ exam.exam }}</p>
-    <p>Data: {{ exam.examDate }} / Hora: {{ exam.examTime }}</p>
-    <p>Laboratório: {{ exam.lab }}</p>
-    <p>Url do documento: {{ exam.docUrl }}</p>
-    <p>Tipo de exame: {{ exam.examType }}</p>
-    <p>Resultados: {{ exam.result }}</p>
-    <button id="edit-exam" (click)="editExam(exam.id)">EDITAR</button> 
-    <mat-divider *ngIf="i < examsList.length - 1"></mat-divider>
+<div class="content-container" *ngFor="let exam of examsList, let i = index">
+  <div class="edit-button">
+    <button id="edit-exam">EDITAR</button>
+  </div>
+  <div class="content-label">
+    <p>Exame:</p>
+    <p>Data:</p>
+    <p>Hora:</p>
+    <p>Laboratório:</p>
+    <p>Url do documento:</p>
+    <p>Tipo do exame:</p>
+    <p>Resultados:</p>
+  </div>
+  <div class="content-exam">
+    <p>{{ exam.exam }}</p>
+    <p>{{ exam.examDate | dateFormat }}</p>
+    <p>{{ exam.examTime | timeFormat }}</p>
+    <p>{{ exam.lab }}</p>
+    <p *ngIf="exam?.docUrl; else noDocUrl">{{ exam.docUrl }}</p>
+      <ng-template #noDocUrl>
+        <p>Nenhum documento</p>
+      </ng-template>
+    <p>{{ exam.examType }}</p>
+    <p>{{ exam.result }}</p>
+  </div>
 </div>
 </ng-template>
+
+
+
 
     </div>
     </div>

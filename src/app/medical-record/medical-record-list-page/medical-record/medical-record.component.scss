@@ -25,7 +25,7 @@
 }
 
 .content {
-    padding-top: 20px;
+    // padding-top: 20px;
     width: 100%;
 }
 
@@ -43,10 +43,108 @@
 #edit-exam:hover, #edit-appoint:hover, #edit-patient:hover {
     background: $colorHover;
     color: $colorFontButtonHover;
-    
 }
 
 mat-divider {
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.content-container {
+    display: flex;
+    padding-top: 20px;
+    justify-content: left;
+    flex-direction: row;
+    // border: 2px #b779ff solid;
+    border-radius: 4px;
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.content-container:last-child {
+    margin-bottom: 0;
+}
+
+.content-label {
+    width: fit-content;
+    text-wrap: nowrap;
+}
+
+.content-label p {
+    text-align: right;
+    margin-right: 15px;
+    margin-bottom: 6px;
+    padding: 2px;
+    padding-left: 30px;
+    margin-right: 0px;
+    font-family: "Dosis", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: $colorLabelForms;
+    background-color: $colorInfoBackgroundLabel;
+    border: 2px solid $colorBorderLabelMedicalRecord;
+}
+
+.content-patient p {
+    background-color: $colorInfoBackgroundPatient;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    border: 2px solid $colorFormBorder;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-family: "Dosis", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: $colorGeneralFont;
+}
+
+.content-appointment p {
+    background-color: $colorInfoBackgroundPatient;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    border: 2px solid $colorFormBorder;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-family: "Dosis", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: $colorGeneralFont;
+}
+
+.content-patient {
+    width: 100%;
+}
+
+.content-appointment {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.edit-button {
+    display: flex;
+    justify-content: left;
+}
+
+.content-exam p {
+    background-color: $colorInfoBackgroundPatient;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    border: 2px solid $colorFormBorder;
+    padding: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-family: "Dosis", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: $colorGeneralFont;
+}
+
+.content-exam {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }

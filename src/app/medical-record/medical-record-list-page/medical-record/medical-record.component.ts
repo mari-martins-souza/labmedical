@@ -3,7 +3,7 @@ import { SidebarMenuComponent } from '../../../shared/sidebar-menu/sidebar-menu.
 import { ToolbarComponent } from '../../../shared/toolbar/toolbar.component';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { DataService } from '../../../shared/services/data.service';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDividerModule} from '@angular/material/divider';
@@ -11,20 +11,28 @@ import { CommonModule } from '@angular/common';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { DateFormatPipe } from '../../../shared/pipes/date-format.pipe';
 import { SliderComponent } from './slider/slider.component';
+import { PatientRecord } from '../../../models/patient-record.model';
+import { AppointmentRecord } from '../../../models/appointment-record.model';
+import { ExamRecord } from '../../../models/exam-record.model';
+import moment from 'moment';
+import { TimeFormatPipe } from '../../../shared/pipes/time-format.pipe';
 
 @Component({
   selector: 'app-medical-record',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule, RouterLink, MatButton, MatButtonModule, DateFormatPipe, SliderComponent],
+  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule, RouterLink, MatButton, MatButtonModule, DateFormatPipe, SliderComponent, TimeFormatPipe],
   providers: [DataService],
   templateUrl: './medical-record.component.html',
   styleUrl: './medical-record.component.scss'
 })
 export class MedicalRecordComponent implements OnInit {
   patientID: any = '';
+  patient: PatientRecord | undefined = undefined;
+  appointment: AppointmentRecord | undefined = undefined;
+  exam: ExamRecord | undefined = undefined;
   patientsList: any = [];
-  appointmentsList: any = [];
-  examsList: any = [];
+  appointmentsList: AppointmentRecord[] = [];
+  examsList: ExamRecord[] = [];
 
   constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private dataService: DataService, private router: Router) { }
 
@@ -32,37 +40,106 @@ export class MedicalRecordComponent implements OnInit {
     this.titleService.setTitle('Prontuário de paciente');
   
     this.patientID = this.activatedRoute.snapshot.paramMap.get('id');
+    console.log(this.patientID);
 
-    
-    this.dataService.getData('patients').subscribe((data: any) => {
-      this.patientsList = data.filter((patient: { id: any; }) => patient.id === this.patientID);
-      
-    });
-  
-    function convertDateFormat(date: string): string {
-      const [day, month, year] = date.split('-');
-      return `${month}-${day}-${year}`;
+    this.getPatient(this.patientID);
+    this.getAppointments(this.patientID);
+    this.getExams(this.patientID);
+
+    this.patient = {
+      id: '',
+      name: '',
+      emergCont: '',
+      emergContNumber: '',
+      listOfAllergies: null,
+      careList: null,
+      healthInsurance: '',
+      appointments: [],
+      exams: []
+    };
+
+    this.appointment = {
+      id: '',
+      appointment_id: '',
+      patientName: '',
+      reason: '',
+      consultDate: '',
+      consultTime: '',
+      problemDescrip: '',
+      prescMed: null,
+      dosagesPrec: null,
     }
-    
-    this.dataService.getData('appointments').subscribe((data: any) => {
-      this.appointmentsList = data.filter((appointment: { idPatient: any; }) => appointment.idPatient === this.patientID);
-      this.appointmentsList.sort((a: any, b: any) => {
-        const aDate = convertDateFormat(a.consultDate);
-        const bDate = convertDateFormat(b.consultDate);
-        return new Date(bDate + ' ' + b.consultTime).getTime() - new Date(aDate + ' ' + a.consultTime).getTime();
-      });
-    });
-    
-    this.dataService.getData('exams').subscribe((data: any) => {
-      this.examsList = data.filter((exam: { idPatient: any; }) => exam.idPatient === this.patientID);
-      this.examsList.sort((a: any, b: any) => {
-        const aDate = convertDateFormat(a.examDate);
-        const bDate = convertDateFormat(b.examDate);
-        return new Date(bDate + ' ' + b.examTime).getTime() - new Date(aDate + ' ' + a.examTime).getTime();
-      });
-    });
-    
+
+    this.exam = {
+      id: '',
+      examId: '',
+      patientName: '',
+      exam: '',
+      examDate: '', 
+      examTime: '', 
+      examType: '', 
+      lab: '', 
+      docUrl: null,
+      result: '',
+    }
+
   }
+
+  getPatient(id: string) {
+    this.dataService.getPatientById(this.patientID).subscribe({
+      next: (response) => {
+        this.patient = response;
+        console.log('Patient loaded successfully:', this.patient);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error loading patient:', error);
+      }
+    });
+  }
+
+  getAppointments(id: string) {
+    this.dataService.getAppointmentsAndExamsByPatientId(this.patientID).subscribe({
+      next: (response: any) => {
+        this.appointmentsList = response.appointments;
+        console.log('Appointments loaded successfully:', this.appointmentsList);
+
+        this.appointmentsList.sort((a, b) => {
+          const dateA = moment(a.consultDate + ' ' + a.consultTime, 'YYYY-MM-DD HH:mm:ss');
+          const dateB = moment(b.consultDate + ' ' + b.consultTime, 'YYYY-MM-DD HH:mm:ss');
+          return dateB.diff(dateA);
+        });
+
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error loading appointments:', error);
+      }
+    });
+  }
+
+  getExams(id: string) {
+    this.dataService.getAppointmentsAndExamsByPatientId(this.patientID).subscribe({
+      next: (response: any) => {
+        this.examsList = response.exams;
+        console.log('Exams loaded successfully:', this.examsList);
+
+        this.examsList.sort((a, b) => {
+          const dateA = moment(a.examDate + ' ' + a.examTime, 'YYYY-MM-DD HH:mm:ss');
+          const dateB = moment(b.examDate + ' ' + b.examTime, 'YYYY-MM-DD HH:mm:ss');
+          return dateB.diff(dateA);
+        });
+
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error loading exams:', error);
+      }
+    });
+  }
+
+
+
+
+
+
 
   editAppointment(id: string) {
     this.router.navigate(['/registro-consulta', id]);

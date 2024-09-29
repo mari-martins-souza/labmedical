@@ -20,14 +20,20 @@
                         <div id="header-pat-name">Nome do paciente</div>
                         <div id="header-ins">Convênio</div>
                     </div>
-                    <div *ngFor="let patient of filteredPatientsList" class="patient-card1">
-                        <div (click)="medicalRecords(patient.id)" class="card-content1" id="id">{{ patient.id }}</div>
+                    <div *ngFor="let patient of medicalRecordPatientsList" class="patient-card1">
+                        <div (click)="medicalRecords(patient.id)" class="card-content1" id="id">{{ patient.id | shortenId }}</div>
                         <div (click)="medicalRecords(patient.id)" class="card-content1" id="name">{{ patient.name }}</div>
                         <div (click)="medicalRecords(patient.id)" class="card-content1" id="insurance">{{ patient.healthInsurance }}</div>
                     </div>
             </div>
         </div>
        
+        <div class="pages">
+            <button (click)="getPatients(currentPage - 1, 10)" [disabled]="currentPage === 0">Previous</button>
+            <button (click)="getPatients(currentPage + 1, 10)">Next</button>
+        </div>
+        
+
     </div>
 
     </div>
