@@ -184,9 +184,9 @@ private _filter(name: string): any[] {
         },
         error: (error) => {
           console.error('Error saving patient:', error);
-        
         }
       });
+      
     } else {
       this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }

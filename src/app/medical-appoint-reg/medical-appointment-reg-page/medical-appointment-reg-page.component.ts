@@ -8,17 +8,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatButtonModule, MatButton } from '@angular/material/button';
-import { FormBuilder, FormControl, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable, debounceTime, map, startWith, switchMap } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
+import { Appointment } from '../../models/appointment.model';
+import { Patient } from '../../models/patient.model';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -37,23 +39,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class MedicalAppointmentRegPageComponent implements OnInit {
   showMessage = false;
-  patients: any[] = [];
-  filteredPatients: Observable<any[]> | undefined;
-  patientSearchControl = new FormControl();
   appointmentId: any = '';
+  patients: any[] = [];
+
+  filteredPatients: any[] = [];
+  patientSearchControl = new FormControl();
+
   isEditing: boolean = false;
   saveDisabled: boolean = false;
+  appointRegistration: FormGroup;
 
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
-    this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id')
-   }
-
-   @ViewChild(DialogComponent) dialog!: DialogComponent;
-   @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
-
-   matcher = new MyErrorStateMatcher()
-  
-  appointRegistration = this.fb.group({
+    this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id'),
+    this.appointRegistration = this.fb.group({
     idPatient: [{value: '', disabled: true}, Validators.required],
     name: [{value: '', disabled: true}, Validators.required],
     reason: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
@@ -62,7 +60,13 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     problemDescrip: ['',[Validators.required, Validators.minLength(16), Validators.maxLength(1024)]],
     prescMed: ['',],
     dosagesPrec: ['',[Validators.required, Validators.minLength(16), Validators.maxLength(256)]],
-  })
+  });
+}
+
+  @ViewChild(DialogComponent) dialog!: DialogComponent;
+  @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
+
+  matcher = new MyErrorStateMatcher()
 
   setDate(date: Date) {
     let d = new Date(date);
@@ -76,6 +80,22 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
     this.appointmentId = this.activatedRoute.snapshot.paramMap.get('id');
 
+    this.initializeAppointmentForm();
+    
+  }
+
+  setCurrentTimeAndDate() {
+    const currentDate = this.setDate(new Date());
+    const dateString = moment(currentDate).format('YYYY-MM-DD');
+    const timeString = moment(currentDate).format('HH:mm');
+
+    this.appointRegistration.patchValue({
+      consultDate: dateString,
+      consultTime: timeString,
+    });
+  }
+
+  initializeAppointmentForm() {
     if (this.appointmentId) {
       this.dataService.getData('appointments/' + this.appointmentId).subscribe(appointment => {
         appointment.consultDate = this.dataTransformService.transformDateForForm(appointment.consultDate);
@@ -83,27 +103,36 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
         this.appointRegistration.patchValue(appointment);
       })
     } else {
-      const currentDate = this.setDate(new Date());
-
-      const dateString = moment(currentDate).format('YYYY-MM-DD');
-      const timeString = moment(currentDate).format('HH:mm');
-
-      this.appointRegistration.patchValue({
-        consultDate: dateString,
-        consultTime: timeString,
-      });
+      this.setCurrentTimeAndDate();      
     }
+  }
+
+  onSearch() {
+    const searchTerm = this.patientSearchControl.value?.trim();
+    console.log('Searching for:', searchTerm);
     
-    this.dataService.getData('patients').subscribe(data => {
-      this.patients = data;
-      this.filteredPatients = this.patientSearchControl.valueChanges
-        .pipe(
-          startWith(''),
-          map(value => typeof value === 'string' ? value : value.name),
-          map(name => name ? this._filter(name) : this.patients.slice())
-        );
-    });
-    
+    if (searchTerm && searchTerm.length > 0) {
+        this.dataService.getPatients(searchTerm, 'name').subscribe({
+            next: (patients: Patient[]) => {
+                this.filteredPatients = patients;
+                this.patientSearchControl.reset();
+            },
+            error: (error) => {
+                console.error('Error fetching patients:', error);
+            }
+        });
+    } else {
+        this.filteredPatients = [];
+    }
+}
+
+
+  selectPatient(patient: any): void {
+    this.appointRegistration.patchValue({
+      idPatient: patient.id,
+      name: patient.name
+    })
+    this.filteredPatients = [];
   }
 
   private _filter(name: string): any[] {
@@ -119,12 +148,11 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     this.patientSearchControl.setValue('');
   }
   
-  saveAppointRegister() {
+  appointRegister() {
     if (this.appointRegistration.valid) {
         
-        const appointment = {
-          idPatient: this.appointRegistration.getRawValue().idPatient,
-          name: this.appointRegistration.getRawValue().name,
+        const newAppointment: Appointment = {
+          id: this.appointRegistration.getRawValue().idPatient,
           reason: this.appointRegistration.value.reason,
           consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),
           consultTime: this.appointRegistration.value.consultTime,
@@ -133,28 +161,37 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
           dosagesPrec: this.appointRegistration.value.dosagesPrec,
         }
 
-        this.dataService.saveData('appointments', appointment).subscribe(() => {
-          this.showMessage = true;
+        this.dataService.saveAppointment(newAppointment).subscribe({
+          next: (response) => {
+            console.log('Appointment saved successfully:', response);
+            this.showMessage = true;
+            this.appointRegistration.reset();
+            this.setCurrentTimeAndDate();
 
           setTimeout(() => {
             this.showMessage = false;
           }, 1000);
-
-          const consultDateControl = this.appointRegistration.get('consultDate');
-          const consultTimeControl = this.appointRegistration.get('consultTime');
-
-          if (consultDateControl && consultTimeControl) {
-            this.appointRegistration.reset({
-              consultDate: consultDateControl.value,
-              consultTime: consultTimeControl.value
-          });
-  }
-    });
-  } else {
-    this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
-
+        },
+        error: (error) => {
+          console.error('Error saving appointment:', error);
+        }
+      });
+      
+    } else {
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
-  }  
+  }
+
+          // const consultDateControl = this.appointRegistration.get('consultDate');
+          // const consultTimeControl = this.appointRegistration.get('consultTime');
+
+          // if (consultDateControl && consultTimeControl) {
+          //   this.appointRegistration.reset({
+          //     consultDate: consultDateControl.value,
+          //     consultTime: consultTimeControl.value
+          //   });
+          // }
+     
 
   saveEditAppoint() {
     if (this.appointRegistration.valid) {

@@ -41,6 +41,45 @@
   color: $colorFontButtonDisable;
  }
 
+ #button-group1 .btn-save-valid {
+  background-color: #007459;
+ }
+
+ .list-search-area {
+  background: $colorAreaBackground;
+  border-radius: 4px;
+  padding-bottom: 15px;
+ }
+
+ .list-search-area ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+ }
+
+ .list-search-area h3 {
+  font-family: "Dosis", sans-serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: $colorLabelForms;
+  padding: 1%;
+ }
+
+ .list-search-area a {
+  padding-left: 1%;
+  padding-right: 1%;
+  padding-bottom: 15px;
+  font-family: "Dosis", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $colorPatientResult;
+ }
+
+ .list-search-area a:hover {
+  color: $colorPatientResultHover;
+  cursor: pointer;
+ }
+
 .form-area3 {
  background: $colorAreaBackground;
  border-radius: 4px;

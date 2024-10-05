@@ -6,6 +6,8 @@ import { Patient } from '../../models/patient.model';
 import { ListPatients } from '../../models/list-patients.model';
 import { Page } from '../../models/page.interface';
 import { PatientRecord } from '../../models/patient-record.model';
+import { AppointmentRecord } from '../../models/appointment-record.model';
+import { Appointment } from '../../models/appointment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,6 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-
   //user endpoint
 
   saveUser(user: User): Observable<User> {
@@ -24,7 +25,6 @@ export class DataService {
 
     return this.http.post<User>(`${this.apiUrl}/users`, user, { headers });
   }
-
 
   //patient endpoint
 
@@ -42,6 +42,16 @@ export class DataService {
     return this.http.put<Patient>(`${this.apiUrl}/patients`, patient, { headers });
   }
 
+  getPatients(searchTerm: string, searchField: string): Observable<Patient[]> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    let params = new HttpParams().set(searchTerm, searchField);
+  
+    return this.http.get<Patient[]>(`${this.apiUrl}/patients?name=${searchTerm}&id=null`, { headers, params });
+}
+
+  
 
   // medical record list endpoint
 
@@ -51,7 +61,6 @@ export class DataService {
 
     return this.http.get<Page<ListPatients>>(`${this.apiUrl}/patients/medical-record-list?page=${page}$size=${size})`, { headers });
   }
-
 
   // medical record {id} endpoint
 
@@ -68,6 +77,24 @@ export class DataService {
 
     return this.http.get<PatientRecord[]>(`${this.apiUrl}/patients/${id}/medical-record`, { headers });
   }
+
+  // appointment endpoint
+
+  saveAppointment(appointment: Appointment): Observable<Appointment> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.post<Appointment>(`${this.apiUrl}/appointments`, appointment, { headers });
+  }
+
+  editAppointment(appointment: Appointment): Observable<Appointment> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.put<Appointment>(`${this.apiUrl}/appointments`, appointment, { headers });
+  }
+
+
 
 
   // others

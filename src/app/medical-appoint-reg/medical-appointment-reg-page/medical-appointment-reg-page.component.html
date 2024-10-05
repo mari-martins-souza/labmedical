@@ -13,22 +13,30 @@
 
       <div class="form-container1" style="flex-grow: 0.9;">
             <div id="search-and-btn">
-                    <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
-                    <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
-                        {{patient.name}}
-                    </mat-option>
-                    </mat-autocomplete>
+
+                    <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Digite o nome do paciente" matInput [formControl]="patientSearchControl">
 
                 <div id="button-group1">
+                    <button id="btn-search" *ngIf="!isEditing" (click)="onSearch()">Buscar</button>
                     <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditAppoint()">Salvar</button>
-                    <button id="btn-save" *ngIf="!isEditing" (click)="saveAppointRegister()">Salvar</button>   
+                    <button id="btn-save" 
+                    [ngClass]="{'btn-save-valid': appointRegistration.valid, 'btn-save-invalid': !appointRegistration.valid}" 
+                    *ngIf="!isEditing" (click)="appointRegister()">Salvar</button>   
                     <button id="btn-edit" *ngIf="isEditing" (click)="editAppoint()">Editar</button>
                     <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
                     <button id="btn-del" *ngIf="isEditing" (click)="deleteAppoint()">Deletar</button>
                     <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
                 </div>
-            </div>    
+            </div>
+            
+            <div class="list-search-area" *ngIf="filteredPatients && filteredPatients.length > 0">
+                <h3>Selecione o paciente para registrar a consulta:</h3>
+                <ul>
+                    <li *ngFor="let patient of filteredPatients" [value]="patient">
+                        <a (click)="selectPatient(patient)">{{ patient.name }}</a>
+                    </li>
+                  </ul>
+            </div>
 
             <div class="form-area2" [formGroup]="appointRegistration">
            
@@ -37,11 +45,11 @@
                     <div class="row1">
                         <div class="form-field1 idPatient">
                             <label for="idPatient">ID paciente</label>
-                            <input matInput formControlName="idPatient" name="idPatient">
+                            <input matInput formControlName="idPatient" name="idPatient" readonly>
                         </div>
                         <div class="form-field1 name">
                             <label for="name">Nome</label>
-                            <input matInput formControlName="name" name="name">
+                            <input matInput formControlName="name" name="name" readonly>
                         </div>
                     </div>
                     
