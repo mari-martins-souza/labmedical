@@ -29,7 +29,7 @@
                         <h4>Novo usuário</h4>
                         
                         <div class="row1">
-                            <div class="form-field1 roleName">
+                            <div class="form-field1-roleName">
                                 <label for="roleName">Perfil do usuário*</label>
                             <select formControlName="roleName" id="role-form-field" name="roleName">
                                 <option value="ROLE_ADMIN">Administrador(a)</option>
@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="row1"></div>
-                            <div class="form-field1 confirm">
+                            <div class="form-field1-confirm">
                                 <label for="confirm">Confirmar senha*</label>
                                 <input matInput type="password" formControlName="confirm" id="confirm-form-field" name="confirm">
                                 <mat-error *ngIf="registerForm.get('confirm')?.invalid && registerForm.get('confirm')?.touched">
