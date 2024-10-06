@@ -93,7 +93,7 @@ export class ExamRegisterPageComponent implements OnInit {
 
   initializeExamForm() {
     if (this.examId) {
-      this.dataService.getData('exams/' + this.examId).subscribe(exam => {
+      this.dataService.getExam('exams/' + this.examId).subscribe(exam => {
         exam.examDate = this.dataTransformService.transformDateForForm(exam.examDate);
        
         this.examRegistration.patchValue(exam);

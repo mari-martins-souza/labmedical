@@ -29,7 +29,7 @@
 <ng-template #patientTemplate>
 <div class="content-container">
   <div class="edit-button">
-    <button id="edit-patient">EDITAR</button>
+    <button id="edit-patient" (click)="editPatient(patientID)">EDITAR</button>
   </div>
   <div class="content-label">
     <p>Nome:</p>

@@ -1,7 +1,7 @@
 export class Patient {
     name: string = '';
     gender: string = '';
-    birthdate: Date | null = null;
+    birthdate: string = '';
     cpf: string = '';
     rg: string = '';
     issOrg: string = '';
@@ -15,7 +15,7 @@ export class Patient {
     careList?: string;
     healthInsurance: string = '';
     healthInsuranceNumber?: string;
-    healthInsuranceVal?: Date | null;
+    healthInsuranceVal?: string;
     zipcode: string = '';
     street?: string;
     addressNumber?: string;

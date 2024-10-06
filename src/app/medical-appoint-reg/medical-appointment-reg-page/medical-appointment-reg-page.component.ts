@@ -90,7 +90,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
   initializeAppointmentForm() {
     if (this.appointmentId) {
-      this.dataService.getData('appointments/' + this.appointmentId).subscribe(appointment => {
+      this.dataService.getAppointment('appointments/' + this.appointmentId).subscribe(appointment => {
         appointment.consultDate = this.dataTransformService.transformDateForForm(appointment.consultDate);
 
         this.appointRegistration.patchValue(appointment);
