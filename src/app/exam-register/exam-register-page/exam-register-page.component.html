@@ -14,35 +14,43 @@
 
         <div class="form-container1" style="flex-grow: 0.9;">
             <div id="search-and-btn">
-                    <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
-                    <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
-                        {{patient.name}}
-                    </mat-option>
-                    </mat-autocomplete>
+                
+                <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Digite o nome do paciente" matInput [formControl]="patientSearchControl">
 
                 <div id="button-group1">
-                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditExam()">Salvar</button>
-                    <button id="btn-save" *ngIf="!isEditing" (click)="saveExamRegister()">Salvar</button>   
-                    <button id="btn-edit" *ngIf="isEditing" (click)="editExam()">Editar</button>
+                    <button id="btn-search" *ngIf="!isEditing" (click)="onSearch()">Buscar</button>
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing">Salvar</button>
+                    <button id="btn-save" 
+                    [ngClass]="{'btn-save-valid': examRegistration.valid, 'btn-save-invalid': !examRegistration.valid}" 
+                    *ngIf="!isEditing" (click)="examRegister()">Salvar</button>   
+                    <button id="btn-edit" *ngIf="isEditing">Editar</button>
                     <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
-                    <button id="btn-del" *ngIf="isEditing" (click)="deleteExam()">Deletar</button>
+                    <button id="btn-del" *ngIf="isEditing">Deletar</button>
                     <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
                 </div>
-            </div>    
+            </div>  
+            
+            <div class="list-search-area" *ngIf="filteredPatients && filteredPatients.length > 0">
+                <h3>Selecione o paciente para registrar o exame:</h3>
+                <ul>
+                    <li *ngFor="let patient of filteredPatients" [value]="patient">
+                        <a (click)="selectPatient(patient)">{{ patient.name }}</a>
+                    </li>
+                  </ul>
+            </div>
 
-            <div class="form-area2" [formGroup]="examRegister">
+            <div class="form-area2" [formGroup]="examRegistration">
            
                 <div class="form-area3">
                     
                     <div class="row1">
                         <div class="form-field1 idPatient">
                             <label for="idPatient">ID paciente</label>
-                            <input matInput formControlName="idPatient" name="idPatient">
+                            <input matInput formControlName="idPatient" name="idPatient" readonly>
                         </div>
                         <div class="form-field1 name">
                             <label for="name">Nome</label>
-                            <input matInput formControlName="name" name="name">
+                            <input matInput formControlName="name" name="name" readonly>
                         </div>
                     </div>
                     
@@ -50,7 +58,7 @@
                         <div class="form-field1 exam">
                             <label for="exam">Nome do exame*</label>
                             <input matInput formControlName="exam" name="exam">
-                            <mat-error *ngIf="examRegister.get('exam')?.invalid && (examRegister.get('exam')?.dirty || examRegister.get('exam')?.touched)">
+                            <mat-error *ngIf="examRegistration.get('exam')?.invalid && (examRegistration.get('exam')?.dirty || examRegistration.get('exam')?.touched)">
                                 Nome do exame é obrigatório e deve ter entre 8 e 64 caracteres
                             </mat-error>
                         </div>
@@ -70,7 +78,7 @@
                             <div class="form-field1 examType">
                                 <label for="examType">Tipo do exame*</label>
                                 <input matInput formControlName="examType" name="examType">
-                                <mat-error *ngIf="examRegister.get('examType')?.invalid && (examRegister.get('examType')?.dirty || examRegister.get('examType')?.touched)">
+                                <mat-error *ngIf="examRegistration.get('examType')?.invalid && (examRegistration.get('examType')?.dirty || examRegistration.get('examType')?.touched)">
                                     Tipo do exame é obrigatório e deve ter entre 4 e 32 caracteres
                                 </mat-error>
                             </div>
@@ -81,7 +89,7 @@
                         <div class="form-field1 lab">
                             <label for="lab">Laboratório*</label>
                             <input matInput name="lab" formControlName="lab">
-                            <mat-error *ngIf="examRegister.get('lab')?.invalid && (examRegister.get('lab')?.dirty || examRegister.get('lab')?.touched)">
+                            <mat-error *ngIf="examRegistration.get('lab')?.invalid && (examRegistration.get('lab')?.dirty || examRegistration.get('lab')?.touched)">
                                 Laboratório é obrigatório e deve ter entre 4 e 32 caracteres
                             </mat-error>
                         </div>
@@ -96,7 +104,7 @@
                         <div class="form-field1 result">
                             <label for="result">Resultados*</label>
                             <textarea name="result" formControlName="result" rows="4" cols="50"></textarea>
-                                <mat-error *ngIf="examRegister.get('result')?.invalid && (examRegister.get('result')?.dirty || examRegister.get('result')?.touched)">
+                                <mat-error *ngIf="examRegistration.get('result')?.invalid && (examRegistration.get('result')?.dirty || examRegistration.get('result')?.touched)">
                                     Resultados é obrigatório e deve ter entre 16 e 1024 caracteres
                                 </mat-error>
                         </div>

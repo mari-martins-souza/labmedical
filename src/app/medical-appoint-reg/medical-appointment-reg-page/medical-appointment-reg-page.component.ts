@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Observable, debounceTime, map, startWith, switchMap } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
@@ -41,10 +40,8 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   showMessage = false;
   appointmentId: any = '';
   patients: any[] = [];
-
   filteredPatients: any[] = [];
   patientSearchControl = new FormControl();
-
   isEditing: boolean = false;
   saveDisabled: boolean = false;
   appointRegistration: FormGroup;
@@ -75,13 +72,9 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   }
     
   ngOnInit() {
-
     this.titleService.setTitle('Registro de Consulta');
-
     this.appointmentId = this.activatedRoute.snapshot.paramMap.get('id');
-
     this.initializeAppointmentForm();
-    
   }
 
   setCurrentTimeAndDate() {
@@ -124,7 +117,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     } else {
         this.filteredPatients = [];
     }
-}
+  }
 
 
   selectPatient(patient: any): void {
@@ -135,18 +128,18 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     this.filteredPatients = [];
   }
 
-  private _filter(name: string): any[] {
-    const filterValue = name.toLowerCase();
-    return this.patients.filter(patient => patient.name.toLowerCase().includes(filterValue));
-  }
+  // private _filter(name: string): any[] {
+  //   const filterValue = name.toLowerCase();
+  //   return this.patients.filter(patient => patient.name.toLowerCase().includes(filterValue));
+  // }
 
-  setPatientData(patient: { id: any; name: any; }) {
-    this.appointRegistration.patchValue({
-      idPatient: patient.id,
-      name: patient.name
-    });
-    this.patientSearchControl.setValue('');
-  }
+  // setPatientData(patient: { id: any; name: any; }) {
+  //   this.appointRegistration.patchValue({
+  //     idPatient: patient.id,
+  //     name: patient.name
+  //   });
+  //   this.patientSearchControl.setValue('');
+  // }
   
   appointRegister() {
     if (this.appointRegistration.valid) {
@@ -193,55 +186,55 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
           // }
      
 
-  saveEditAppoint() {
-    if (this.appointRegistration.valid) {
-      const appointment = {
-        id: this.appointmentId,
-        idPatient: this.appointRegistration.getRawValue().idPatient,
-        name: this.appointRegistration.getRawValue().name,
-        reason: this.appointRegistration.value.reason,
-        consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),
-        consultTime: this.appointRegistration.value.consultTime,
-        problemDescrip: this.appointRegistration.value.problemDescrip,
-        prescMed: this.appointRegistration.value.prescMed,
-        dosagesPrec: this.appointRegistration.value.dosagesPrec,
-      }
+  // saveEditAppoint() {
+  //   if (this.appointRegistration.valid) {
+  //     const appointment = {
+  //       id: this.appointmentId,
+  //       idPatient: this.appointRegistration.getRawValue().idPatient,
+  //       name: this.appointRegistration.getRawValue().name,
+  //       reason: this.appointRegistration.value.reason,
+  //       consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),
+  //       consultTime: this.appointRegistration.value.consultTime,
+  //       problemDescrip: this.appointRegistration.value.problemDescrip,
+  //       prescMed: this.appointRegistration.value.prescMed,
+  //       dosagesPrec: this.appointRegistration.value.dosagesPrec,
+  //     }
   
-      this.dataService.editData('appointments', this.appointmentId, appointment).subscribe(() => {
-        this.showMessage = true;
-        this.appointRegistration.disable();
-        this.saveDisabled = true;
+  //     this.dataService.editData('appointments', this.appointmentId, appointment).subscribe(() => {
+  //       this.showMessage = true;
+  //       this.appointRegistration.disable();
+  //       this.saveDisabled = true;
   
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 1000);
+  //       setTimeout(() => {
+  //         this.showMessage = false;
+  //       }, 1000);
   
-      });
-    } else {
-      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
-    }
-  }
+  //     });
+  //   } else {
+  //     this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
+  //   }
+  // }
 
-  editAppoint(){
-    this.appointRegistration.enable();
+  // editAppoint(){
+  //   this.appointRegistration.enable();
 
-    this.appointRegistration.get('idPatient')!.disable();
-    this.appointRegistration.get('name')!.disable();
+  //   this.appointRegistration.get('idPatient')!.disable();
+  //   this.appointRegistration.get('name')!.disable();
 
-    this.saveDisabled = false;
-  }
+  //   this.saveDisabled = false;
+  // }
 
-  deleteAppoint(){
-    this.confirmDialog.openDialog("Tem certeza que deseja excluir a consulta? Essa ação não pode ser desfeita.")
-    const subscription = this.confirmDialog.confirm.subscribe(result => {
-      if (result) {
-        this.dataService.deleteData('appointments', this.appointmentId).subscribe(() => {
-          this.router.navigate(['/lista-prontuarios']);
-          subscription.unsubscribe();
-        });
-      } else {
-        subscription.unsubscribe();
-      }
-    });
-  }
+  // deleteAppoint(){
+  //   this.confirmDialog.openDialog("Tem certeza que deseja excluir a consulta? Essa ação não pode ser desfeita.")
+  //   const subscription = this.confirmDialog.confirm.subscribe(result => {
+  //     if (result) {
+  //       this.dataService.deleteData('appointments', this.appointmentId).subscribe(() => {
+  //         this.router.navigate(['/lista-prontuarios']);
+  //         subscription.unsubscribe();
+  //       });
+  //     } else {
+  //       subscription.unsubscribe();
+  //     }
+  //   });
+  // }
 }

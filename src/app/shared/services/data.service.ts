@@ -6,8 +6,8 @@ import { Patient } from '../../models/patient.model';
 import { ListPatients } from '../../models/list-patients.model';
 import { Page } from '../../models/page.interface';
 import { PatientRecord } from '../../models/patient-record.model';
-import { AppointmentRecord } from '../../models/appointment-record.model';
 import { Appointment } from '../../models/appointment.model';
+import { Exam } from '../../models/exam.model';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +94,21 @@ export class DataService {
     return this.http.put<Appointment>(`${this.apiUrl}/appointments`, appointment, { headers });
   }
 
+  // exam endpoint
 
+  saveExam(exam: Exam): Observable<Exam> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.post<Exam>(`${this.apiUrl}/exams`, exam, { headers });
+  }
+
+  editExam(exam: Exam): Observable<Exam> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.put<Exam>(`${this.apiUrl}/exams`, exam, { headers });
+  }
 
 
   // others
