@@ -56,7 +56,7 @@
     border-radius: 4px;
     height: 40px;
     width: 5vw;
-    margin-left: 1vw;
+    margin-left: 10px;
     font-family: "Dosis", sans-serif;
     font-weight: 500;
     font-size: 1rem;
@@ -80,7 +80,7 @@
     border-radius: 4px;
     height: 40px;
     width: 5vw;
-    margin-left: 1vw;
+    margin-left: 10px;
     font-family: "Dosis", sans-serif;
     font-weight: 500;
     font-size: 1rem;
@@ -180,4 +180,40 @@
 #id, #name, #insurance {
   display: flex;
   align-items: center;
+}
+
+.pages {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pages button {
+  background: $colorButton;
+    color: $colorFontButton;
+    border-radius: 4px;
+    height: 40px;
+    width: 85px;
+    font-family: "Dosis", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.pages button:disabled {
+  background: $colorButtonDisable;
+  color: $colorFontButtonDisable;
+}
+
+.pages button:hover {
+  background: $colorHover;
+  color: $colorFontButtonHover;
+}
+
+.pages button:disabled:hover {
+  background: $colorButtonDisable;
+  color: $colorFontButtonDisable;
 }

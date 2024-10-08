@@ -70,9 +70,10 @@ export class DataService {
   listPatients(page: number, size: number): Observable<Page<ListPatients>> {
     const jwtToken = sessionStorage.getItem('jwtToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
-
-    return this.http.get<Page<ListPatients>>(`${this.apiUrl}/patients/medical-record-list?page=${page}$size=${size})`, { headers });
+  
+    return this.http.get<Page<ListPatients>>(`${this.apiUrl}/patients/medical-record-list?page=${page}&size=${size}`, { headers });
   }
+  
 
   // medical record {id} endpoint
 

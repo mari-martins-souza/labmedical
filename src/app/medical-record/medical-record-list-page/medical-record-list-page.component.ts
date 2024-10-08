@@ -24,35 +24,53 @@ export class MedicalRecordListPageComponent implements OnInit {
   filteredPatientsList: any = [];
   searchTerm: string = '';
   patientsList: any = [];
-  totalPages: number = 0;
   currentPage: number = 0;
+  totalPages: number = 0;
+  pageSize: number = 10;
+  hasMorePages: boolean = false;
 
   constructor(private titleService: Title, private dataService: DataService, private router: Router) { }
 
-  ngOnInit() {
-
+  ngOnInit(): void {
     this.titleService.setTitle('Lista de prontuários');
-
-    // this.dataService.getData('patients').subscribe((data: any) => {
-    //   this.patientsList = data;
-    //   this.filteredPatientsList = data;
-    // });
-
-    this.getPatients(0, 10);
+    this.getPatients(this.currentPage);
   }
 
-  getPatients(page: number, size: number): void {
-    this.dataService.listPatients(page, size).subscribe({
-      next: (response: Page<ListPatients>) => {
-        this.medicalRecordPatientsList = response.content;
-        console.log('Patients loaded successfully:', this.medicalRecordPatientsList);
-      },
-      error: (error: HttpErrorResponse) => {
-        console.error('Error loading patients:', error);
-      }
+  getPatients(page: number): void {
+    this.dataService.listPatients(page, this.pageSize).subscribe({
+        next: (response: Page<ListPatients>) => {
+            this.medicalRecordPatientsList = response.content;
+            this.totalPages = response.totalPages;
+            this.hasMorePages = this.currentPage < this.totalPages - 1;
+            console.log('Patients loaded successfully:', this.medicalRecordPatientsList);
+        },
+        error: (error: HttpErrorResponse) => {
+            console.error('Error loading patients:', error);
+        }
     });
+}
+
+  goToPreviousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.getPatients(this.currentPage);
+    }
   }
-  
+
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.getPatients(this.currentPage);
+    }
+  }
+
+  isPreviousDisabled(): boolean {
+    return this.currentPage === 0;
+  }
+
+  isNextDisabled(): boolean {
+    return this.currentPage >= this.totalPages - 1;
+  }
 
   search() {
     if (this.searchTerm) {
@@ -69,7 +87,6 @@ export class MedicalRecordListPageComponent implements OnInit {
     this.filteredPatientsList = this.patientsList;
   }
   
-
   medicalRecords(id: string) {
     this.router.navigate(['/lista-prontuarios', id]);
   }

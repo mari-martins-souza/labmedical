@@ -29,11 +29,10 @@
         </div>
        
         <div class="pages">
-            <button (click)="getPatients(currentPage - 1, 10)" [disabled]="currentPage === 0">Previous</button>
-            <button (click)="getPatients(currentPage + 1, 10)">Next</button>
-        </div>
-        
-
+            <button (click)="goToPreviousPage()" [disabled]="isPreviousDisabled()">Retornar</button>
+            <button (click)="goToNextPage()" [disabled]="isNextDisabled()">Seguinte</button>
+          </div>
+          
     </div>
 
     </div>
