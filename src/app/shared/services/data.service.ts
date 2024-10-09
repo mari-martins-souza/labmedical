@@ -8,6 +8,7 @@ import { Page } from '../../models/page.interface';
 import { PatientRecord } from '../../models/patient-record.model';
 import { Appointment } from '../../models/appointment.model';
 import { Exam } from '../../models/exam.model';
+import { DashboardStats } from '../../models/dashboard-stats.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -73,7 +74,6 @@ export class DataService {
   
     return this.http.get<Page<ListPatients>>(`${this.apiUrl}/patients/medical-record-list?page=${page}&size=${size}`, { headers });
   }
-  
 
   // medical record {id} endpoint
 
@@ -163,6 +163,14 @@ export class DataService {
     return this.http.delete<Exam>(`${this.apiUrl}/exams/${id}`, { headers });
   }
 
+  // dashboard endpoint
+
+  getDashboardStats(): Observable<DashboardStats> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.get<DashboardStats>(`${this.apiUrl}/dashboard/stats`, { headers });
+  }
 
   // others
 
