@@ -127,21 +127,16 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     })
     this.filteredPatients = [];
   }
-
-  // private _filter(name: string): any[] {
-  //   const filterValue = name.toLowerCase();
-  //   return this.patients.filter(patient => patient.name.toLowerCase().includes(filterValue));
-  // }
-
-  // setPatientData(patient: { id: any; name: any; }) {
-  //   this.appointRegistration.patchValue({
-  //     idPatient: patient.id,
-  //     name: patient.name
-  //   });
-  //   this.patientSearchControl.setValue('');
-  // }
   
   appointRegister() {
+    const idPatientValue = this.appointRegistration.getRawValue().idPatient;
+    const nameValue = this.appointRegistration.getRawValue().name;
+
+    if (!this.appointRegistration.valid || !idPatientValue || !nameValue) {
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
+      return;
+    }
+
     if (this.appointRegistration.valid) {
         
         const newAppointment: Appointment = {
@@ -175,66 +170,4 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     }
   }
 
-          // const consultDateControl = this.appointRegistration.get('consultDate');
-          // const consultTimeControl = this.appointRegistration.get('consultTime');
-
-          // if (consultDateControl && consultTimeControl) {
-          //   this.appointRegistration.reset({
-          //     consultDate: consultDateControl.value,
-          //     consultTime: consultTimeControl.value
-          //   });
-          // }
-     
-
-  // saveEditAppoint() {
-  //   if (this.appointRegistration.valid) {
-  //     const appointment = {
-  //       id: this.appointmentId,
-  //       idPatient: this.appointRegistration.getRawValue().idPatient,
-  //       name: this.appointRegistration.getRawValue().name,
-  //       reason: this.appointRegistration.value.reason,
-  //       consultDate: this.dataTransformService.formatDate(this.appointRegistration.value.consultDate),
-  //       consultTime: this.appointRegistration.value.consultTime,
-  //       problemDescrip: this.appointRegistration.value.problemDescrip,
-  //       prescMed: this.appointRegistration.value.prescMed,
-  //       dosagesPrec: this.appointRegistration.value.dosagesPrec,
-  //     }
-  
-  //     this.dataService.editData('appointments', this.appointmentId, appointment).subscribe(() => {
-  //       this.showMessage = true;
-  //       this.appointRegistration.disable();
-  //       this.saveDisabled = true;
-  
-  //       setTimeout(() => {
-  //         this.showMessage = false;
-  //       }, 1000);
-  
-  //     });
-  //   } else {
-  //     this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
-  //   }
-  // }
-
-  // editAppoint(){
-  //   this.appointRegistration.enable();
-
-  //   this.appointRegistration.get('idPatient')!.disable();
-  //   this.appointRegistration.get('name')!.disable();
-
-  //   this.saveDisabled = false;
-  // }
-
-  // deleteAppoint(){
-  //   this.confirmDialog.openDialog("Tem certeza que deseja excluir a consulta? Essa ação não pode ser desfeita.")
-  //   const subscription = this.confirmDialog.confirm.subscribe(result => {
-  //     if (result) {
-  //       this.dataService.deleteData('appointments', this.appointmentId).subscribe(() => {
-  //         this.router.navigate(['/lista-prontuarios']);
-  //         subscription.unsubscribe();
-  //       });
-  //     } else {
-  //       subscription.unsubscribe();
-  //     }
-  //   });
-  // }
 }

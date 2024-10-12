@@ -20,7 +20,7 @@
                     <button id="btn-search" *ngIf="!isEditing" (click)="onSearch()">Buscar</button>
                     <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing">Salvar</button>
                     <button id="btn-save" 
-                    [ngClass]="{'btn-save-valid': appointRegistration.valid, 'btn-save-invalid': !appointRegistration.valid}" 
+                    [ngClass]="{'btn-save-valid': appointRegistration.valid && appointRegistration.getRawValue().idPatient && appointRegistration.getRawValue().name, 'btn-save-invalid': !appointRegistration.valid}" 
                     *ngIf="!isEditing" (click)="appointRegister()">Salvar</button>   
                     <button id="btn-edit" *ngIf="isEditing">Editar</button>
                     <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               

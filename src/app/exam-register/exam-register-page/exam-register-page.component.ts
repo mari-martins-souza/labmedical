@@ -145,6 +145,14 @@ export class ExamRegisterPageComponent implements OnInit {
   }
 
   examRegister() {
+    const idPatientValue = this.examRegistration.getRawValue().idPatient;
+    const nameValue = this.examRegistration.getRawValue().name;
+
+    if (!this.examRegistration.valid || !idPatientValue || !nameValue) {
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
+      return;
+    }
+
     if (this.examRegistration.valid) {
         
         const newExam: Exam = {
