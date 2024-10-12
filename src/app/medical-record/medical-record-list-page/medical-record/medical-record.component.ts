@@ -82,7 +82,6 @@ export class MedicalRecordComponent implements OnInit {
       docUrl: null,
       result: '',
     }
-
   }
 
   getPatient(id: string) {
@@ -134,12 +133,6 @@ export class MedicalRecordComponent implements OnInit {
       }
     });
   }
-
-
-
-
-
-
 
   editAppointment(id: string) {
     this.router.navigate(['/registro-consulta', id]);

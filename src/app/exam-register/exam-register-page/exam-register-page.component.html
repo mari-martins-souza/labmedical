@@ -19,13 +19,13 @@
 
                 <div id="button-group1">
                     <button id="btn-search" *ngIf="!isEditing" (click)="onSearch()">Buscar</button>
-                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing">Salvar</button>
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditExam()">Salvar</button>
                     <button id="btn-save" 
                     [ngClass]="{'btn-save-valid': examRegistration.valid && examRegistration.getRawValue().idPatient && examRegistration.getRawValue().name, 'btn-save-invalid': !examRegistration.valid}" 
                     *ngIf="!isEditing" (click)="examRegister()">Salvar</button>   
                     <button id="btn-edit" *ngIf="isEditing">Editar</button>
                     <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
-                    <button id="btn-del" *ngIf="isEditing">Deletar</button>
+                    <button id="btn-del" *ngIf="isEditing" (click)="deleteExam(examId)">Deletar</button>
                     <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
                 </div>
             </div>  

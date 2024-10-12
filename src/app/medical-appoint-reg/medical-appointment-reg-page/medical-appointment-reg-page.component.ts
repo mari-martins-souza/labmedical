@@ -74,7 +74,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Registro de Consulta');
     this.appointmentId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.initializeAppointmentForm();
+    this.geAppointmentData();
   }
 
   setCurrentTimeAndDate() {
@@ -86,18 +86,6 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
       consultDate: dateString,
       consultTime: timeString,
     });
-  }
-
-  initializeAppointmentForm() {
-    if (this.appointmentId) {
-      this.dataService.getAppointment('appointments/' + this.appointmentId).subscribe(appointment => {
-        appointment.consultDate = this.dataTransformService.transformDateForForm(appointment.consultDate);
-
-        this.appointRegistration.patchValue(appointment);
-      })
-    } else {
-      this.setCurrentTimeAndDate();      
-    }
   }
 
   onSearch() {
@@ -168,6 +156,95 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     } else {
       this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
+  }
+
+  geAppointmentData() {
+    if (this.appointmentId) {
+      this.dataService.getAppointment(this.appointmentId).subscribe({
+        next: (appointment: Appointment) => {
+          this.appointRegistration.patchValue({
+            idPatient: appointment.id,
+            name: appointment.patientName,
+            reason: appointment.reason,
+            consultDate: appointment.consultDate,
+            consultTime: appointment.consultTime,
+            problemDescrip: appointment.problemDescrip,
+            prescMed: appointment.prescMed,
+            dosagesPrec: appointment.dosagesPrec,
+        });
+      },
+        error: (error) => {
+          console.error('Error when fetching appointment data:', error);
+        },
+        complete: () => {
+          console.log('Appointment search completed.');
+        }
+      });
+    } else {
+      this.setCurrentTimeAndDate();
+    }
+  }
+
+  saveEditAppoint() {
+    this.appointRegistration.enable();
+    this.saveDisabled = false;
+
+    if (this.appointRegistration.valid) {
+
+      const newAppointment: Appointment = {
+        id: this.appointRegistration.getRawValue().idPatient,
+          reason: this.appointRegistration.value.reason,
+          consultDate: this.appointRegistration.value.consultDate,
+          consultTime: this.appointRegistration.value.consultTime,
+          problemDescrip: this.appointRegistration.value.problemDescrip,
+          prescMed: this.appointRegistration.value.prescMed,
+          dosagesPrec: this.appointRegistration.value.dosagesPrec,
+      };
+
+      this.dataService.editAppointment(this.appointmentId, newAppointment).subscribe({
+        next: (response) => {
+          console.log('Appointment updated successfully:', response);
+          this.showMessage = true;
+          this.appointRegistration.disable();
+          this.saveDisabled = true;
+      
+          setTimeout(() => {
+            this.showMessage = false;
+          }, 1000);
+        },
+        error: (error) => {
+          console.error('Error updating appointment:', error);
+        
+        }
+      });
+    } else {
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
+    }
+  }
+
+  editAppoint(){
+    this.appointRegistration.enable();
+    this.saveDisabled = false;
+  }
+
+  deleteAppointment(id: string) {
+    this.confirmDialog.openDialog("Tem certeza que deseja excluir a consulta? Essa ação não pode ser desfeita.");
+  
+    const subscription = this.confirmDialog.confirm.subscribe(result => {
+      if (result) {
+        this.dataService.deleteAppointment(id).subscribe({
+          next: () => {
+            this.router.navigate(['/lista-prontuarios']); 
+            subscription.unsubscribe(); 
+          },
+          error: (error) => {
+            console.error('Error deleting appointment:', error); 
+          }
+        });
+      } else {
+        subscription.unsubscribe(); 
+      }
+    });
   }
 
 }

@@ -14,12 +14,11 @@ import { DataService } from '../../shared/services/data.service';
 import { DataTransformService } from '../../shared/services/data-transform.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map, startWith } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { Patient } from '../../models/patient.model';
-import { PatientRecord } from '../../models/patient-record.model';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {

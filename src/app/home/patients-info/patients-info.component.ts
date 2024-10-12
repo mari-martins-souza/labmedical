@@ -28,10 +28,10 @@ export class PatientsInfoComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dataService.getData('patients').subscribe((data: any) => {
-      this.patientsList = data;
-      this.filteredPatientsList = data;
-    });
+    // this.dataService.getData('patients').subscribe((data: any) => {
+    //   this.patientsList = data;
+    //   this.filteredPatientsList = data;
+    // });
 
   }
 

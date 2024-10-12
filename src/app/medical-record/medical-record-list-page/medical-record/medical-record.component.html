@@ -57,7 +57,7 @@
 <ng-template #appointmentTemplate>
 <div class="content-container" *ngFor="let appointment of appointmentsList, let i = index">
   <div class="edit-button">
-    <button id="edit-appoint">EDITAR</button>
+    <button id="edit-appoint" (click)="editAppointment(appointment.appointment_id)">EDITAR</button>
   </div>
     <div class="content-label">
       <p>Motivo da Consulta:</p>
@@ -84,7 +84,7 @@
 <ng-template #examTemplate>
 <div class="content-container" *ngFor="let exam of examsList, let i = index">
   <div class="edit-button">
-    <button id="edit-exam">EDITAR</button>
+    <button id="edit-exam" (click)="editExam(exam.examId)">EDITAR</button>
   </div>
   <div class="content-label">
     <p>Exame:</p>
@@ -109,9 +109,6 @@
   </div>
 </div>
 </ng-template>
-
-
-
 
     </div>
     </div>

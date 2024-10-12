@@ -14,7 +14,6 @@ import { CommonModule } from '@angular/common';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
@@ -76,8 +75,8 @@ export class ExamRegisterPageComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Registro de Exame');
-    this.examId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.initializeExamForm();    
+    this.examId = this.activatedRoute.snapshot.paramMap.get('id');   
+    this.getExamData();
   }
 
   setCurrentTimeAndDate() {
@@ -89,18 +88,6 @@ export class ExamRegisterPageComponent implements OnInit {
       examDate: dateString,
       examTime: timeString,
     });
-  }
-
-  initializeExamForm() {
-    if (this.examId) {
-      this.dataService.getExam('exams/' + this.examId).subscribe(exam => {
-        exam.examDate = this.dataTransformService.transformDateForForm(exam.examDate);
-       
-        this.examRegistration.patchValue(exam);
-      });
-    } else {
-      this.setCurrentTimeAndDate();
-    }
   }
 
   onSearch() {
@@ -129,11 +116,6 @@ export class ExamRegisterPageComponent implements OnInit {
     })
     this.filteredPatients = [];
   }
-
-  // private _filter(name: string): any[] {
-  //   const filterValue = name.toLowerCase();
-  //   return this.patients.filter(patient => patient.name.toLowerCase().includes(filterValue));
-  // }
 
   setPatientData(patient: { id: any; name: any; }) {
     this.examRegistration.patchValue({
@@ -186,98 +168,101 @@ export class ExamRegisterPageComponent implements OnInit {
       this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
     }
   }
-  
-  // saveExamRegister() {
-  //   if (this.examRegistration.valid) {
+
+  getExamData() {
+    if (this.examId) {
+      this.dataService.getExam(this.examId).subscribe({
+        next: (exam: Exam) => {
+          this.examRegistration.patchValue({
+            idPatient: exam.id,
+            name: exam.patientName,
+            exam: exam.exam,
+            examDate: exam.examDate,
+            examTime: exam.examTime,
+            examType: exam.examType,
+            lab: exam.lab,
+            docUrl: exam.docUrl,
+            result: exam.result
+        });
         
-  //       const exam = {
-  //         idPatient: this.examRegistration.getRawValue().idPatient,
-  //         name: this.examRegistration.getRawValue().name,
-  //         exam: this.examRegistration.value.exam,
-  //         examDate: this.dataTransformService.formatDate(this.examRegistration.value.examDate),
-  //         examTime: this.examRegistration.value.examTime,
-  //         examType: this.examRegistration.value.examType,
-  //         lab: this.examRegistration.value.lab,
-  //         docUrl: this.examRegistration.value.docUrl,
-  //         result: this.examRegistration.value.result,
-  //       }
+      },
+        error: (error) => {
+          console.error('Error when fetching exam data:', error);
+        },
+        complete: () => {
+          console.log('Exam search completed.');
+        }
+      });
+    } else {
+      this.setCurrentTimeAndDate();
+    }
+  }
 
-  //       this.dataService.saveData('exams', exam).subscribe(() => {
-  //         this.showMessage = true;
+  saveEditExam() {
+    this.examRegistration.enable();
+    this.saveDisabled = false;
 
-  //         setTimeout(() => {
-  //           this.showMessage = false;
-  //         }, 1000);
+    if (this.examRegistration.valid) {
 
-  //         const examDateControl = this.examRegistration.get('examDate');
-  //         const examTimeControl = this.examRegistration.get('examTime');
+      const newExam: Exam = {
+        id: this.examRegistration.getRawValue().idPatient,
+        exam: this.examRegistration.value.exam,
+        examDate: this.examRegistration.value.examDate,
+        examTime: this.examRegistration.value.examTime,
+        examType: this.examRegistration.value.examType,
+        lab: this.examRegistration.value.lab,
+        docUrl: this.examRegistration.value.docUrl,
+        result: this.examRegistration.value.result,
+      };
 
-  //         if (examDateControl && examTimeControl) {
-  //           this.examRegistration.reset({
-  //             examDate: examDateControl.value,
-  //             examTime: examTimeControl.value
-  //         });
-  //         }
-  //         });
-  //         } else {
-  //           this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
-  //   }
-  // }  
-
-  // saveEditExam() {
-  //   if (this.examRegistration.valid) {
-  //     const exam = {
-  //       id: this.examId,
-  //       idPatient: this.examRegistration.getRawValue().idPatient,
-  //       name: this.examRegistration.getRawValue().name,
-  //       exam: this.examRegistration.value.exam,
-  //       examDate: this.dataTransformService.formatDate(this.examRegistration.value.examDate),
-  //       examTime: this.examRegistration.value.examTime,
-  //       examType: this.examRegistration.value.examType,
-  //       lab: this.examRegistration.value.lab,
-  //       docUrl: this.examRegistration.value.docUrl,
-  //       result: this.examRegistration.value.result,
-  //     }
-  
-  //     this.dataService.editData('exams', this.examId, exam).subscribe(() => {
-  //       this.showMessage = true;
-
-  //       this.examRegistration.disable();
-  //       this.saveDisabled = true;
+      this.dataService.editExam(this.examId, newExam).subscribe({
+        next: (response) => {
+          console.log('Exam updated successfully:', response);
+          this.showMessage = true;
+          this.examRegistration.disable();
+          this.saveDisabled = true;
+      
+          setTimeout(() => {
+            this.showMessage = false;
+          }, 1000);
+        },
+        error: (error) => {
+          console.error('Error updating exam:', error);
         
+        }
+      });
+    } else {
+      this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
+    }
+  }
+
+  editExam(){
+    this.examRegistration.enable();
+    this.saveDisabled = false;
+  }
+
+  deleteExam(id: string) {
+    this.confirmDialog.openDialog("Tem certeza que deseja excluir o exame? Essa ação não pode ser desfeita.");
   
-  //       setTimeout(() => {
-  //         this.showMessage = false;
-  //       }, 1000);
-  //     });
+    const subscription = this.confirmDialog.confirm.subscribe(result => {
+      if (result) {
+        this.dataService.deleteExam(id).subscribe({
+          next: () => {
+            this.router.navigate(['/lista-prontuarios']); 
+            subscription.unsubscribe(); 
+          },
+          error: (error) => {
+            console.error('Error deleting exam:', error); 
+          }
+        });
+      } else {
+        subscription.unsubscribe(); 
+      }
+    });
+  }
+  
+  
 
-  //   } else {
-  //     this.dialog.openDialog('Preencha todos os campos obrigatórios corretamente.');
-  //   }
-  // }
-
-  // editExam(){
-  //   this.examRegistration.enable();
-
-  //   this.examRegistration.get('idPatient')!.disable();
-  //   this.examRegistration.get('name')!.disable();
-
-  //   this.saveDisabled = false;
-  // }
-
-  // deleteExam(){
-  //   this.confirmDialog.openDialog("Tem certeza que deseja excluir o exame? Essa ação não pode ser desfeita.")
-  //   const subscription = this.confirmDialog.confirm.subscribe(result => {
-  //     if (result) {
-  //       this.dataService.deleteData('exams', this.examId).subscribe(() => {
-  //         this.router.navigate(['/lista-prontuarios']);
-  //         subscription.unsubscribe();
-  //       });
-  //     } else {
-  //       subscription.unsubscribe();
-  //       }
-  //     });
-  //   }
 }
   
   

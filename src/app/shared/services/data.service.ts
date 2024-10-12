@@ -112,11 +112,11 @@ export class DataService {
     return this.http.post<Appointment>(`${this.apiUrl}/appointments`, appointment, { headers });
   }
 
-  editAppointment(appointment: Appointment): Observable<Appointment> {
+  editAppointment(id: string, appointment: Appointment): Observable<Appointment> {
     const jwtToken = sessionStorage.getItem('jwtToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
 
-    return this.http.put<Appointment>(`${this.apiUrl}/appointments`, appointment, { headers });
+    return this.http.put<Appointment>(`${this.apiUrl}/appointments/${id}`, appointment, { headers });
   }
 
   getAppointment(id: string): Observable<Appointment> {
@@ -142,11 +142,11 @@ export class DataService {
     return this.http.post<Exam>(`${this.apiUrl}/exams`, exam, { headers });
   }
 
-  editExam(exam: Exam): Observable<Exam> {
+  editExam(id: string, exam: Exam): Observable<Exam> {
     const jwtToken = sessionStorage.getItem('jwtToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
 
-    return this.http.put<Exam>(`${this.apiUrl}/exams`, exam, { headers });
+    return this.http.put<Exam>(`${this.apiUrl}/exams/${id}`, exam, { headers });
   }
 
   getExam(id: string): Observable<Exam> {
@@ -174,9 +174,9 @@ export class DataService {
 
   // others
 
-  saveData(collection: string, data: any) {
-    return this.http.post(`http://localhost:3000/${collection}`, data);
-  }
+  // saveData(collection: string, data: any) {
+  //   return this.http.post(`http://localhost:3000/${collection}`, data);
+  // }
 
   getData(collection: string, id?: string): Observable<any> {
     if(id) {
@@ -186,19 +186,19 @@ export class DataService {
    }
   }
 
-  editData(collection: string, id: number, data: any) {
-  return this.http.put(`http://localhost:3000/${collection}/${id}`, data);
-  }
+  // editData(collection: string, id: number, data: any) {
+  // return this.http.put(`http://localhost:3000/${collection}/${id}`, data);
+  // }
 
-  deleteData(collection: string, id: number) {
-    return this.http.get(`http://localhost:3000/${collection}/${id}`);
-  }
+  // deleteData(collection: string, id: number) {
+  //   return this.http.get(`http://localhost:3000/${collection}/${id}`);
+  // }
 
-  countData(collection: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/${collection}`).pipe(
-      map((data: any) => data.length)
-    );
-  }
+  // countData(collection: string): Observable<any> {
+  //   return this.http.get(`http://localhost:3000/${collection}`).pipe(
+  //     map((data: any) => data.length)
+  //   );
+  // }
 }  
 
 
