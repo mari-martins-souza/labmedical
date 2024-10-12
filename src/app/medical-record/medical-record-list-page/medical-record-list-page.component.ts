@@ -21,13 +21,13 @@ import { ShortenIdPipe } from '../../shared/pipes/shorten-id.pipe';
 })
 export class MedicalRecordListPageComponent implements OnInit {
   medicalRecordPatientsList: ListPatients[] = [];
-  filteredPatientsList: any = [];
   searchTerm: string = '';
   patientsList: any = [];
   currentPage: number = 0;
   totalPages: number = 0;
   pageSize: number = 10;
   hasMorePages: boolean = false;
+  noResults: boolean = false;
 
   constructor(private titleService: Title, private dataService: DataService, private router: Router) { }
 
@@ -36,19 +36,30 @@ export class MedicalRecordListPageComponent implements OnInit {
     this.getPatients(this.currentPage);
   }
 
-  getPatients(page: number): void {
-    this.dataService.listPatients(page, this.pageSize).subscribe({
+  getPatients(page: number, name?: string): void {
+    this.dataService.listPatients(page, this.pageSize, name).subscribe({
         next: (response: Page<ListPatients>) => {
-            this.medicalRecordPatientsList = response.content;
+            this.patientsList = response.content;
+            this.medicalRecordPatientsList = this.patientsList;
+            
+            if (this.patientsList.length === 0) {
+              this.noResults = true;
+              this.medicalRecordPatientsList = [];
+            } else {
+                this.noResults = false;
+            }
+
             this.totalPages = response.totalPages;
             this.hasMorePages = this.currentPage < this.totalPages - 1;
             console.log('Patients loaded successfully:', this.medicalRecordPatientsList);
         },
         error: (error: HttpErrorResponse) => {
             console.error('Error loading patients:', error);
+            this.noResults = true;
+            this.medicalRecordPatientsList = [];
         }
     });
-}
+  }
 
   goToPreviousPage(): void {
     if (this.currentPage > 0) {
@@ -72,20 +83,14 @@ export class MedicalRecordListPageComponent implements OnInit {
     return this.currentPage >= this.totalPages - 1;
   }
 
-  search() {
-    if (this.searchTerm) {
-      this.filteredPatientsList = this.patientsList.filter((patient: { name: string; }) =>
-        patient.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    } else {
-      this.filteredPatientsList = this.patientsList;
-    }
-  }
+  search(): void {
+    this.getPatients(this.currentPage, this.searchTerm);
+}
 
-  clearSearch() {
+clearSearch(): void {
     this.searchTerm = '';
-    this.filteredPatientsList = this.patientsList;
-  }
+    this.getPatients(this.currentPage);
+}
   
   medicalRecords(id: string) {
     this.router.navigate(['/lista-prontuarios', id]);

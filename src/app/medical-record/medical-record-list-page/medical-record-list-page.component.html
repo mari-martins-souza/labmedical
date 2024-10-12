@@ -15,11 +15,17 @@
 
         <div class="container-list-area">
             <div class="list-area">
+
                     <div class="patient-card1 header-area">
                         <div id="header-reg">Registro</div>
                         <div id="header-pat-name">Nome do paciente</div>
                         <div id="header-ins">Convênio</div>
                     </div>
+
+                    <div *ngIf="noResults" class="no-results">
+                        Nenhum paciente encontrado.
+                    </div>
+                    
                     <div *ngFor="let patient of medicalRecordPatientsList" class="patient-card1">
                         <div (click)="medicalRecords(patient.id)" class="card-content1" id="id">{{ patient.id | shortenId }}</div>
                         <div (click)="medicalRecords(patient.id)" class="card-content1" id="name">{{ patient.name }}</div>

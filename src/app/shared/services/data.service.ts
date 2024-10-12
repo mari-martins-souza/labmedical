@@ -9,6 +9,7 @@ import { PatientRecord } from '../../models/patient-record.model';
 import { Appointment } from '../../models/appointment.model';
 import { Exam } from '../../models/exam.model';
 import { DashboardStats } from '../../models/dashboard-stats.interface';
+import { PatientCard } from '../../models/patient-card.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,19 @@ export class DataService {
     return this.http.get<Patient[]>(`${this.apiUrl}/patients?name=${searchTerm}&id=null`, { headers, params });
   }
 
+  getPatientsCard(searchTerm: string, searchField: string, page: number, pageSize: number): Observable<PatientCard[]> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    let params = new HttpParams()
+    .set('searchTerm', searchTerm)
+    .set('searchField', searchField)
+    .set('page', page.toString())
+    .set('size', pageSize.toString());
+  
+    return this.http.get<PatientCard[]>(`${this.apiUrl}/patients`, { headers, params });
+  }
+
   getPatient(id: string): Observable<Patient> {
     const jwtToken = sessionStorage.getItem('jwtToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
@@ -68,12 +82,17 @@ export class DataService {
 
   // medical record list endpoint
 
-  listPatients(page: number, size: number): Observable<Page<ListPatients>> {
+  listPatients(page: number, size: number, name?: string): Observable<Page<ListPatients>> {
     const jwtToken = sessionStorage.getItem('jwtToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
-  
-    return this.http.get<Page<ListPatients>>(`${this.apiUrl}/patients/medical-record-list?page=${page}&size=${size}`, { headers });
-  }
+
+    let url = `${this.apiUrl}/patients/medical-record-list?page=${page}&size=${size}`;
+    if (name) {
+        url += `&name=${encodeURIComponent(name)}`;
+    }
+
+    return this.http.get<Page<ListPatients>>(url, { headers });
+}
 
   // medical record {id} endpoint
 
@@ -172,33 +191,6 @@ export class DataService {
     return this.http.get<DashboardStats>(`${this.apiUrl}/dashboard/stats`, { headers });
   }
 
-  // others
-
-  // saveData(collection: string, data: any) {
-  //   return this.http.post(`http://localhost:3000/${collection}`, data);
-  // }
-
-  getData(collection: string, id?: string): Observable<any> {
-    if(id) {
-      return this.http.get(`http://localhost:3000/${collection}/${id}`);
-    } else {
-      return this.http.get(`http://localhost:3000/${collection}`);
-   }
-  }
-
-  // editData(collection: string, id: number, data: any) {
-  // return this.http.put(`http://localhost:3000/${collection}/${id}`, data);
-  // }
-
-  // deleteData(collection: string, id: number) {
-  //   return this.http.get(`http://localhost:3000/${collection}/${id}`);
-  // }
-
-  // countData(collection: string): Observable<any> {
-  //   return this.http.get(`http://localhost:3000/${collection}`).pipe(
-  //     map((data: any) => data.length)
-  //   );
-  // }
 }  
 
 

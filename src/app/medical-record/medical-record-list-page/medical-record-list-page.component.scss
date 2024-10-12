@@ -41,14 +41,6 @@
         flex-grow: 1;
     }
 }
-
-  // .search-area h2 {
-  //   font-family: "Dosis", sans-serif;
-  //   font-size: 1.2rem;
-  //   margin: auto;
-  //   margin-left: 20px;
-  //   margin-right: 20px;
-  // }
   
   #search::placeholder{
     color: $colorSearchPlaceholder;
@@ -220,4 +212,12 @@
 .pages button:disabled:hover {
   background: $colorButtonDisable;
   color: $colorFontButtonDisable;
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  color: $colorPatientNotFound;
+  font-size: 1.4rem;
 }
