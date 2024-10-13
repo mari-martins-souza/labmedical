@@ -6,7 +6,12 @@
 </div>
 
 <div class="card-container1">
-    <div *ngFor="let patient of filteredPatientsList" class="patient-card">
+
+    <div *ngIf="noResults" class="no-results">
+        Nenhum paciente encontrado.
+    </div>
+
+    <div *ngFor="let patient of dashboardPatientsCard" class="patient-card">
         <mat-card>
             <div class="photo-and-name">
                 <mat-card-content id="img-perfil">
@@ -42,6 +47,11 @@
              
         </mat-card>
     </div>
+
+</div>
+<div class="pages">
+    <button (click)="goToPreviousPage()" [disabled]="isPreviousDisabled()">Retornar</button>
+    <button (click)="goToNextPage()" [disabled]="isNextDisabled()">Seguinte</button>
 </div>
 
 

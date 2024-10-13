@@ -1,14 +1,22 @@
 @import '../../../assets/styles/variables';
 
-.card-container1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: auto;
-    margin-top: 20px;
-    width: 60vw;
+* {
+  box-sizing: border-box;
 }
+
+.card-container1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: calc(100% - 40px);
+  background-color: $colorAreaBackground;
+  margin: 0 20px;
+  padding: 20px;
+  border-radius: 4px;
+}
+
 
 mat-card {
   box-shadow: none !important;
@@ -23,10 +31,10 @@ mat-card {
 .patient-card mat-card {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    // margin-bottom: 10px;
     width: 19vw;
-    height: 228px;
-    background: $colorAreaBackground;
+    height: 220px;
+    background: $colorGeneralCard;
     border-radius: 4px;
 }
 
@@ -130,7 +138,7 @@ color: $colorFontButtonHover;
 }
 
 #search {
-    width: 48vw;
+    width: 100%;
     height: 40px;
     padding-left: 15px;
     padding-right: 15px;
@@ -150,8 +158,7 @@ color: $colorFontButtonHover;
 }
   
   .search-area {
-    margin-top: 20px;
-    margin-bottom: 5px;
+    margin: 20px;
     display: flex;
     justify-content: center;
   }
@@ -208,5 +215,42 @@ color: $colorFontButtonHover;
     color: $colorFontButtonHover;
   }
 
+  .no-results {
+    margin-top: 10px;
+    font-size: 1.4rem;
+  }
 
-
+  .pages {
+    margin: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .pages button {
+    background: $colorButton;
+      color: $colorFontButton;
+      border-radius: 4px;
+      height: 40px;
+      width: 85px;
+      font-family: "Dosis", sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      border: none;
+      margin-left: 10px;
+      text-transform: uppercase;
+  }
+  
+  .pages button:disabled {
+    background: $colorButtonDisable;
+    color: $colorFontButtonDisable;
+  }
+  
+  .pages button:hover {
+    background: $colorHover;
+    color: $colorFontButtonHover;
+  }
+  
+  .pages button:disabled:hover {
+    background: $colorButtonDisable;
+    color: $colorFontButtonDisable;
+  }
