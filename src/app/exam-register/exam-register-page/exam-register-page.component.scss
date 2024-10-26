@@ -80,6 +80,56 @@
   cursor: pointer;
  }
 
+ .no-results {
+  background-color: $colorAreaBackground;
+  border-radius: 4px;
+  padding: 1%;
+}
+
+.no-results p {
+  font-family: "Dosis", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: $colorPatientNotFound;
+  padding: 0;
+  margin: 0;
+}
+
+.pages {
+  display: flex;
+  justify-content: right;
+  padding-right: 15px;
+}
+
+.pages button {
+  background: $colorButton;
+    color: $colorFontButton;
+    border-radius: 4px;
+    height: 40px;
+    width: 85px;
+    font-family: "Dosis", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
+
+.pages button:disabled {
+  background: $colorButtonDisable;
+  color: $colorFontButtonDisable;
+}
+
+.pages button:hover {
+  background: $colorHover;
+  color: $colorFontButtonHover;
+}
+
+.pages button:disabled:hover {
+  background: $colorButtonDisable;
+  color: $colorFontButtonDisable;
+}
+
 .form-area3 {
  background: $colorAreaBackground;
  border-radius: 4px;

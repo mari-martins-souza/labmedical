@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { User } from '../../models/user.model';
 import { Patient } from '../../models/patient.model';
 import { ListPatients } from '../../models/list-patients.model';
@@ -10,6 +10,7 @@ import { Appointment } from '../../models/appointment.model';
 import { Exam } from '../../models/exam.model';
 import { DashboardStats } from '../../models/dashboard-stats.interface';
 import { PatientCard } from '../../models/patient-card.model';
+import { AuthService } from '../../login/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,14 +45,20 @@ export class DataService {
     return this.http.put<Patient>(`${this.apiUrl}/patients/${id}`, patient, { headers });
   }
 
-  getPatients(searchTerm: string, searchField: string): Observable<Patient[]> {
+  getPatients(searchTerm: string, searchField: string, page: number, size: number): Observable<Patient[]> {
     const jwtToken = sessionStorage.getItem('jwtToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
 
-    let params = new HttpParams().set(searchTerm, searchField);
-  
-    return this.http.get<Patient[]>(`${this.apiUrl}/patients?name=${searchTerm}&id=null`, { headers, params });
-  }
+    let params = new HttpParams()
+        .set('name', searchTerm)
+        .set('id', 'null')
+        .set('page', page.toString())
+        .set('size', size.toString());
+
+    return this.http.get<Patient[]>(`${this.apiUrl}/patients`, { headers, params })
+        .pipe(tap((response: any) => console.log('Patients response:', response)));
+}
+
 
   getPatientsCard(page: number, size: number, name?: string): Observable<Page<PatientCard>> {
     const jwtToken = sessionStorage.getItem('jwtToken');
@@ -64,7 +71,6 @@ export class DataService {
 
     return this.http.get<Page<PatientCard>>(`${this.apiUrl}/patients`, { headers, params });
 }
-
 
   getPatient(id: string): Observable<Patient> {
     const jwtToken = sessionStorage.getItem('jwtToken');
@@ -190,6 +196,22 @@ export class DataService {
 
     return this.http.get<DashboardStats>(`${this.apiUrl}/dashboard/stats`, { headers });
   }
+
+  getUserPatientStats(): Observable<DashboardStats> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+    const authService = inject(AuthService);
+    const decodedToken = authService.getDecodedToken();
+
+    if (!decodedToken || !decodedToken.patientId) {
+        throw new Error('Invalid token or patientId not found');
+    }
+
+    const patientId = decodedToken.patientId; 
+
+    return this.http.get<DashboardStats>(`${this.apiUrl}/dashboard/stats/${patientId}`, { headers });
+}
+
 
 }  
 
