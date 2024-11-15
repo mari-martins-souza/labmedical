@@ -40,11 +40,16 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   showMessage = false;
   appointmentId: any = '';
   patients: any[] = [];
-  filteredPatients: any[] = [];
+  filteredPatients: Patient[] = [];
   patientSearchControl = new FormControl();
   isEditing: boolean = false;
   saveDisabled: boolean = false;
   appointRegistration: FormGroup;
+  currentPage: number = 0;
+  totalPages: number = 0;
+  pageSize: number = 10;
+  totalPatients: number = 0;
+  noResults: boolean = false;
 
   constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
     this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id'),
@@ -74,7 +79,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Registro de Consulta');
     this.appointmentId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.geAppointmentData();
+    this.getAppointmentData();
   }
 
   setCurrentTimeAndDate() {
@@ -88,25 +93,67 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     });
   }
 
+  getPatientsBySearchTerm(searchTerm: string, page: number, size: number): void {
+    this.dataService.getPatients(searchTerm, 'name', page, size).subscribe({
+      next: (response: any) => {
+        this.filteredPatients = response.content;
+        this.totalPatients = response.totalElements; 
+        
+        if (this.totalPatients === 0) {
+          this.noResults = true;
+          console.log(this.noResults);
+          this.filteredPatients = []; 
+        } else {
+          this.noResults = false; 
+        }
+  
+        this.totalPages = Math.ceil(this.totalPatients / this.pageSize); 
+        console.log('Successfully loaded patients:', this.filteredPatients);
+      },
+      error: (error) => {
+        console.error('Error when searching for patients:', error);
+        this.noResults = true;
+      }
+    });
+  }
+
+  getTotalPages(): number {
+    return this.totalPages;
+  }
+
   onSearch() {
     const searchTerm = this.patientSearchControl.value?.trim();
     console.log('Searching for:', searchTerm);
     
     if (searchTerm && searchTerm.length > 0) {
-        this.dataService.getPatients(searchTerm, 'name').subscribe({
-            next: (patients: Patient[]) => {
-                this.filteredPatients = patients;
-                this.patientSearchControl.reset();
-            },
-            error: (error) => {
-                console.error('Error fetching patients:', error);
-            }
-        });
+      this.getPatientsBySearchTerm(searchTerm, this.currentPage, this.pageSize);
     } else {
-        this.filteredPatients = [];
+      this.filteredPatients = [];
+      this.totalPatients = 0;
+      this.noResults = true;
+      console.log(this.noResults);
     }
   }
 
+  nextPage() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      const searchTerm = this.patientSearchControl.value?.trim();
+      if (searchTerm) {
+        this.getPatientsBySearchTerm(searchTerm, this.currentPage, this.pageSize);
+      }
+    }
+  }
+  
+  previousPage() {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      const searchTerm = this.patientSearchControl.value?.trim();
+      if (searchTerm) {
+        this.getPatientsBySearchTerm(searchTerm, this.currentPage, this.pageSize);
+      }
+    }
+  }
 
   selectPatient(patient: any): void {
     this.appointRegistration.patchValue({
@@ -158,7 +205,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
     }
   }
 
-  geAppointmentData() {
+  getAppointmentData() {
     if (this.appointmentId) {
       this.dataService.getAppointment(this.appointmentId).subscribe({
         next: (appointment: Appointment) => {

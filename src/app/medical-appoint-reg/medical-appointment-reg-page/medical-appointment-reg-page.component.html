@@ -29,14 +29,34 @@
                 </div>
             </div>
             
-            <div class="list-search-area" *ngIf="filteredPatients && filteredPatients.length > 0">
-                <h3>Selecione o paciente para registrar a consulta:</h3>
-                <ul>
+            <div class="search-result">
+                <div *ngIf="noResults" class="no-results">
+                  <p>Nenhum paciente encontrado.</p>
+                </div>
+              
+                <div class="list-search-area" *ngIf="!noResults && filteredPatients && filteredPatients.length > 0">
+                  <h3>Selecione o paciente para registrar a consulta:</h3>
+                  <ul>
                     <li *ngFor="let patient of filteredPatients" [value]="patient">
-                        <a (click)="selectPatient(patient)">{{ patient.name }}</a>
+                        <div>
+                            <a (click)="selectPatient(patient)">{{ patient.name }}</a>
+                            <!-- <p> {{ patient.gender }}</p>
+                            <p> {{ patient.birthdate }}</p> -->
+                        </div>
+                      
                     </li>
                   </ul>
-            </div>
+              
+                  <div class="pages">
+                    <button (click)="previousPage()" [disabled]="currentPage === 0">Anterior</button>
+                    <!-- <span>Página {{ currentPage + 1 }} de {{ totalPatients > 0 ? totalPages : 1 }}</span> -->
+                    <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Próximo</button>
+                  </div>
+                </div>
+              </div>
+              
+                  
+              
 
             <div class="form-area2" [formGroup]="appointRegistration">
            
