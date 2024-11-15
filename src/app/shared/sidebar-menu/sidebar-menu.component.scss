@@ -14,6 +14,7 @@
   border-color: $colorBackgroundSidebarMenu;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
   
 #logo-sidebar {
@@ -41,6 +42,7 @@ button {
     color: $colorFontButton;
     padding-top: 2px;
     border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 100, 0.295);
 }
 
 button:hover {
