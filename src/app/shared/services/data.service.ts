@@ -60,16 +60,19 @@ export class DataService {
 }
 
 
-  getPatientsCard(page: number, size: number, name?: string): Observable<Page<PatientCard>> {
-    const jwtToken = sessionStorage.getItem('jwtToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+getPatientCard(page: number, size: number, name?: string, email?: string): Observable<Page<PatientCard>> {
+  const jwtToken = sessionStorage.getItem('jwtToken');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
 
-    let params = new HttpParams().set('page', page.toString()).set('size', size.toString());
-    if (name) {
-        params = params.set('name', name);
-    }
+  let params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+  if (name) {
+      params = params.set('name', name);
+  }
+  if (email) {
+      params = params.set('email', email);
+  }
 
-    return this.http.get<Page<PatientCard>>(`${this.apiUrl}/patients`, { headers, params });
+  return this.http.get<Page<PatientCard>>(`${this.apiUrl}/patients`, { headers, params });
 }
 
   getPatient(id: string): Observable<Patient> {

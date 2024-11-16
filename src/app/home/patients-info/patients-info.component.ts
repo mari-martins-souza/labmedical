@@ -37,30 +37,44 @@ export class PatientsInfoComponent implements OnInit {
     this.getPatients(this.currentPage);
   }
 
-  getPatients(page: number, name?: string): void {
-    this.dataService.getPatientsCard(page, this.pageSize, name).subscribe({
-        next: (response: Page<PatientCard>) => {
-            this.patientsList = response.content;
-            this.dashboardPatientsCard = this.patientsList;
+  getPatients(page: number): void {
+    const searchTerm = this.searchTerm.trim();
 
-            if (this.patientsList.length === 0) {
-                this.noResults = true;
-                this.dashboardPatientsCard = [];
-            } else {
-                this.noResults = false;
-            }
+    let name: string | undefined;
+    let email: string | undefined;
 
-            this.totalPages = response.totalPages;
-            this.hasMorePages = this.currentPage < this.totalPages - 1;
-            console.log('Patients loaded successfully:', this.dashboardPatientsCard);
-        },
-        error: (error: HttpErrorResponse) => {
-            console.error('Error loading patients:', error);
-            this.noResults = true;
-            this.dashboardPatientsCard = [];
+    if (searchTerm) {
+      if (searchTerm.includes('@')) {
+        email = searchTerm;
+      } else {
+        name = searchTerm;
+      }
+    }
+    
+
+    this.dataService.getPatientCard(page, this.pageSize, name, email).subscribe({
+      next: (response: Page<PatientCard>) => {
+        this.patientsList = response.content;
+        this.dashboardPatientsCard = this.patientsList;
+
+        if (this.patientsList.length === 0) {
+          this.noResults = true;
+          this.dashboardPatientsCard = [];
+        } else {
+          this.noResults = false;
         }
+
+        this.totalPages = response.totalPages;
+        this.hasMorePages = this.currentPage < this.totalPages - 1;
+        console.log('Patients loaded successfully:', this.dashboardPatientsCard);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error loading patients:', error);
+        this.noResults = true;
+        this.dashboardPatientsCard = [];
+      }
     });
-}
+  }
 
 
   goToPreviousPage(): void {
@@ -86,8 +100,9 @@ export class PatientsInfoComponent implements OnInit {
   }
 
   search(): void {
-    this.getPatients(this.currentPage, this.searchTerm);
-}
+    this.currentPage = 0;
+    this.getPatients(this.currentPage);
+  }
 
 clearSearch(): void {
     this.searchTerm = '';
