@@ -16,12 +16,13 @@
   padding: 20px;
   border-radius: 4px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
 
 mat-card {
   box-shadow: none !important;
-}
+ }
 
 @media only screen and (max-width: 1366px) {
     .card-container1 {
@@ -29,18 +30,22 @@ mat-card {
     }
 }
 
+.patient-card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 24%;
+}
+
 .patient-card mat-card {
     display: flex;
     flex-direction: column;
     // margin-bottom: 10px;
-    width: 19vw;
     height: 220px;
     background: $colorGeneralCard;
     border-radius: 4px;
 }
 
 .info-content {
-  background: $colorCardContent;
+  // background: $colorCardContent;
   margin-bottom: 16px;
   margin-left: 17px;
   padding: 0;
@@ -53,6 +58,7 @@ mat-card {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 40px;
 }
 
 .btn-edit-card {
@@ -68,41 +74,46 @@ mat-card {
   letter-spacing: 1px;
   margin-top: 13px;
   margin-right: 10px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 100, 0.295);
 }
 
 .btn-edit-card:hover {
 background: $colorHover;
 color: $colorFontButtonHover;
+color: white;
 }
 
 .photo-and-name {
     display: flex;
-    flex-direction: row;
-    height: 100px;
-    margin-top: -10px;
+    // flex-direction: row;
+    background: $colorPatCardNameBackground;
+    height: 65px;
+    overflow: visible;
+    align-items: center;
 }
 
 #img-perfil {
     display: flex;
     justify-content: center;
-    margin: auto;
+    align-items: center;
 }
 
 #img-perfil img {
-    width: 75px;
-    padding-bottom: 55px;
-    z-index: 3;
+    z-index: 2;
+    width: 65px;
+    position: relative;
+    top: 5px;
 }
 
 .card-content1 {
     text-align: left;
     display: flex;
-    margin-left: 35px;
-    padding-bottom: 5px;
+    // margin-left: 35px;
+    // padding-bottom: 5px;
 }
 
 #name {
-    width: 98%;
+    width: 100%;
     height: 50px;
     font-size: 1.6rem;
     font-weight: 500;
@@ -110,15 +121,18 @@ color: $colorFontButtonHover;
     white-space: nowrap;
     font-family: "Dosis", sans-serif;
     font-weight: 500;
-    text-align: left;
-    margin-left: -35px;
+   
     margin-top: 28px;
     z-index: 2;
-    background: $colorPatCardNameBackground;
+   
+    margin-bottom: 10px;
+    text-align: left;
+    margin-left: -20px;
+
 }
 
 #name p {
-    padding-left: 15px;
+    // padding-left: 15px;
     padding-top: 5px;
     color: $colorGeneralFont;
 }
@@ -174,8 +188,8 @@ color: $colorFontButtonHover;
     color: $colorFontButton;
     border-radius: 4px;
     height: 40px;
-    width: 5vw;
-    margin-left: 1vw;
+    width: 85px;
+    margin-left: 10px;
     font-family: "Dosis", sans-serif;
     font-weight: 500;
     font-size: 1rem;
@@ -185,7 +199,7 @@ color: $colorFontButtonHover;
 
   @media only screen and (max-width: 1366px) {
     #btn-search {
-        width: 10.2vw;
+
     }
 }
 
@@ -199,8 +213,8 @@ color: $colorFontButtonHover;
     color: $colorFontButton;
     border-radius: 4px;
     height: 40px;
-    width: 5vw;
-    margin-left: 1vw;
+    width: 85px;
+    margin-left: 10px;
     font-family: "Dosis", sans-serif;
     font-weight: 500;
     font-size: 1rem;
@@ -210,7 +224,7 @@ color: $colorFontButtonHover;
 
   @media only screen and (max-width: 1366px) {
     #btn-clear {
-        width: 10.2vw;
+     
     }
 }
 
@@ -243,11 +257,13 @@ color: $colorFontButtonHover;
       border: none;
       margin-left: 10px;
       text-transform: uppercase;
+      box-shadow: 0px 4px 8px rgba(0, 0, 100, 0.295);
   }
   
   .pages button:disabled {
     background: $colorButtonDisable;
     color: $colorFontButtonDisable;
+    box-shadow: none;
   }
   
   .pages button:hover {
