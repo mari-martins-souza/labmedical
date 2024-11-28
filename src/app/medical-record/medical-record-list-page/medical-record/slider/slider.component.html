@@ -1,6 +1,9 @@
 <div class="topics">
-    <button *ngFor="let topic of topics; let i = index" (click)="selectTopic(i)">
-      {{ topic.title }}
+    <button 
+    *ngFor="let topic of topics; let i = index" 
+    (click)="selectTopic(i)"
+    [ngClass]="{ 'active-button': i === selectedTopicIndex }">
+    {{ topic.title }}
     </button>
   </div>
   

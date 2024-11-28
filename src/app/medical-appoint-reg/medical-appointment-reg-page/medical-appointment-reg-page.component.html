@@ -1,9 +1,6 @@
-<div *ngIf="showMessage" class="checkmark">
-    <img src="../../../assets/images/check-save.png">
-  </div>
-
   <app-dialog></app-dialog>
   <app-confirm-dialog></app-confirm-dialog>
+  <app-save-dialog></app-save-dialog>
 
 <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
@@ -13,22 +10,50 @@
 
       <div class="form-container1" style="flex-grow: 0.9;">
             <div id="search-and-btn">
-                    <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Buscar paciente" matInput [formControl]="patientSearchControl" [matAutocomplete]="auto">
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="setPatientData($event.option.value)">
-                    <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
-                        {{patient.name}}
-                    </mat-option>
-                    </mat-autocomplete>
+
+                <input *ngIf="!isEditing" type="text" id="search" name="search" placeholder="Busque o paciente pelo nome" matInput [formControl]="patientSearchControl">
 
                 <div id="button-group1">
+                    <button id="btn-search" *ngIf="!isEditing" (click)="onSearch()">Buscar</button>
                     <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditAppoint()">Salvar</button>
-                    <button id="btn-save" *ngIf="!isEditing" (click)="saveAppointRegister()">Salvar</button>   
+                    <button id="btn-save" 
+                    [ngClass]="{'btn-save-valid': appointRegistration.valid && appointRegistration.getRawValue().idPatient && appointRegistration.getRawValue().name, 'btn-save-invalid': !appointRegistration.valid}" 
+                    *ngIf="!isEditing" (click)="appointRegister()">Salvar</button>   
                     <button id="btn-edit" *ngIf="isEditing" (click)="editAppoint()">Editar</button>
                     <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>               
-                    <button id="btn-del" *ngIf="isEditing" (click)="deleteAppoint()">Deletar</button>
+                    <button id="btn-del" *ngIf="isEditing" (click)="deleteAppointment(appointmentId)">Deletar</button>
                     <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
                 </div>
-            </div>    
+            </div>
+            
+            <div class="search-result">
+                <div *ngIf="noResults" class="no-results">
+                  <p>Nenhum paciente encontrado.</p>
+                </div>
+              
+                <div class="list-search-area" *ngIf="!noResults && filteredPatients && filteredPatients.length > 0">
+                  <h3>Selecione o paciente para registrar a consulta:</h3>
+                  <ul>
+                    <li *ngFor="let patient of filteredPatients" [value]="patient">
+                        <div>
+                            <a (click)="selectPatient(patient)">{{ patient.name }}</a>
+                            <!-- <p> {{ patient.gender }}</p>
+                            <p> {{ patient.birthdate }}</p> -->
+                        </div>
+                      
+                    </li>
+                  </ul>
+              
+                  <div class="pages">
+                    <button (click)="previousPage()" [disabled]="currentPage === 0">Anterior</button>
+                    <!-- <span>Página {{ currentPage + 1 }} de {{ totalPatients > 0 ? totalPages : 1 }}</span> -->
+                    <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">Próximo</button>
+                  </div>
+                </div>
+              </div>
+              
+                  
+              
 
             <div class="form-area2" [formGroup]="appointRegistration">
            
@@ -37,11 +62,11 @@
                     <div class="row1">
                         <div class="form-field1 idPatient">
                             <label for="idPatient">ID paciente</label>
-                            <input matInput formControlName="idPatient" name="idPatient">
+                            <input matInput formControlName="idPatient" name="idPatient" readonly>
                         </div>
                         <div class="form-field1 name">
                             <label for="name">Nome</label>
-                            <input matInput formControlName="name" name="name">
+                            <input matInput formControlName="name" name="name" readonly>
                         </div>
                     </div>
                     

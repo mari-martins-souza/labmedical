@@ -3,8 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { DataService } from '../../shared/services/data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+import { DashboardStats } from '../../models/dashboard-stats.interface';
 
 @Component({
   selector: 'app-statistics',
@@ -18,20 +17,26 @@ export class StatisticsComponent implements OnInit {
     countPatients: number = 0;
     countAppointments: number = 0;
     countExams: number = 0;
-    healthInsuranceStats: any;
-    otherHealthInsuranceCount: number = 0;
+    countUsers: number = 0;
 
   constructor(private dataService: DataService) { }
 
-  ngOnInit() {
-    this.dataService.countData('patients').subscribe(num => this.countPatients = num);
-    this.dataService.countData('appointments').subscribe(num => this.countAppointments = num);
-    this.dataService.countData('exams').subscribe(num => this.countExams = num);
-    this.dataService.getHealthInsuranceStats().subscribe(stats => {
-      this.healthInsuranceStats = stats;
-      const otherStats = Object.values(stats).slice(3);
-      this.otherHealthInsuranceCount = otherStats.reduce((acc, curr) => acc + curr, 0);
+  ngOnInit(): void {
+    this.getDashboardStats();
+  }
+    
+  getDashboardStats(): void {
+    this.dataService.getDashboardStats().subscribe({
+      next: (stats: DashboardStats) => {
+        this.countPatients = stats.totalPatients;
+        this.countAppointments = stats.totalAppointments;
+        this.countExams = stats.totalExams;
+        this.countUsers = stats.totalUsers;
+        console.log('Dashboard stats loaded successfully:', stats);
+      },
+      error: (error) => {
+        console.error('Error loading dashboard stats:', error);
+      }
     });
   }
-  
 }

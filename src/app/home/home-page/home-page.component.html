@@ -4,11 +4,11 @@
 <div style="display: flex; flex-grow: 1">
       <app-sidebar-menu></app-sidebar-menu>
 
-<div class="content" style="display: flex; flex-grow: 1; margin-top: 65px; justify-content: center; flex-direction: column;">
-    <div class="app-statistics">
+<div class="content1" style="display: flex; flex-grow: 1; margin-top: 65px; justify-content: center; flex-direction: column;">
+    <div class="app-statistics" style="flex-grow: 1; width: 100%;" *ngIf="userRole === 'ROLE_MEDICO' || userRole === 'ROLE_ADMIN'">
         <app-statistics></app-statistics>      
     </div>
-    <div class="app-info">
+    <div class="app-info" style="flex-grow: 1; width: 100%; margin-top: 185px;" *ngIf="userRole === 'ROLE_MEDICO' || userRole === 'ROLE_ADMIN'">
         <app-patients-info></app-patients-info>      
     </div>
 </div>    

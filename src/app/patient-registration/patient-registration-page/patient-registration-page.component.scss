@@ -5,6 +5,7 @@
  width: 100%;
  margin-left: 20px;
  margin-right: 20px;
+
 }
 
 #button-group1 {
@@ -24,11 +25,13 @@ text-transform: uppercase;
  color: $colorFontButton;
  height: 40px;
  width: 85px;
+ box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #button-group1 button:disabled {
  background: $colorButtonDisable;
  color: $colorFontButtonDisable;
+ box-shadow: none;
 }
 
 #button-group1 button:hover {
@@ -52,6 +55,7 @@ text-transform: uppercase;
  display: flex;
  flex-direction: column;
  justify-content: center;
+ box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 h4 {
@@ -86,6 +90,7 @@ h4 {
     border: 2px solid $colorFormBorder;
     height: 35px;
    }
+   
 }
 
 .number, .cep {
@@ -123,27 +128,4 @@ mat-error {
 select:disabled, input:disabled {
   background: $colorBackgroundDisable;
   color: $colorFontDisable;
-}
-
-@keyframes checkmark {
-  0% {
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  95% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.checkmark {
-  position: fixed; 
-  top: 40%; 
-  left: 50%; 
-  animation: checkmark 1s;
-  z-index: 9999; 
 }

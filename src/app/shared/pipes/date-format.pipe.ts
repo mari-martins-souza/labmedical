@@ -7,7 +7,12 @@ import moment from 'moment';
 })
 export class DateFormatPipe implements PipeTransform {
 
-  transform(value: string, format: string = "DD-MM-YYYY"): string {
-    return moment(value, 'MM-DD-YYYY').format(format);
-    }
+  transform(value: string): string {
+    return moment(value, 'YYYY-MM-DD').format('DD/MM/YYYY');
+
+  // transform(value: string, format: string = "DD-MM-YYYY"): string {
+  //   return moment(value, 'MM-DD-YYYY').format(format);
+  //   }
+
+  }
 }

@@ -1,33 +1,51 @@
 <div class="search-area">
     <label for="search"></label>
-    <input type="text" id="search" name="search" [(ngModel)]="searchTerm" placeholder="Digite o nome do paciente" matInput>
+    <input type="text" id="search" name="search" [(ngModel)]="searchTerm" placeholder="Busque o paciente pelo nome ou e-mail" matInput>
     <button id="btn-search" (click)="search()">BUSCAR</button>
     <button id="btn-clear" (click)="clearSearch()">LIMPAR</button>
 </div>
 
 <div class="card-container1">
-    <div *ngFor="let patient of filteredPatientsList" class="patient-card">
+
+    <div *ngIf="noResults" class="no-results">
+        <p>Nenhum paciente encontrado.</p>
+    </div>
+
+    <div *ngFor="let patient of dashboardPatientsCard" class="patient-card">
         <mat-card>
             <div class="photo-and-name">
                 <mat-card-content id="img-perfil">
                     <img *ngIf="patient.gender === 'Masculino'" src="../../../assets/images/pat-male.png">
                     <img *ngIf="patient.gender === 'Feminino'" src="../../../assets/images/pat-female.png">
                     </mat-card-content>
-                <mat-card-content id="name">
+                <mat-card-content id="name-and-age">
                         <p>{{ patient.name | shortenName }}</p>
+                        <p id="age">{{ patient.birthdate | age }} anos</p>
+                </mat-card-content>
+            </div>
+
+            <div class="age">
+                <mat-card-content class="card-content1" id="age">
+                    
                 </mat-card-content>
             </div>
 
        <div class="info-content">
-        <div class="age-and-btn">
-            <mat-card-content class="card-content1" id="age">
-                <p>{{ patient.birthdate | age }} anos</p>
-
-            </mat-card-content>
-            <button class="btn-edit-card"(click)="editPatient(patient.id)">EDITAR</button>
-        </div>
+      
             
             <mat-card-content class="card-content1" id="phone">
+                <p><img src="../../../assets/images/phone.png" width="15px"> {{ patient.phone | phoneFormat }}</p>
+            </mat-card-content>
+            <mat-card-content class="card-content1" id="email">
+                <p><img src="../../../assets/images/email.png" width="16px"> {{ patient.email }}</p>
+            </mat-card-content>
+            <mat-card-content class="card-content1" id="insurance">
+                <p><img src="../../../assets/images/insurance.png" width="18px" id="ins-icon"> {{ patient.healthInsurance }}</p>
+            </mat-card-content>
+
+           
+
+            <!-- <mat-card-content class="card-content1" id="phone">
                 <p><strong>Telefone: </strong>{{ patient.phone }}</p>
             </mat-card-content>
             <mat-card-content class="card-content1" id="email">
@@ -35,13 +53,24 @@
             </mat-card-content>
             <mat-card-content class="card-content1" id="insurance">
                 <p><strong>Convênio: </strong>{{ patient.healthInsurance }}</p>
-            </mat-card-content>
+            </mat-card-content> -->
+
+            <div class="edit-btn">
+                <button class="btn-edit-card"(click)="editPatient(patient.id)">EDITAR</button>
+            </div>
+           
+
         </div>
-      
-                
-             
+        
         </mat-card>
+
+       
     </div>
+
+</div>
+<div class="pages">
+    <button (click)="goToPreviousPage()" [disabled]="isPreviousDisabled()">Retornar</button>
+    <button (click)="goToNextPage()" [disabled]="isNextDisabled()">Seguinte</button>
 </div>
 
 

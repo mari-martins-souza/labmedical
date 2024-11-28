@@ -1,18 +1,28 @@
 @import '../../../assets/styles/variables';
 
-.card-container1 {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: auto;
-    margin-top: 20px;
-    width: 60vw;
+* {
+  box-sizing: border-box;
 }
+
+.card-container1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: calc(100% - 40px);
+  background-color: $colorAreaBackground;
+  margin: 0 20px;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  
+}
+
 
 mat-card {
   box-shadow: none !important;
-}
+ }
 
 @media only screen and (max-width: 1366px) {
     .card-container1 {
@@ -20,31 +30,54 @@ mat-card {
     }
 }
 
+.patient-card {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 24%;
+}
+
 .patient-card mat-card {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
-    width: 19vw;
-    height: 228px;
+    // margin-bottom: 10px;
+    height: 220px;
     background: $colorAreaBackground;
     border-radius: 4px;
 }
 
 .info-content {
-  background: $colorCardContent;
+  // background: $colorCardContent;
   margin-bottom: 16px;
   margin-left: 17px;
   padding: 0;
-  margin-top: -22px;
+  margin-top: 0px;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 
-.age-and-btn {
+.edit-btn {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
+
+
 }
+
+// .age {
+//   display: flex;
+//   margin-left: auto;
+  
+// }
+
+// .age p {
+//   background-color: $colorButtonEditPatientCard;
+//   height: fit-content;
+//   width: fit-content;
+//   padding: 5px;
+//   border-radius: 4px;
+//   padding-left: 8px;
+//   padding-right: 8px;
+//   font-weight: 450;
+//   box-shadow: 0px 1px 1px rgba(0, 0, 100, 0.295);
+// }
 
 .btn-edit-card {
   border: none;
@@ -59,63 +92,73 @@ mat-card {
   letter-spacing: 1px;
   margin-top: 13px;
   margin-right: 10px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 100, 0.295);
 }
 
 .btn-edit-card:hover {
 background: $colorHover;
 color: $colorFontButtonHover;
+color: white;
 }
 
 .photo-and-name {
     display: flex;
-    flex-direction: row;
-    height: 100px;
-    margin-top: -10px;
+    // flex-direction: row;
+    background: $colorPatCardNameBackground;
+    height: 65px;
+    overflow: visible;
+    align-items: center;
+    box-shadow: 0px 0.2px 3.5px rgba(0, 0, 100, 0.295);
 }
 
 #img-perfil {
     display: flex;
     justify-content: center;
-    margin: auto;
+    align-items: center;
 }
 
 #img-perfil img {
-    width: 75px;
-    padding-bottom: 55px;
-    z-index: 3;
+    z-index: 2;
+    width: 65px;
+    position: relative;
+    top: 5px;
 }
 
 .card-content1 {
     text-align: left;
     display: flex;
-    margin-left: 35px;
-    padding-bottom: 5px;
+    // margin-left: 35px;
+    // padding-bottom: 5px;
+
 }
 
-#name {
-    width: 98%;
+#name-and-age {
+    width: 100%;
     height: 50px;
     font-size: 1.6rem;
     font-weight: 500;
-    overflow: hidden;
+    // overflow: hidden;
     white-space: nowrap;
     font-family: "Dosis", sans-serif;
     font-weight: 500;
-    text-align: left;
-    margin-left: -35px;
-    margin-top: 28px;
+   
+    // margin-top: 28px;
     z-index: 2;
-    background: $colorPatCardNameBackground;
+   
+    // margin-bottom: 10px;
+    text-align: left;
+    margin-left: -20px;
+    margin-bottom: 10px;
 }
 
 #name p {
-    padding-left: 15px;
-    padding-top: 5px;
     color: $colorGeneralFont;
 }
 
 #age {
-    font-weight: 700;
+  margin-top: -20px;
+  font-size: 1.2rem;
+  // padding-left: 10px;
 }
 
 #email p {
@@ -129,17 +172,24 @@ color: $colorFontButtonHover;
     margin-left: 0;
 }
 
+#ins-icon {
+  margin-left: -1px;
+  margin-bottom: 2px;
+}
+
 #search {
-    width: 48vw;
+    width: 100%;
     height: 40px;
     padding-left: 15px;
     padding-right: 15px;
-    font-size: 1.3;
+    font-size: 1.3rem;
     border-radius: 4px;
     border: none;
     background: $colorSearchBackground;
     outline: none;
     transition: box-shadow 0.3s ease-in-out;
+    font-family: "Dosis", sans-serif;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   @media only screen and (max-width: 1366px) {
@@ -149,8 +199,7 @@ color: $colorFontButtonHover;
 }
   
   .search-area {
-    margin-top: 20px;
-    margin-bottom: 5px;
+    margin: 20px;
     display: flex;
     justify-content: center;
   }
@@ -164,17 +213,18 @@ color: $colorFontButtonHover;
     color: $colorFontButton;
     border-radius: 4px;
     height: 40px;
-    width: 5vw;
-    margin-left: 1vw;
+    width: 85px;
+    margin-left: 10px;
     font-family: "Dosis", sans-serif;
     font-weight: 500;
     font-size: 1rem;
     border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 100, 0.295);
   }
 
   @media only screen and (max-width: 1366px) {
     #btn-search {
-        width: 10.2vw;
+
     }
 }
 
@@ -188,17 +238,18 @@ color: $colorFontButtonHover;
     color: $colorFontButton;
     border-radius: 4px;
     height: 40px;
-    width: 5vw;
-    margin-left: 1vw;
+    width: 85px;
+    margin-left: 10px;
     font-family: "Dosis", sans-serif;
     font-weight: 500;
     font-size: 1rem;
     border: none;
+    box-shadow: 0px 4px 8px rgba(0, 0, 100, 0.295);
   }
 
   @media only screen and (max-width: 1366px) {
     #btn-clear {
-        width: 10.2vw;
+     
     }
 }
 
@@ -207,5 +258,45 @@ color: $colorFontButtonHover;
     color: $colorFontButtonHover;
   }
 
+  .no-results {
+    margin-top: 10px;
+    font-size: 1.4rem;
+    color: $colorPatientNotFound;
+  }
 
-
+  .pages {
+    margin: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .pages button {
+    background: $colorButton;
+      color: $colorFontButton;
+      border-radius: 4px;
+      height: 40px;
+      width: 85px;
+      font-family: "Dosis", sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      border: none;
+      margin-left: 10px;
+      text-transform: uppercase;
+      box-shadow: 0px 4px 8px rgba(0, 0, 100, 0.295);
+  }
+  
+  .pages button:disabled {
+    background: $colorButtonDisable;
+    color: $colorFontButtonDisable;
+    box-shadow: none;
+  }
+  
+  .pages button:hover {
+    background: $colorHover;
+    color: $colorFontButtonHover;
+  }
+  
+  .pages button:disabled:hover {
+    background: $colorButtonDisable;
+    color: $colorFontButtonDisable;
+  }

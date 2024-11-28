@@ -1,12 +1,13 @@
-import { inject } from '@angular/core';
+import { inject, Injector } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { LoginService } from '../../login/login.service';
+import { AuthService } from '../../login/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const loginService = inject(LoginService);
-  const router = inject(Router);
+  const injector = inject(Injector);
+  const authService = injector.get(AuthService);
+  const router = injector.get(Router);
 
-  if(loginService.isLogged || localStorage.getItem('isLogged') === 'true') {
+  if(authService.getToken()) {
     return true;
   }
   

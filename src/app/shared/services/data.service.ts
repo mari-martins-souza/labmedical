@@ -1,56 +1,220 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable, catchError, map, of, tap } from 'rxjs';
+import { User } from '../../models/user.model';
+import { Patient } from '../../models/patient.model';
+import { ListPatients } from '../../models/list-patients.model';
+import { Page } from '../../models/page.interface';
+import { PatientRecord } from '../../models/patient-record.model';
+import { Appointment } from '../../models/appointment.model';
+import { Exam } from '../../models/exam.model';
+import { DashboardStats } from '../../models/dashboard-stats.interface';
+import { PatientCard } from '../../models/patient-card.model';
+import { AuthService } from '../../login/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  healthInsuranceCounts: any;
+  private apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
-  saveData(collection: string, data: any) {
-    return this.http.post(`http://localhost:3000/${collection}`, data);
+  //user endpoint
+
+  saveUser(user: User): Observable<User> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.post<User>(`${this.apiUrl}/users`, user, { headers });
   }
 
-  getData(collection: string, id?: string): Observable<any> {
-    if(id) {
-      return this.http.get(`http://localhost:3000/${collection}/${id}`);
-    } else {
-    return this.http.get(`http://localhost:3000/${collection}`);
-   }
+  //patient endpoint
+
+  savePatient(patient: Patient): Observable<Patient> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.post<Patient>(`${this.apiUrl}/patients`, patient, { headers });
   }
 
-  editData(collection: string, id: number, data: any) {
-    return this.http.put(`http://localhost:3000/${collection}/${id}`, data);
+  editPatient(id: string, patient: Patient): Observable<Patient> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.put<Patient>(`${this.apiUrl}/patients/${id}`, patient, { headers });
   }
 
-  deleteData(collection: string, id: number) {
-    return this.http.delete(`http://localhost:3000/${collection}/${id}`);
+  getPatients(searchTerm: string, searchField: string, page: number, size: number): Observable<Patient[]> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    let params = new HttpParams()
+        .set('name', searchTerm)
+        .set('id', 'null')
+        .set('page', page.toString())
+        .set('size', size.toString());
+
+    return this.http.get<Patient[]>(`${this.apiUrl}/patients`, { headers, params })
+        .pipe(tap((response: any) => console.log('Patients response:', response)));
+}
+
+
+getPatientCard(page: number, size: number, name?: string, email?: string): Observable<Page<PatientCard>> {
+  const jwtToken = sessionStorage.getItem('jwtToken');
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+  let params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+  if (name) {
+      params = params.set('name', name);
+  }
+  if (email) {
+      params = params.set('email', email);
   }
 
-  countData(collection: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/${collection}`).pipe(
-      map((data: any) => data.length)
+  return this.http.get<Page<PatientCard>>(`${this.apiUrl}/patients`, { headers, params });
+}
+
+  getPatient(id: string): Observable<Patient> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.get<Patient>(`${this.apiUrl}/patients/${id}`, { headers });
+  }
+
+  deletePatient(id: string): Observable<Patient> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.delete<Patient>(`${this.apiUrl}/patients/${id}`, { headers });
+  }
+
+  // medical record list endpoint
+
+  listPatients(page: number, size: number, name?: string): Observable<Page<ListPatients>> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    let url = `${this.apiUrl}/patients/medical-record-list?page=${page}&size=${size}`;
+    if (name) {
+        url += `&name=${encodeURIComponent(name)}`;
+    }
+
+    return this.http.get<Page<ListPatients>>(url, { headers });
+}
+
+  // medical record {id} endpoint
+
+  getPatientById(id: string): Observable<PatientRecord> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.get<PatientRecord>(`${this.apiUrl}/patients/${id}/medical-record`, { headers });
+  }
+
+  getAppointmentsAndExamsByPatientId(id: string): Observable<PatientRecord[]> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.get<PatientRecord[]>(`${this.apiUrl}/patients/${id}/medical-record`, { headers });
+  }
+
+  hasAppointmentsOrExamsByPatientId(id: string): Observable<boolean> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.get<PatientRecord>(`${this.apiUrl}/patients/${id}/medical-record`, { headers }).pipe(
+        map(patientRecord => {
+            return patientRecord.appointments.length > 0 || patientRecord.exams.length > 0;
+        }),
+        catchError(() => of(false))
     );
+  }
+
+  // appointment endpoint
+
+  saveAppointment(appointment: Appointment): Observable<Appointment> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.post<Appointment>(`${this.apiUrl}/appointments`, appointment, { headers });
+  }
+
+  editAppointment(id: string, appointment: Appointment): Observable<Appointment> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.put<Appointment>(`${this.apiUrl}/appointments/${id}`, appointment, { headers });
+  }
+
+  getAppointment(id: string): Observable<Appointment> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.get<Appointment>(`${this.apiUrl}/appointments/${id}`, { headers });
+  }
+
+  deleteAppointment(id: string): Observable<Appointment> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.delete<Appointment>(`${this.apiUrl}/appointments/${id}`, { headers });
+  }
+
+  // exam endpoint
+
+  saveExam(exam: Exam): Observable<Exam> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.post<Exam>(`${this.apiUrl}/exams`, exam, { headers });
+  }
+
+  editExam(id: string, exam: Exam): Observable<Exam> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.put<Exam>(`${this.apiUrl}/exams/${id}`, exam, { headers });
+  }
+
+  getExam(id: string): Observable<Exam> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.get<Exam>(`${this.apiUrl}/exams/${id}`, { headers });
+  }
+
+  deleteExam(id: string): Observable<Exam> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.delete<Exam>(`${this.apiUrl}/exams/${id}`, { headers });
+  }
+
+  // dashboard endpoint
+
+  getDashboardStats(): Observable<DashboardStats> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+
+    return this.http.get<DashboardStats>(`${this.apiUrl}/dashboard/stats`, { headers });
+  }
+
+  getUserPatientStats(): Observable<DashboardStats> {
+    const jwtToken = sessionStorage.getItem('jwtToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${jwtToken}`);
+    const authService = inject(AuthService);
+    const decodedToken = authService.getDecodedToken();
+
+    if (!decodedToken || !decodedToken.patientId) {
+        throw new Error('Invalid token or patientId not found');
+    }
+
+    const patientId = decodedToken.patientId; 
+
+    return this.http.get<DashboardStats>(`${this.apiUrl}/dashboard/stats/${patientId}`, { headers });
 }
 
-getHealthInsuranceStats(): Observable<{[key: string]: number}> {
-  return this.http.get<any[]>(`http://localhost:3000/patients`).pipe(
-    map((patients: any[]) => {
-      const healthInsuranceCounts: {[key: string]: number} = {};
-      patients.forEach(patient => {
-        if (healthInsuranceCounts[patient.healthInsurance]) {
-          healthInsuranceCounts[patient.healthInsurance]++;
-        } else {
-          healthInsuranceCounts[patient.healthInsurance] = 1;
-        }
-      });
-      return healthInsuranceCounts;
-    })
-  );
-}
 
 }  
 

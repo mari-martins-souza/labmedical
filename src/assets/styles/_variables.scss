@@ -5,8 +5,8 @@ $purpleWhite: #f3eafe;
 $whiteLowOpacity: #ffffff98;
 $whiteMediumOpacity: #ffffff73;
 $whiteHighOpacity: #ffffff34;
-$blueHighOpacity: #4668fd1c;
-$purpleHighOpacity: #6b54f034;
+$blueHighOpacity: #b879ff54;
+$purpleHighOpacity: #9d54f034;
 $blackHighOpacity: #00000041;
 $darkPurple: #2d2246;
 $darkPurple2: #3A2362;
@@ -17,6 +17,7 @@ $redBrand: #FF4155;
 $red: #e70017;
 $redMediumOpacity: #ff4154a6;
 $purplePinkGradient: linear-gradient(to right, #9091cc, #b779ff);
+$green: #007459;
 $black: #000000;
 
 
@@ -46,6 +47,9 @@ $colorBorderSidebarMenu: $transparent;
 $colorBackgroundToolbar: $white;
 $colorPatCardNameBackground: $blueHighOpacity;
 $colorCardContent: $whiteMediumOpacity;
+$colorPatientResult: $black;
+$colorPatientResultHover: $redBrand;
+$colorPatientNotFound: $redBrand;
 
 // fonts
 $colorGeneralFont: $black;
@@ -53,7 +57,7 @@ $colorTitleToolbar: $black;
 $colorFontToolbar: $black;
 $colorTextDanger: $redBrand;
 
-// medical record list
+// medical record
 $colorInterleavedList1: $purpleWhite;
 $colorInterleavedList2: $transparent;
 $colorMedRecListHover: $redMediumOpacity;
@@ -61,6 +65,12 @@ $colorFontHeaderForm: $white;
 $colorFontHeaderArea: $black;
 $colorContainerList: $whiteLowOpacity;
 $colorHeaderArea: $purpleWhite;
+$colorInfoBackground: $lightPurple;
+$colorInfoBackgroundLabel: $transparent;
+$colorInfoBackgroundPatient: $white;
+$colorBorderLabelMedicalRecord: $transparent;
+$colorBtnTopicBackground: $whiteLowOpacity;
+$colorBtnTopicFont: $black;
 
 // buttons
 $colorButton: $darkPurple2;
@@ -72,6 +82,7 @@ $colorFontButtonDisable: rgba($white, 0.266);
 $colorButtonLoginRegister: $purple;
 $colorButtonEditPatientCard: $blueHighOpacity;
 $colorFontBtnEditPatCard: $black;
+$colorBtnSaveFormValid: $green;
 
 // icons
 $colorIcon: $white;

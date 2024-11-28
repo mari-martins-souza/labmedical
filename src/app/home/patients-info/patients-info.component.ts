@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { DataService } from '../../shared/services/data.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule, MatButton } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { AgePipe } from "../../shared/pipes/age.pipe";
 import { Router } from '@angular/router';
 import { ShortenNamePipe } from '../../shared/pipes/shorten-name.pipe';
+import { Page } from '../../models/page.interface';
+import { PatientCard } from '../../models/patient-card.model';
+import { PhoneFormatPipe } from '../../shared/pipes/phone-format.pipe';
 
 @Component({
     selector: 'app-patients-info',
@@ -16,39 +19,96 @@ import { ShortenNamePipe } from '../../shared/pipes/shorten-name.pipe';
     providers: [DataService],
     templateUrl: './patients-info.component.html',
     styleUrl: './patients-info.component.scss',
-    imports: [MatCardModule, FormsModule, HttpClientModule, MatInputModule, MatButtonModule, MatButton, CommonModule, AgePipe, ShortenNamePipe]
+    imports: [MatCardModule, FormsModule, HttpClientModule, MatInputModule, MatButtonModule, MatButton, CommonModule, AgePipe, ShortenNamePipe, PhoneFormatPipe]
 })
 export class PatientsInfoComponent implements OnInit {
   patientID: any = '';
+  dashboardPatientsCard: PatientCard[] = [];
   patientsList: any = [];
-  filteredPatientsList: any = [];
   searchTerm: string = '';
+  currentPage: number = 0;
+  totalPages: number = 0;
+  pageSize: number = 12;
+  hasMorePages: boolean = false;
+  noResults: boolean = false;
 
   constructor(private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
-
-    this.dataService.getData('patients').subscribe((data: any) => {
-      this.patientsList = data;
-      this.filteredPatientsList = data;
-    });
-
+    this.getPatients(this.currentPage);
   }
 
-  search() {
-    if (this.searchTerm) {
-      this.filteredPatientsList = this.patientsList.filter((patient: { name: string; }) =>
-        patient.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    } else {
-      this.filteredPatientsList = this.patientsList;
+  getPatients(page: number): void {
+    const searchTerm = this.searchTerm.trim();
+
+    let name: string | undefined;
+    let email: string | undefined;
+
+    if (searchTerm) {
+      if (searchTerm.includes('@')) {
+        email = searchTerm;
+      } else {
+        name = searchTerm;
+      }
+    }
+    
+
+    this.dataService.getPatientCard(page, this.pageSize, name, email).subscribe({
+      next: (response: Page<PatientCard>) => {
+        this.patientsList = response.content;
+        this.dashboardPatientsCard = this.patientsList;
+
+        if (this.patientsList.length === 0) {
+          this.noResults = true;
+          this.dashboardPatientsCard = [];
+        } else {
+          this.noResults = false;
+        }
+
+        this.totalPages = response.totalPages;
+        this.hasMorePages = this.currentPage < this.totalPages - 1;
+        console.log('Patients loaded successfully:', this.dashboardPatientsCard);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error loading patients:', error);
+        this.noResults = true;
+        this.dashboardPatientsCard = [];
+      }
+    });
+  }
+
+
+  goToPreviousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.getPatients(this.currentPage);
     }
   }
 
-  clearSearch() {
-    this.searchTerm = '';
-    this.filteredPatientsList = this.patientsList;
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.getPatients(this.currentPage);
+    }
   }
+
+  isPreviousDisabled(): boolean {
+    return this.currentPage === 0;
+  }
+
+  isNextDisabled(): boolean {
+    return this.currentPage >= this.totalPages - 1;
+  }
+
+  search(): void {
+    this.currentPage = 0;
+    this.getPatients(this.currentPage);
+  }
+
+clearSearch(): void {
+    this.searchTerm = '';
+    this.getPatients(this.currentPage);
+}
   
 
   editPatient(id: string) {
