@@ -29,11 +29,16 @@ export class MedicalRecordListPageComponent implements OnInit {
   hasMorePages: boolean = false;
   noResults: boolean = false;
 
-  constructor(private titleService: Title, private dataService: DataService, private router: Router) { }
+  constructor(
+    private titleService: Title, 
+    private dataService: DataService, 
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.titleService.setTitle('Lista de prontuários');
     this.getPatients(this.currentPage);
+
   }
 
   getPatients(page: number, name?: string): void {

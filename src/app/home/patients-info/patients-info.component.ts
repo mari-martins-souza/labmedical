@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ShortenNamePipe } from '../../shared/pipes/shorten-name.pipe';
 import { Page } from '../../models/page.interface';
 import { PatientCard } from '../../models/patient-card.model';
+import { PhoneFormatPipe } from '../../shared/pipes/phone-format.pipe';
 
 @Component({
     selector: 'app-patients-info',
@@ -18,7 +19,7 @@ import { PatientCard } from '../../models/patient-card.model';
     providers: [DataService],
     templateUrl: './patients-info.component.html',
     styleUrl: './patients-info.component.scss',
-    imports: [MatCardModule, FormsModule, HttpClientModule, MatInputModule, MatButtonModule, MatButton, CommonModule, AgePipe, ShortenNamePipe]
+    imports: [MatCardModule, FormsModule, HttpClientModule, MatInputModule, MatButtonModule, MatButton, CommonModule, AgePipe, ShortenNamePipe, PhoneFormatPipe]
 })
 export class PatientsInfoComponent implements OnInit {
   patientID: any = '';

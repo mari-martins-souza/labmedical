@@ -20,6 +20,7 @@ import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { Appointment } from '../../models/appointment.model';
 import { Patient } from '../../models/patient.model';
+import { SaveDialogComponent } from '../../shared/save-dialog/save-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -31,13 +32,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-medical-appointment-reg-page',
   standalone: true,
-  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent, ConfirmDialogComponent],
+  imports: [ToolbarComponent, SidebarMenuComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, CommonModule, NgxMaterialTimepickerModule, HttpClientModule, MatAutocompleteModule, DialogComponent, ConfirmDialogComponent, SaveDialogComponent],
   providers: [DataTransformService, DataService],
   templateUrl: './medical-appointment-reg-page.component.html',
   styleUrl: './medical-appointment-reg-page.component.scss'
 })
 export class MedicalAppointmentRegPageComponent implements OnInit {
-  showMessage = false;
   appointmentId: any = '';
   patients: any[] = [];
   filteredPatients: Patient[] = [];
@@ -51,7 +51,14 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
   totalPatients: number = 0;
   noResults: boolean = false;
 
-  constructor(private dataTransformService: DataTransformService, private titleService: Title, private fb: FormBuilder, private dataService: DataService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(
+    private dataTransformService: DataTransformService, 
+    private titleService: Title, 
+    private fb: FormBuilder, 
+    private dataService: DataService, 
+    private activatedRoute: ActivatedRoute, 
+    private router: Router,
+  ) {
     this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id'),
     this.appointRegistration = this.fb.group({
     idPatient: [{value: '', disabled: true}, Validators.required],
@@ -67,6 +74,7 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
 
   @ViewChild(DialogComponent) dialog!: DialogComponent;
   @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
+  @ViewChild(SaveDialogComponent) saveDialog!: SaveDialogComponent;
 
   matcher = new MyErrorStateMatcher()
 
@@ -187,13 +195,10 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
         this.dataService.saveAppointment(newAppointment).subscribe({
           next: (response) => {
             console.log('Appointment saved successfully:', response);
-            this.showMessage = true;
+            this.saveDialog.openDialog("Consulta criada com sucesso!")
             this.appointRegistration.reset();
             this.setCurrentTimeAndDate();
 
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 1000);
         },
         error: (error) => {
           console.error('Error saving appointment:', error);
@@ -251,13 +256,10 @@ export class MedicalAppointmentRegPageComponent implements OnInit {
       this.dataService.editAppointment(this.appointmentId, newAppointment).subscribe({
         next: (response) => {
           console.log('Appointment updated successfully:', response);
-          this.showMessage = true;
+          this.saveDialog.openDialog('Consulta atualizada com sucesso!')
           this.appointRegistration.disable();
           this.saveDisabled = true;
       
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 1000);
         },
         error: (error) => {
           console.error('Error updating appointment:', error);

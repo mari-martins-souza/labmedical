@@ -16,11 +16,14 @@ import { AppointmentRecord } from '../../../models/appointment-record.model';
 import { ExamRecord } from '../../../models/exam-record.model';
 import moment from 'moment';
 import { TimeFormatPipe } from '../../../shared/pipes/time-format.pipe';
+import { AgePipe } from '../../../shared/pipes/age.pipe';
+import { TimelineModule } from 'primeng/timeline';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-medical-record',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule, RouterLink, MatButton, MatButtonModule, DateFormatPipe, SliderComponent, TimeFormatPipe],
+  imports: [SidebarMenuComponent, ToolbarComponent, HttpClientModule, MatTabsModule, MatDividerModule, CommonModule, RouterLink, MatButton, MatButtonModule, DateFormatPipe, SliderComponent, TimeFormatPipe, AgePipe, TimelineModule, CardModule],
   providers: [DataService],
   templateUrl: './medical-record.component.html',
   styleUrl: './medical-record.component.scss'
@@ -34,7 +37,12 @@ export class MedicalRecordComponent implements OnInit {
   appointmentsList: AppointmentRecord[] = [];
   examsList: ExamRecord[] = [];
 
-  constructor(private titleService: Title, private activatedRoute: ActivatedRoute, private dataService: DataService, private router: Router) { }
+  constructor(
+    private titleService: Title, 
+    private activatedRoute: ActivatedRoute, 
+    private dataService: DataService, 
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.titleService.setTitle('Prontuário de paciente');
@@ -49,11 +57,30 @@ export class MedicalRecordComponent implements OnInit {
     this.patient = {
       id: '',
       name: '',
+      gender: '',
+      birthdate: '',
+      cpf: '',
+      rg: '',
+      issOrg: '',
+      maritalStatus: '',
+      phone: '',
+      email: '',
+      placeOfBirth: '',
       emergCont: '',
       emergContNumber: '',
-      listOfAllergies: null,
-      careList: null,
+      listOfAllergies: undefined,
+      careList: undefined,
       healthInsurance: '',
+      healthInsuranceNumber: undefined,
+      healthInsuranceVal: undefined,
+      zipcode: '',
+      street: undefined,
+      addressNumber: undefined,
+      complement: undefined,
+      referencePoint: undefined,
+      neighborhood: undefined,
+      city: '',
+      state: '',
       appointments: [],
       exams: []
     };

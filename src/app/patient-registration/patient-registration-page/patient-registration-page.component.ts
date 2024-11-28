@@ -19,6 +19,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 import { Patient } from '../../models/patient.model';
+import { SaveDialogComponent } from '../../shared/save-dialog/save-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -30,13 +31,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-patient-registration-page',
   standalone: true,
-  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule, DialogComponent, ConfirmDialogComponent],
+  imports: [SidebarMenuComponent, ToolbarComponent, MatFormFieldModule, MatInputModule, MatSelectModule, MatFormField, MatButtonModule, MatButton, ReactiveFormsModule, NgxMaskDirective, NgxMaskPipe, HttpClientModule, CommonModule, DialogComponent, ConfirmDialogComponent, SaveDialogComponent],
   providers: [provideNgxMask(), AddressService, DataService, DataTransformService],
   templateUrl: './patient-registration-page.component.html',
   styleUrl: './patient-registration-page.component.scss'
 })
 export class PatientRegistrationPageComponent implements OnInit {
-  showMessage = false;
   patientId: any = '';
   patients: any[] = [];
   filteredPatients: Observable<any[]> | undefined;
@@ -45,7 +45,15 @@ export class PatientRegistrationPageComponent implements OnInit {
   isEditing: boolean = false;
   patRegistration: FormGroup;
   
-  constructor(private dataTransformService: DataTransformService, private dataService: DataService, private titleService: Title, private addressService: AddressService, private fb: FormBuilder, private activatedRoute: ActivatedRoute, private router: Router) { this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id'),
+  constructor(
+    private dataTransformService: DataTransformService, 
+    private dataService: DataService, 
+    private titleService: Title, 
+    private addressService: AddressService, 
+    private fb: FormBuilder, 
+    private activatedRoute: ActivatedRoute, 
+    private router: Router
+  ) { this.isEditing = !!this.activatedRoute.snapshot.paramMap.get('id'),
     this.patRegistration = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(64)]],
       gender: ['', Validators.required],
@@ -77,6 +85,7 @@ export class PatientRegistrationPageComponent implements OnInit {
 
   @ViewChild(DialogComponent) dialog!: DialogComponent;
   @ViewChild(ConfirmDialogComponent) confirmDialog!: ConfirmDialogComponent;
+  @ViewChild(SaveDialogComponent) saveDialog!: SaveDialogComponent;
   
   matcher = new MyErrorStateMatcher()
 
@@ -147,12 +156,10 @@ export class PatientRegistrationPageComponent implements OnInit {
       this.dataService.savePatient(newPatient).subscribe({
         next: (response) => {
           console.log('Patient saved successfully:', response);
-          this.showMessage = true;
+          this.saveDialog.openDialog('Paciente criado com sucesso!')
           this.patRegistration.reset();
       
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 1000);
+          
         },
         error: (error) => {
           console.error('Error saving patient:', error);
@@ -205,13 +212,11 @@ export class PatientRegistrationPageComponent implements OnInit {
       this.dataService.editPatient(this.patientId, newPatient).subscribe({
         next: (response) => {
           console.log('Patient updated successfully:', response);
-          this.showMessage = true;
+          this.saveDialog.openDialog('Paciente atualizado com sucesso!')
           this.patRegistration.disable();
           this.saveDisabled = true;
       
-          setTimeout(() => {
-            this.showMessage = false;
-          }, 1000);
+        
         },
         error: (error) => {
           console.error('Error updating patient:', error);

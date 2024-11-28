@@ -27,88 +27,136 @@
 ]"></app-slider>
 
 <ng-template #patientTemplate>
-<div class="content-container">
-  <div class="edit-button">
-    <button id="edit-patient" (click)="editPatient(patientID)">EDITAR</button>
+  <div class="container-edit-btn">
+    <!-- <button *ngIf="userRole === 'SCOPE_ADMIN' || userRole === 'SCOPE_MEDICO'" class="edit-btn" (click)="editPatient(patientID)">EDITAR</button> -->
+    <button class="edit-btn" id="edit-patient" (click)="editPatient(patientID)">EDITAR</button>
   </div>
-  <div class="content-label">
-    <p>Nome:</p>
-    <p>Convênio:</p>
-    <p>Contato de emergência:</p>
-    <p>Alergias:</p>
-    <p>Cuidados específicos:</p>
-  </div>
-  <div class="content-patient" *ngIf="patient">
-    <p>{{ patient.name }}</p>
-    <p>{{ patient.healthInsurance }}</p>
-    <p>{{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
-    <p *ngIf="patient?.listOfAllergies; else noAllergies">{{ patient.listOfAllergies }}</p>
-    <ng-template #noAllergies>
-      <p>Nenhuma</p>
-    </ng-template>
-    <p *ngIf="patient?.careList; else noCareList">{{ patient.careList }}</p>
-    <ng-template #noCareList>
-      <p>Nenhum</p>
-    </ng-template>
+  <div class="content-container">
+    
+    <div class="content-patient" *ngIf="patient">
+      <h3>Dados</h3>
+      <p><span>Nome: </span>{{ patient.name }}</p>
+      <p><span>Gênero: </span>{{ patient.gender }}</p>
+      <p><span>Data de Nascimento: </span>{{ patient.birthdate }}</p>
+      <p><span>Nasceu em: </span>{{ patient.placeOfBirth }}</p>
+      <p><span>Idade: </span>{{ patient.birthdate | age }}</p>
+      <p><span>CPF: </span>{{ patient.cpf }}</p>
+      <p><span>RG: </span>{{ patient.rg }}</p>
+      <p><span>Órgão expedidor: </span>{{ patient.issOrg }}</p>
+      <p><span>Estado Civil: </span>{{ patient.maritalStatus }}</p>
+      <p><span>Telefone: </span>{{ patient.phone }}</p>
+      <p><span>E-mail: </span>{{ patient.email }}</p>
+      <p><span>Contato de emergência: </span>{{ patient.emergCont }} - {{ patient.emergContNumber }}</p>
+      <p><span>Alergias: </span>{{ patient.listOfAllergies || 'N/A' }}</p>
+      <p><span>Cuidados específicos: </span>{{ patient.careList || 'N/A' }}</p>
+
+      <h3>Convênio</h3>
+      <p><span>Convênio: </span>{{ patient.healthInsurance }}</p>
+      <p><span>Numero do Convênio: </span>{{ patient.healthInsuranceNumber || 'N/A' }}</p>
+      <p><span>Validade do Convênio: </span>{{ patient.healthInsuranceVal || 'N/A' | dateFormat }}</p>
+
+      <h3>Consultas</h3>
+      <p><span>Número de consultas: </span>{{ patient.appointments.length }}</p>
+
+      <h3>Exames</h3>
+      <p><span>Número de exames: </span>{{ patient.exams.length }}</p>
+
+      <h3>Endereço</h3>
+      <p><span>CEP: </span>{{ patient.zipcode }}</p>
+      <p><span>Estado: </span>{{ patient.state || 'N/A' }}</p>
+      <p><span>Cidade: </span>{{ patient.city || 'N/A' }}</p>
+      <p><span>Bairro: </span>{{ patient.neighborhood || 'N/A' }}</p>
+      <p><span>Logradouro </span>{{ patient.street || 'N/A' }}</p>
+      <p><span>Número: </span>{{ patient.addressNumber || 'N/A' }}</p>
+      <p><span>Complemento: </span>{{ patient.complement || 'N/A' }}</p>
+      <p><span>Ponto de Referência: </span>{{ patient.referencePoint || 'N/A' }}</p>
     </div>
-</div>
+    
+  </div>
+ 
 </ng-template>
+
 
 <ng-template #appointmentTemplate>
-<div class="content-container" *ngFor="let appointment of appointmentsList, let i = index">
-  <div class="edit-button">
-    <button id="edit-appoint" (click)="editAppointment(appointment.appointment_id)">EDITAR</button>
-  </div>
-    <div class="content-label">
-      <p>Motivo da Consulta:</p>
-      <p>Data:</p>
-      <p>Hora:</p>
-      <p>Descrição do problema:</p>
-      <p>Medicação receitada:</p>
-      <p>Dosagens e precauções:</p>
+  <span id="no-appoints-exams" *ngIf="appointmentsList.length === 0">Este paciente não tem consultas cadastradas.</span>
+  <div class="content-container-appoint" *ngFor="let appointment of appointmentsList, let i = index">
+    <div class="appoint-and-btn">
+      
+        <div class="content-appointment">
+          
+          <p id="date-time"><span>Data: </span>{{ appointment.consultDate | dateFormat }}, <span>Hora: </span>{{ appointment.consultTime | timeFormat }}</p>
+          <p><span>Motivo da consulta: </span>{{ appointment.reason }}</p>
+          <p><span>Descrição do problema: </span>{{ appointment.problemDescrip }}</p>
+          <p *ngIf="appointment?.prescMed; else noPrescMed"><span>Medicação receitada: </span>{{ appointment.prescMed }}</p>
+          <ng-template #noPrescMed>
+            <p>Nenhuma</p>
+          </ng-template>
+          <p><span>Dosagens e precauções: </span>{{ appointment.dosagesPrec }}</p>
+        </div>
+        <div class="edit-appoint-and-exam">
+          <button id="edit-appoint" (click)="editAppointment(appointment.appointment_id)">EDITAR</button>
+        </div>
+        <mat-divider *ngIf="i < appointmentsList.length - 1"></mat-divider>
+    </div>   
     </div>
-    <div class="content-appointment">
-      <p>{{ appointment.reason }}</p>
-      <p>{{ appointment.consultDate | dateFormat }}</p>
-      <p>{{ appointment.consultTime | timeFormat }}</p>
-      <p>{{ appointment.problemDescrip }}</p>
-      <p *ngIf="appointment?.prescMed; else noPrescMed">{{ appointment.prescMed }}</p>
-      <ng-template #noPrescMed>
-        <p>Nenhuma</p>
-      </ng-template>
-      <p>{{ appointment.dosagesPrec }}</p>
-    </div>
-</div>   
-</ng-template>
+    
+  </ng-template>
 
-<ng-template #examTemplate>
-<div class="content-container" *ngFor="let exam of examsList, let i = index">
-  <div class="edit-button">
-    <button id="edit-exam" (click)="editExam(exam.examId)">EDITAR</button>
-  </div>
-  <div class="content-label">
-    <p>Exame:</p>
-    <p>Data:</p>
-    <p>Hora:</p>
-    <p>Laboratório:</p>
-    <p>Url do documento:</p>
-    <p>Tipo do exame:</p>
-    <p>Resultados:</p>
-  </div>
-  <div class="content-exam">
-    <p>{{ exam.exam }}</p>
-    <p>{{ exam.examDate | dateFormat }}</p>
-    <p>{{ exam.examTime | timeFormat }}</p>
-    <p>{{ exam.lab }}</p>
-    <p *ngIf="exam?.docUrl; else noDocUrl">{{ exam.docUrl }}</p>
-      <ng-template #noDocUrl>
-        <p>Nenhum documento</p>
-      </ng-template>
-    <p>{{ exam.examType }}</p>
-    <p>{{ exam.result }}</p>
-  </div>
-</div>
-</ng-template>
+  <ng-template #examTemplate>
+    <span id="no-appoints-exams" *ngIf="examsList.length === 0">Este paciente não tem exames cadastrados.</span>
+    <div class="content-container-appoint" *ngFor="let exam of examsList, let i = index">
+      <div class="appoint-and-btn">
+        
+          <div class="content-appointment">
+            
+            <p id="date-time"><span>Data: </span>{{ exam.examDate | dateFormat }}, <span>Hora: </span>{{ exam.examTime | timeFormat }}</p>
+            <p><span>Exame: </span>{{ exam.exam }}</p>
+            <p><span>Tipo do exame: </span>{{ exam.examType }}</p>
+            <p><span>Laboratório: </span>{{ exam.lab }}</p>
+            <p *ngIf="exam?.docUrl; else noDocUrl"><span>Url do documento: </span>{{ exam.docUrl }}</p>
+            <ng-template #noDocUrl>
+              <p>Url do documento: Não há</p>
+            </ng-template>
+            <p><span>Resultados: </span>{{ exam.result }}</p>
+          </div>
+          <div class="edit-appoint-and-exam">
+            <button id="edit-exam" (click)="editExam(exam.examId)">EDITAR</button>
+          </div>
+          <mat-divider *ngIf="i < examsList.length - 1"></mat-divider>
+      </div>   
+      </div>
+      
+    </ng-template>
+  
+  <!-- <ng-template #examTemplate>
+    <span id="no-appoints-exams" *ngIf="examsList.length === 0">Este paciente não tem exames cadastrados.</span>
+    <div class="content-container" *ngFor="let exam of examsList, let i = index">
+      <div class="edit-button">
+        <button id="edit-exam" (click)="editExam(exam.examId)">EDITAR</button>
+      </div>
+      <div class="content-label">
+        <p>Exame:</p>
+        <p>Data:</p>
+        <p>Hora:</p>
+        <p>Laboratório:</p>
+        <p>Url do documento:</p>
+        <p>Tipo do exame:</p>
+        <p>Resultados:</p>
+      </div>
+      <div class="content-exam">
+        <p>{{ exam.exam }}</p>
+        <p>{{ exam.examDate | dateFormat }}</p>
+        <p>{{ exam.examTime | timeFormat }}</p>
+        <p>{{ exam.lab }}</p>
+        <p *ngIf="exam?.docUrl; else noDocUrl">{{ exam.docUrl }}</p>
+          <ng-template #noDocUrl>
+            <p>Nenhum documento</p>
+          </ng-template>
+        <p>{{ exam.examType }}</p>
+        <p>{{ exam.result }}</p>
+      </div>
+    </div>
+  </ng-template> -->
 
     </div>
     </div>

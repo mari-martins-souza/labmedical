@@ -1,9 +1,6 @@
-<div *ngIf="showMessage" class="checkmark">
-    <img src="../../../assets/images/check-save.png">
-</div>
-
 <app-dialog></app-dialog>
 <app-confirm-dialog></app-confirm-dialog>
+<app-save-dialog></app-save-dialog>
 
 <div style="display: flex; flex-direction: column; height: 100vh;">
     <app-toolbar></app-toolbar>
@@ -18,9 +15,9 @@
                     <button id="btn-save" *ngIf="!isEditing" (click)="registerUser()">Salvar</button> 
                     <button disabled id="btn-edit-d" *ngIf="!isEditing">Editar</button>          
                     <button disabled id="btn-del-d" *ngIf="!isEditing">Deletar</button> 
-                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditExam()">Salvar</button>
-                    <button id="btn-edit" *ngIf="isEditing" (click)="editExam()">Editar</button>
-                    <button id="btn-del" *ngIf="isEditing" (click)="deleteExam()">Deletar</button>
+                    <button id="btn-save-d" [disabled]="saveDisabled" *ngIf="isEditing" (click)="saveEditUser()">Salvar</button>
+                    <button id="btn-edit" *ngIf="isEditing" (click)="editUser()">Editar</button>
+                    <button id="btn-del" *ngIf="isEditing" (click)="deleteUser()">Deletar</button>
                 </div>  
 
                 <div class="form-area2" [formGroup]="registerForm">

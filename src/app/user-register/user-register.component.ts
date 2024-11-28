@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DialogComponent } from "../shared/dialog/dialog.component";
 import { ConfirmDialogComponent } from "../shared/confirm-dialog/confirm-dialog.component";
 import { ToolbarComponent } from "../shared/toolbar/toolbar.component";
@@ -13,6 +13,7 @@ import { NgxMaskDirective, provideNgxMask, NgxMaskPipe } from 'ngx-mask';
 import { DataService } from '../shared/services/data.service';
 import { User } from '../models/user.model';
 import { passwordMatchValidator } from './password.validator';
+import { SaveDialogComponent } from '../shared/save-dialog/save-dialog.component';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -24,7 +25,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-user-register',
   standalone: true,
-  imports: [DialogComponent, ConfirmDialogComponent, ToolbarComponent, SidebarMenuComponent, ReactiveFormsModule, MatError, CommonModule, NgxMaskDirective, NgxMaskPipe],
+  imports: [DialogComponent, ConfirmDialogComponent, ToolbarComponent, SidebarMenuComponent, ReactiveFormsModule, MatError, CommonModule, NgxMaskDirective, NgxMaskPipe, SaveDialogComponent],
   providers: [provideNgxMask(), DataService],
   templateUrl: './user-register.component.html',
   styleUrl: './user-register.component.scss'
@@ -33,9 +34,12 @@ export class UserRegisterComponent implements OnInit {
   registerForm: FormGroup;
   isEditing: boolean = false;
   saveDisabled: boolean = false;
-  showMessage = false;
 
-  constructor(private fb: FormBuilder, private titleService: Title, private dataService: DataService) { this.registerForm = this.fb.group({
+  constructor
+  (private fb: FormBuilder, 
+    private titleService: Title, 
+    private dataService: DataService
+  ) { this.registerForm = this.fb.group({
     roleName: ['', Validators.required],
     name: ['', [Validators.required, Validators.maxLength(255)]],
     email: ['', [Validators.required, Validators.email]],
@@ -46,8 +50,11 @@ export class UserRegisterComponent implements OnInit {
   }, { validators: passwordMatchValidator() });
  }
 
+ @ViewChild(SaveDialogComponent) saveDialog!: SaveDialogComponent;
+
   ngOnInit() {
     this.titleService.setTitle('Registro de Usuário');
+
   }
 
  registerUser() {
@@ -68,12 +75,8 @@ export class UserRegisterComponent implements OnInit {
     this.dataService.saveUser(newUser).subscribe(
       (response) => {
         console.log('User saved successfully:', response);
-        this.showMessage = true;
+        this.saveDialog.openDialog('Usuário criado com sucesso!')
         this.registerForm.reset();
-
-        setTimeout(() => {
-          this.showMessage = false;
-        }, 1000);
         
       },
       (error) => {
@@ -86,13 +89,13 @@ export class UserRegisterComponent implements OnInit {
 }
   
 
-  saveEditExam() {
+  saveEditUser() {
   }
 
-  editExam() {
+  editUser() {
   }
 
-  deleteExam() {
+  deleteUser() {
   }
 
 }

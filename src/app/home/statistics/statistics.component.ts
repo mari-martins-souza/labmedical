@@ -17,6 +17,7 @@ export class StatisticsComponent implements OnInit {
     countPatients: number = 0;
     countAppointments: number = 0;
     countExams: number = 0;
+    countUsers: number = 0;
 
   constructor(private dataService: DataService) { }
 
@@ -30,6 +31,7 @@ export class StatisticsComponent implements OnInit {
         this.countPatients = stats.totalPatients;
         this.countAppointments = stats.totalAppointments;
         this.countExams = stats.totalExams;
+        this.countUsers = stats.totalUsers;
         console.log('Dashboard stats loaded successfully:', stats);
       },
       error: (error) => {
