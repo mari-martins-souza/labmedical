@@ -29,6 +29,13 @@
     width: 100%;
 }
 
+.content-patient h3 {
+    font-family: "Dosis", sans-serif;
+    margin-top: 30px;
+    font-weight: 600;
+    margin-left: -10px
+}
+
 #edit-exam, #edit-appoint, #edit-patient {
     background: $colorButton;
     color: $colorFontButton;
@@ -38,6 +45,7 @@
     border: none;
     font-family: "Dosis", sans-serif;
     margin-bottom: 15px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 100, 0.295);
 }
 
 #edit-exam:hover, #edit-appoint:hover, #edit-patient:hover {
@@ -48,18 +56,22 @@
 mat-divider {
     margin-top: 15px;
     margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.245);
+
+}
+
+.container-edit-btn {
+    display: flex;
+    justify-content: right;
+    margin-left: 10px;
 }
 
 .content-container {
     display: flex;
-    padding-top: 20px;
-    justify-content: left;
-    flex-direction: row;
-    // border: 2px #b779ff solid;
-    border-radius: 4px;
     padding: 20px;
     width: 100%;
     margin-bottom: 20px;
+    margin-top: -35px;
 }
 
 .content-container:last-child {
@@ -71,26 +83,25 @@ mat-divider {
     text-wrap: nowrap;
 }
 
-.content-label p {
-    text-align: right;
-    margin-right: 15px;
-    margin-bottom: 6px;
-    padding: 2px;
-    padding-left: 30px;
-    margin-right: 0px;
-    font-family: "Dosis", sans-serif;
-    font-size: 1.3rem;
-    font-weight: 500;
-    color: $colorLabelForms;
-    background-color: $colorInfoBackgroundLabel;
-    border: 2px solid $colorBorderLabelMedicalRecord;
-}
+// .content-label p {
+//     text-align: right;
+//     margin-right: 15px;
+//     margin-bottom: 6px;
+//     padding: 2px;
+//     padding-left: 30px;
+//     margin-right: 0px;
+//     font-family: "Dosis", sans-serif;
+//     font-size: 1.3rem;
+//     font-weight: 500;
+//     color: $colorLabelForms;
+//     background-color: $colorInfoBackgroundLabel;
+//     border: 2px solid $colorBorderLabelMedicalRecord;
+// }
 
 .content-patient p {
-    background-color: $colorInfoBackgroundPatient;
-    border-radius: 4px;
     margin-bottom: 6px;
-    border: 2px solid $colorFormBorder;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.245);
+    // margin-left: 15px;
     padding: 2px;
     padding-left: 4px;
     padding-right: 4px;
@@ -98,13 +109,19 @@ mat-divider {
     font-size: 1.3rem;
     font-weight: 400;
     color: $colorGeneralFont;
+}
+
+.content-patient p span {
+    font-weight: 600;
+}
+
+.appoint-and-btn {
+    display: flex;
+    flex-direction: column;
 }
 
 .content-appointment p {
-    background-color: $colorInfoBackgroundPatient;
-    border-radius: 4px;
     margin-bottom: 6px;
-    border: 2px solid $colorFormBorder;
     padding: 2px;
     padding-left: 4px;
     padding-right: 4px;
@@ -112,21 +129,34 @@ mat-divider {
     font-size: 1.3rem;
     font-weight: 400;
     color: $colorGeneralFont;
+}
+
+.content-appointment p span {
+    font-weight: 600;
 }
 
 .content-patient {
     width: 100%;
 }
 
-.content-appointment {
+
+
+// .content-appointment {
+//     display: flex;
+//     flex-direction: column;
+//     width: 100%;
+// }
+
+.edit-btn {
     display: flex;
-    flex-direction: column;
-    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
-.edit-button {
+.edit-appoint-and-exam {
     display: flex;
     justify-content: left;
+    width: 100%;
 }
 
 .content-exam p {
@@ -147,4 +177,19 @@ mat-divider {
     display: flex;
     flex-direction: column;
     width: 100%;
+}
+
+#date-time {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.content-container-appoint {
+    margin: 15px;
+    margin-left: 30px;
+}
+
+#no-appoints-exams {
+    font-family: "Dosis", sans-serif;
+    font-size: 1.5rem;
 }

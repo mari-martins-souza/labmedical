@@ -24,11 +24,13 @@
   color: $colorFontButton;
   height: 40px;
   width: 85px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
  }
  
  #button-group1 button:disabled {
   background: $colorButtonDisable;
   color: $colorFontButtonDisable;
+  box-shadow: none;
  }
  
  #button-group1 button:hover {
@@ -49,6 +51,7 @@
   background: $colorAreaBackground;
   border-radius: 4px;
   padding-bottom: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
  }
 
  .list-search-area ul {
@@ -84,6 +87,7 @@
   background-color: $colorAreaBackground;
   border-radius: 4px;
   padding: 1%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
 }
 
 .no-results p {
@@ -113,11 +117,13 @@
     border: none;
     margin-left: 10px;
     text-transform: uppercase;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
 }
 
 .pages button:disabled {
   background: $colorButtonDisable;
   color: $colorFontButtonDisable;
+  box-shadow: none;
 }
 
 .pages button:hover {
@@ -145,6 +151,7 @@
  width: 100%;
  margin-right: auto;
  margin-left: auto;
+ box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
 }
 
 .row1 {
@@ -228,33 +235,11 @@ mat-error {
   background: $colorSearchBackground;
   outline: none;
   transition: box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1)
 }
 
 #search::placeholder{
   color: $colorSearchPlaceholder;
-}
-
-@keyframes checkmark {
-  0% {
-    opacity: 0;
-  }
-  5% {
-    opacity: 1;
-  }
-  95% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.checkmark {
-  position: fixed; 
-  top: 40%; 
-  left: 50%; 
-  animation: checkmark 1s;
-  z-index: 9999; 
 }
 
 
